@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="#4DEBF2FD"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentInsetStart="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="26dp"
+                android:paddingEnd="26dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spectral_sc_medium"
+                    android:text="Создать событие"
+                    android:textColor="#001E4A"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollViewProfile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="26dp">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewImage"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                app:cardBackgroundColor="#F3F3F3"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/titleSelectImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Выберите фото"
+                    android:textColor="#60001E4A" />
+
+                <ImageView
+                    android:id="@+id/deleteImageSelected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:background="@drawable/shape_btn_del_image"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_delete_image"
+                    android:visibility="gone" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextNameEvents"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/shape_edit_text_event"
+                android:fontFamily="@font/manrope_regular"
+                android:hint="Название"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#001E4A"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewImage" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextDescEvents"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/shape_edit_text_event"
+                android:fontFamily="@font/manrope_regular"
+                android:gravity="top"
+                android:hint="Описание"
+                android:inputType="textMultiLine"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:scrollbars="vertical"
+                android:textColor="#001E4A"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/editTextNameEvents" />
+
+
+            <TextView
+                android:id="@+id/titleBeginning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/manrope_regular"
+                android:text="Начало проведения"
+                android:textColor="#80001E4A"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextDescEvents" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintDateCreateEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_edit_text_event"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/titleBeginning">
+
+                <TextView
+                    android:id="@+id/titleDateCreate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Дата проведения:"
+                    android:textColor="#80001E4A"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textDateCreateEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Указать дату"
+                    android:textColor="#001E4A"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintTimeCreateEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_edit_text_event"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/constraintDateCreateEvents">
+
+                <TextView
+                    android:id="@+id/titleTimeCreate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Время проведения:"
+                    android:textColor="#80001E4A"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textTimeCreateEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Указать время"
+                    android:textColor="#001E4A"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/titleCompletions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/manrope_regular"
+                android:text="Завершение"
+                android:textColor="#80001E4A"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintTimeCreateEvents" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintDateCreateEventsComplete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_edit_text_event"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/titleCompletions">
+
+                <TextView
+                    android:id="@+id/titleDateCreateComplete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Дата завершения:"
+                    android:textColor="#80001E4A"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textDateCreateEventsComplete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Указать дату"
+                    android:textColor="#001E4A"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintTimeCreateEventsComplete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_edit_text_event"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/constraintDateCreateEventsComplete">
+
+                <TextView
+                    android:id="@+id/titleTimeCreateComplete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Время завершения:"
+                    android:textColor="#80001E4A"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textTimeCreateEventsComplete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Указать время"
+                    android:textColor="#001E4A"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape_edit_text_event"
+                android:fontFamily="@font/manrope_regular"
+                android:hint="Тема мероприятии"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#001E4A"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/constraintTimeCreateEventsComplete" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextCityEvents"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/shape_edit_text_event"
+                android:fontFamily="@font/manrope_regular"
+                android:hint="Город"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#001E4A"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTheme" />
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextEntranceEvents"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/shape_edit_text_event"
+                android:fontFamily="@font/manrope_regular"
+                android:hint="Стоимость"
+                android:inputType="number"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#001E4A"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/editTextCityEvents" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintTop_toBottomOf="@+id/editTextEntranceEvents">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnCreateEvents"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/shape_btn_login"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Создать мероприятие"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnClearData"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Очистить"
+                    android:textAllCaps="false"
+                    android:textColor="#001E4A"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

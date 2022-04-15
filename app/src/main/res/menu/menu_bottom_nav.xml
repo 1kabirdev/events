@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/to_dobottom"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_create_event"
+        android:icon="@drawable/add"
+        android:title="" />
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/account"
+        android:title="" />
+</menu>

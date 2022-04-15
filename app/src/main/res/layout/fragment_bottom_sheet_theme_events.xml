@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.create_events.BottomSheetThemeEventsFragment">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="16dp"
+        android:background="#aaa"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/selectTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/spectral_sc_regular"
+        android:text="Выберите тему"
+        android:textColor="#A6001E4A"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/selectTheme">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/themeArt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spectral_sc_medium"
+                android:text="Искусство"
+                android:textColor="#001E4A"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewArt"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#DADADA"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/themeArt" />
+
+            <TextView
+                android:id="@+id/themeProgrammer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spectral_sc_medium"
+                android:text="Программирование"
+                android:textColor="#001E4A"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/viewArt" />
+
+            <View
+                android:id="@+id/viewProgrammer"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#DADADA"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/themeProgrammer" />
+
+            <TextView
+                android:id="@+id/themeСooking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spectral_sc_medium"
+                android:text="Кулинария"
+                android:textColor="#001E4A"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/viewProgrammer" />
+
+            <View
+                android:id="@+id/viewСooking"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#DADADA"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/themeСooking" />
+
+            <TextView
+                android:id="@+id/themeSport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spectral_sc_medium"
+                android:text="Спорт"
+                android:textColor="#001E4A"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/viewСooking" />
+
+            <View
+                android:id="@+id/viewExhibition"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#DADADA"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/themeSport" />
+
+            <TextView
+                android:id="@+id/themeExhibition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spectral_sc_medium"
+                android:text="Выставка"
+                android:textColor="#001E4A"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/viewExhibition" />
+
+
+            <View
+                android:id="@+id/viewArchitecture"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#DADADA"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/themeExhibition" />
+
+            <TextView
+                android:id="@+id/themeArchitecture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spectral_sc_medium"
+                android:text="Архитектура"
+                android:textColor="#001E4A"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/viewArchitecture" />
+
+
+            <View
+                android:id="@+id/viewMovie"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#DADADA"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/themeArchitecture" />
+
+            <TextView
+                android:id="@+id/themeMovie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spectral_sc_medium"
+                android:text="Кино"
+                android:textColor="#001E4A"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/viewMovie" />
+
+
+            <View
+                android:id="@+id/viewСoncert"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#DADADA"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/themeMovie" />
+
+            <TextView
+                android:id="@+id/themeСoncert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spectral_sc_medium"
+                android:text="Концерт"
+                android:textColor="#001E4A"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/viewСoncert" />
+
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/themeOther"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="16dp"-->
+            <!--                android:fontFamily="@font/spectral_sc_medium"-->
+            <!--                android:text="Другое"-->
+            <!--                android:textColor="#001E4A"-->
+            <!--                android:textSize="18sp"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/viewСooking" />-->
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

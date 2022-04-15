@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.event.MyEventsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="#4DEBF2FD"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="0dp"
+            app:contentInsetStart="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp">
+
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/shape_btn_back_event"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_arrow_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnDeleteEvent"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/shape_btn_event_del"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_delete_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/nameEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:fontFamily="@font/spectral_sc_regular"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxEms="11"
+                    android:textColor="#001E4A"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/btnBack"
+                    app:layout_constraintRight_toLeftOf="@+id/btnDeleteEvent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="26dp"
+            android:paddingTop="26dp"
+            android:paddingEnd="26dp"
+            android:paddingBottom="26dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/material"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:elevation="0dp"
+                app:cardBackgroundColor="#EFEFEF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageEventsView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/titleDateAndTimeEventView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/manrope_regular"
+                android:text="Дата проведения"
+                android:textColor="#65001E4A"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@+id/material" />
+
+            <TextView
+                android:id="@+id/textDateAndTimeEventView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_medium"
+                android:hint="Дата проведения"
+                android:textColor="#001E4A"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/titleDateAndTimeEventView" />
+
+
+            <TextView
+                android:id="@+id/titleAddressEventView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/manrope_regular"
+                android:text="Адрес"
+                android:textColor="#65001E4A"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@+id/textDateAndTimeEventView" />
+
+            <TextView
+                android:id="@+id/textAddressEventView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_medium"
+                android:hint="Адрес проведения"
+                android:textColor="#001E4A"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/titleAddressEventView" />
+
+
+            <TextView
+                android:id="@+id/titleThemeEventView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/manrope_regular"
+                android:text="Тема"
+                android:textColor="#65001E4A"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@+id/textAddressEventView" />
+
+            <TextView
+                android:id="@+id/textThemeEventView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_medium"
+                android:hint="Тема проведения"
+                android:textColor="#001E4A"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/titleThemeEventView" />
+
+
+            <TextView
+                android:id="@+id/titleDescEventView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/manrope_regular"
+                android:text="Описание"
+                android:textColor="#65001E4A"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@+id/textThemeEventView" />
+
+            <TextView
+                android:id="@+id/textDescEventView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_medium"
+                android:hint="Описание"
+                android:textColor="#001E4A"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/titleDescEventView" />
+
+
+            <TextView
+                android:id="@+id/titleCostEventView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/manrope_regular"
+                android:text="Цена:"
+                android:textColor="#65001E4A"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textDescEventView" />
+
+            <TextView
+                android:id="@+id/textCostEventView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/manrope_medium"
+                android:hint="100р"
+                android:textColor="#001E4A"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toRightOf="@+id/titleCostEventView"
+                app:layout_constraintTop_toBottomOf="@+id/textDescEventView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

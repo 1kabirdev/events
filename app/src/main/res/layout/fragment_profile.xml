@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.profile.ProfileFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="#4DEBF2FD"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentInsetStart="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="26dp"
+                android:paddingEnd="26dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spectral_sc_regular"
+                    android:text="Мой профиль"
+                    android:textColor="#001E4A"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnMoreProfile"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/shape_btn_back_event"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_more_horiz"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnAddEvents"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/shape_btn_back_event"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_add_events"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/btnMoreProfile"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollViewProfile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="26dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutInfoProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/avatarProfile"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/usernameProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/manrope_medium"
+                        android:hint="Имя аккаунта"
+                        android:lines="1"
+                        android:maxEms="10"
+                        android:textColor="#001E4A"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/avatarProfile" />
+
+                    <TextView
+                        android:id="@+id/lastNameProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/manrope_regular"
+                        android:hint="Указать имя и фамилия"
+                        android:lines="1"
+                        android:maxEms="16"
+                        android:textColor="#001E4A"
+                        android:textSize="14sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/usernameProfile" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/titleAboutProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/manrope_regular"
+                android:text="О себе:"
+                android:textColor="#51001E4A"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutInfoProfile" />
+
+            <TextView
+                android:id="@+id/aboutProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/manrope_regular"
+                android:hint="Добавить о себе"
+                android:textColor="#001E4A"
+                android:textColorHint="#51001E4A"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleAboutProfile" />
+
+            <View
+                android:id="@+id/viewLine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="26dp"
+                android:background="#EAEAEA"
+                app:layout_constraintTop_toBottomOf="@+id/aboutProfile" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/viewLine">
+
+                <TextView
+                    android:id="@+id/titleEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Мероприятия 0"
+                    android:textColor="#80001E4A"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewEvents"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/titleEvents" />
+
+                <ProgressBar
+                    android:id="@+id/progressBarEventView"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginTop="26dp"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleEvents" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_not_events"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="26dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/constraintRecyclerView">
+
+                <ImageView
+                    android:id="@+id/icon_now_event"
+                    android:layout_width="66dp"
+                    android:layout_height="66dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/notEventProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/spectral_sc_medium"
+                    android:gravity="center"
+                    android:text="Здесь будут отображаться\nваши события"
+                    android:textColor="#5A5A5A"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_now_event" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <ProgressBar
+        android:id="@+id/progressBarProfile"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="26dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/noConnectionView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/sora_regular"
+        android:text="Нет подключение интеренета."
+        android:textColor="#C6001E4A"
+        android:visibility="gone" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
