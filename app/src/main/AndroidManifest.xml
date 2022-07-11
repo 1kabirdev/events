@@ -18,6 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Events">
+        <activity
+            android:name=".ui.setting_password.SettingPasswordActivity"
+            android:exported="false" />
         <activity android:name=".ui.organizer.OrganizerActivity" />
         <activity android:name=".ui.event.EventsActivity" />
         <activity android:name=".ui.edit_profile.EditProfileActivity" />

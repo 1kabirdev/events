@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.events.App
 import com.events.MainActivity
-import com.events.adapter.AdapterEventList
+import com.events.ui.home.adapter.AdapterEventList
 import com.events.databinding.FragmentHomeEventsBinding
 import com.events.model.list_events.ListEvents
-import com.events.utill.Constants
 import com.events.utill.SharedPreferences
 
 class HomeEventsFragment : Fragment(), ListEventController.View {
@@ -35,11 +33,11 @@ class HomeEventsFragment : Fragment(), ListEventController.View {
         presenter.attachView(this)
         presenter.responseEvents(SharedPreferences.getEventType(requireContext()).toString())
 
-        if (SharedPreferences.getEventType(requireContext()).toString() == "all") {
-            binding.textEvent.text = "Все мероприятия"
-        } else if (SharedPreferences.getEventType(requireContext()).toString() == "Махачкала") {
+        if (SharedPreferences.getEventType(requireContext())
+                .toString() == "all"
+        ) binding.textEvent.text = "Все мероприятия"
+        else if (SharedPreferences.getEventType(requireContext()).toString() == "Махачкала")
             binding.textEvent.text = "Мероприятия в Махачкале"
-        }
     }
 
     private fun showDialogFilter() {
@@ -56,7 +54,6 @@ class HomeEventsFragment : Fragment(), ListEventController.View {
             binding.textEvent.text = "Мероприятия в Махачкале"
         }
         presenter.responseEventsFilter(name)
-        adapter.notifyDataSetChanged()
     }
 
     override fun getLoadEvent(eventsList: ArrayList<ListEvents>) {
@@ -78,11 +75,6 @@ class HomeEventsFragment : Fragment(), ListEventController.View {
     override fun noConnection() {
         binding.notConnectionView.visibility = View.VISIBLE
         binding.notConnectionView.text = "Проверьте подключение интернета."
-    }
-
-    override fun onResume() {
-        presenter.responseEventsFilter(SharedPreferences.getEventType(requireContext()).toString())
-        super.onResume()
     }
 
 }

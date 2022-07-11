@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.events.App
-import com.events.adapter.AdapterEventList
 import com.events.adapter.AdapterEventListOrganizer
 import com.events.databinding.ActivityUserBinding
 import com.events.model.list_events.ListEvents
