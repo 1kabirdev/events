@@ -139,6 +139,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     @SuppressLint("Recycle")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == INTENT_REQUEST_CODE) {

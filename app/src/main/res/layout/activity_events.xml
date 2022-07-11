@@ -219,12 +219,22 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="100р"
-
                 android:textColor="#001E4A"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toRightOf="@+id/titleCostEventView"
                 app:layout_constraintTop_toBottomOf="@+id/textDescEventView" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnDiscussEvents"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/sora_medium"
+                android:layout_marginTop="16dp"
+                android:text="Обсудить"
+                android:textAllCaps="false"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textCostEventView" />
 
             <View
                 android:id="@+id/viewLine"
@@ -232,7 +242,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="26dp"
                 android:background="@drawable/shape_line"
-                app:layout_constraintTop_toBottomOf="@+id/textCostEventView" />
+                app:layout_constraintTop_toBottomOf="@+id/btnDiscussEvents" />
 
             <TextView
                 android:id="@+id/textOrg"

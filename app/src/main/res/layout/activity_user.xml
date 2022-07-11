@@ -21,8 +21,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="26dp"
-                android:paddingEnd="26dp">
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
 
                 <ImageView
                     android:id="@+id/btnBackUser"
@@ -62,12 +62,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="26dp">
+            android:paddingTop="26dp"
+            android:paddingBottom="26dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutInfoOrganizer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -114,10 +117,12 @@
 
             <TextView
                 android:id="@+id/titleAboutOrganizer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/sora_regular"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="О себе:"
                 android:textColor="#51001E4A"
                 android:textSize="16sp"
@@ -126,10 +131,12 @@
 
             <TextView
                 android:id="@+id/aboutOrganizer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sora_regular"
                 android:hint="Отсутствует"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="#001E4A"
                 android:textColorHint="#51001E4A"
                 android:textSize="16sp"
@@ -149,13 +156,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="26dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewLineOrganizer">
 
                 <TextView
                     android:id="@+id/titleEventsOrganizer"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sora_regular"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:text="Мероприятия 0"
                     android:textColor="#80001E4A"
                     android:textSize="16sp"
@@ -166,6 +176,7 @@
                     android:id="@+id/recyclerViewEventsOrganizer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/titleEventsOrganizer" />

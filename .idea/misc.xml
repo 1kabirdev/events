@@ -5,12 +5,14 @@
       <map>
         <entry key="app/src/main/res/drawable/shape_btn_del_image.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/shape_list_event.xml" value="0.1875" />
-        <entry key="app/src/main/res/layout/activity_events.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_events.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_my_events.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_user.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_create_event.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_home_events.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_list_events_organizer.xml" value="0.37498595325659356" />
         <entry key="app/src/main/res/layout/item_list_my_events.xml" value="0.33" />
       </map>
     </option>
