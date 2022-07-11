@@ -1,6 +1,7 @@
 package com.events.ui.profile
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,17 +13,21 @@ import com.events.MainActivity
 import com.events.adapter.AdapterMyEvents
 import com.events.databinding.FragmentProfileBinding
 import com.events.model.my_events.MyEventsList
+import com.events.model.profile.ResponseInfoProfile
 import com.events.ui.bottom_sheet.InfoProfileBottomSheet
+import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.login.LoginUserFragment
 import com.events.utill.SharedPreferences
 import com.squareup.picasso.Picasso
 
-class ProfileFragment : Fragment(), ProfileController.View {
+class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomSheet.OnClickListener {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var presenter: ProfilePresenter
     private lateinit var adapterMyEvents: AdapterMyEvents
     private val limitEvent: Int = 10
+
+    var user: ResponseInfoProfile? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +48,7 @@ class ProfileFragment : Fragment(), ProfileController.View {
 
         binding.btnMoreProfile.setOnClickListener {
             (requireActivity() as MainActivity).createDialogFragment(
-                InfoProfileBottomSheet(this)
+                InfoProfileBottomSheet(this, this)
             )
         }
 
@@ -73,8 +78,11 @@ class ProfileFragment : Fragment(), ProfileController.View {
         binding.usernameProfile.text = "@$username"
         binding.lastNameProfile.text = last_name
         binding.aboutProfile.text = about
-        binding.aboutProfile.setOnClickListener {
-        }
+
+        user = ResponseInfoProfile(
+            SharedPreferences.loadIdUser(requireContext()).toString(),
+            username, avatar, phone, last_name, about, create_data
+        )
     }
 
     @SuppressLint("SetTextI18n")
@@ -118,11 +126,13 @@ class ProfileFragment : Fragment(), ProfileController.View {
         ).show()
     }
 
-    override fun onResume() {
-        presenter.responseLoadMyEvents(
-            SharedPreferences.loadIdUser(requireContext()).toString(),
-            limitEvent.toString()
-        )
-        super.onResume()
+    override fun onClickEdit() {
+        val intent = Intent(requireContext(), EditProfileActivity::class.java)
+        intent.putExtra("AVATAR", user!!.avatar)
+        intent.putExtra("USERNAME", user!!.username)
+        intent.putExtra("LASTNAME", user!!.last_name)
+        intent.putExtra("ABOUT", user!!.about)
+        startActivity(intent)
     }
+
 }

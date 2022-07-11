@@ -26,12 +26,12 @@ class ProfilePresenter(private var dataManager: DataManager) :
                     if (response.isSuccessful) {
                         response.body()?.let { res ->
                             it.getLoadData(
-                                res.getUsername(),
-                                res.getAvatar(),
-                                res.getPhone(),
-                                res.getLastName(),
-                                res.getCreateData(),
-                                res.getAbout()
+                                res.username,
+                                res.avatar,
+                                res.phone,
+                                res.last_name,
+                                res.create_data,
+                                res.about
                             )
                         }
                     }
