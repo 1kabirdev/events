@@ -18,13 +18,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Events">
-        <activity android:name=".ui.profile.EditAccountActivity" />
         <activity android:name=".ui.organizer.OrganizerActivity" />
         <activity android:name=".ui.event.EventsActivity" />
         <activity android:name=".ui.edit_profile.EditProfileActivity" />
         <activity android:name=".ui.event.MyEventsActivity" />
         <activity android:name=".ui.register.RegisterActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
