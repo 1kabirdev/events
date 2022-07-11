@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import com.events.databinding.FragmentInfoProfileBottomSheetBinding
 import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.profile.ProfileFragment
+import com.events.ui.setting_password.SettingPasswordActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class InfoProfileBottomSheet(
     private var fragment: ProfileFragment,
-    private var listener:OnClickListener
+    private var listener: OnClickListener
 ) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentInfoProfileBottomSheetBinding
     override fun onCreateView(
@@ -33,7 +34,10 @@ class InfoProfileBottomSheet(
                 dismiss()
             }
             editProfile.setOnClickListener {
-               listener.onClickEdit()
+                listener.onClickEdit()
+            }
+            settingPassword.setOnClickListener {
+                startActivity(Intent(requireContext(), SettingPasswordActivity::class.java))
             }
         }
 

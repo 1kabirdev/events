@@ -48,7 +48,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/editProfile" />
 
             <TextView
-                android:id="@+id/savedEvents"
+                android:id="@+id/settingPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_medium"
@@ -86,7 +86,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
                 android:background="#EAEAEA"
-                app:layout_constraintTop_toBottomOf="@+id/savedEvents" />
+                app:layout_constraintTop_toBottomOf="@+id/settingPassword" />
 
             <TextView
                 android:id="@+id/archiveEvents"
