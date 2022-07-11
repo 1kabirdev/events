@@ -21,8 +21,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp">
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
 
                 <ImageView
                     android:id="@+id/btnBack"
@@ -74,20 +74,19 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="26dp">
+            android:layout_height="match_parent">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/material"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="360dp"
                 android:elevation="0dp"
                 app:cardBackgroundColor="#F8F8F8"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="0dp"
                 app:cardElevation="0dp"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageEventsView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -101,6 +100,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/manrope_regular"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="Дата проведения"
                 android:textColor="#65001E4A"
                 android:textSize="12sp"
@@ -112,6 +113,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Дата проведения"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="#001E4A"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/titleDateAndTimeEventView" />
@@ -123,6 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/manrope_regular"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="Адрес"
                 android:textColor="#65001E4A"
                 android:textSize="12sp"
@@ -134,6 +139,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Адрес проведения"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="#001E4A"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/titleAddressEventView" />
@@ -145,6 +152,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/manrope_regular"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="Тема проведения"
                 android:textColor="#65001E4A"
                 android:textSize="12sp"
@@ -156,6 +165,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Тема проведения"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="#001E4A"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/titleThemeEventView" />
@@ -167,6 +178,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/manrope_regular"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="Описание"
                 android:textColor="#65001E4A"
                 android:textSize="12sp"
@@ -178,6 +191,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Описание"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="#001E4A"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/titleDescEventView" />
@@ -189,6 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/manrope_regular"
+                android:paddingStart="16dp"
                 android:text="Цена:"
                 android:textColor="#65001E4A"
                 android:textSize="12sp"
@@ -203,6 +219,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="100р"
+
                 android:textColor="#001E4A"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toRightOf="@+id/titleCostEventView"
@@ -223,6 +240,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/manrope_regular"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="Организатор"
                 android:textColor="#68001E4A"
                 android:textSize="12sp"
@@ -235,7 +254,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/shape_event_account"
                 android:paddingStart="16dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="16dp"
