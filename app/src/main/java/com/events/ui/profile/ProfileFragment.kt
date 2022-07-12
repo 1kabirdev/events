@@ -42,15 +42,26 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         presenter = ProfilePresenter((view.context.applicationContext as App).dataManager)
         presenter.attachView(this)
 
-        binding.btnAddEvents.setOnClickListener {
-            (requireActivity() as MainActivity).getOnCreateEvents()
-        }
+        with(binding) {
+            btnClickEditProfile.setOnClickListener {
+                val intent = Intent(requireContext(), EditProfileActivity::class.java)
+                intent.putExtra("AVATAR", user!!.avatar)
+                intent.putExtra("USERNAME", user!!.username)
+                intent.putExtra("LASTNAME", user!!.last_name)
+                intent.putExtra("ABOUT", user!!.about)
+                startActivity(intent)
+            }
 
+            btnAddEvents.setOnClickListener {
+                (requireActivity() as MainActivity).getOnCreateEvents()
+            }
+        }
         binding.btnMoreProfile.setOnClickListener {
             (requireActivity() as MainActivity).createDialogFragment(
                 InfoProfileBottomSheet(this, this)
             )
         }
+
 
         presenter.responseLoadDataProfile(SharedPreferences.loadToken(requireContext()).toString())
         presenter.responseLoadMyEvents(

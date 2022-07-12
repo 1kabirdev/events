@@ -11,8 +11,8 @@ interface DaoRoom {
      */
 
     @Query("SELECT * FROM profile WHERE id = :id")
-    suspend fun getProfile(id: Long): Profile
+    fun getProfile(id: Long): Profile
 
     @Insert
-    suspend fun insertProfile(profile: Profile)
+    fun insertProfile(profile: Profile)
 }

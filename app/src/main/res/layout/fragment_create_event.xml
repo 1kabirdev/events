@@ -2,17 +2,19 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="#FDFDFF"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="66dp"
-        android:background="#4DEBF2FD"
-        app:elevation="0dp">
+        android:layout_height="wrap_content"
+        android:background="#FDFDFF"
+        app:elevation="1dp">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
             app:contentInsetStart="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,10 +26,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/spectral_sc_medium"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="Создать событие"
                     android:textColor="#001E4A"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -280,7 +282,7 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="2"
-                    android:background="@drawable/shape_btn_login"
+                    android:background="@drawable/shape_btn_bkg"
                     android:fontFamily="@font/manrope_regular"
                     android:text="Создать мероприятие"
                     android:textAllCaps="false"

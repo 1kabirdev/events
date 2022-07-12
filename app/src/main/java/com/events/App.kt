@@ -7,7 +7,7 @@ import com.events.room.dao.AppDatabase
 import com.events.utill.SharedPreferences
 
 class App : Application() {
-    private lateinit var dataManager: DataManager
+    internal lateinit var dataManager: DataManager
     private lateinit var database: AppDatabase
     override fun onCreate() {
         super.onCreate()
