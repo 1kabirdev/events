@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.events.databinding.FragmentDialogFilterBinding
-import com.events.utill.Constants
-import com.events.utill.SharedPreferences
 
 class DialogFilterFragment(private var fragment: HomeEventsFragment) : DialogFragment() {
 
@@ -27,12 +25,10 @@ class DialogFilterFragment(private var fragment: HomeEventsFragment) : DialogFra
         dialog!!.window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         binding.all.setOnClickListener {
             fragment.filter("all")
-            SharedPreferences.setEventType("all", requireContext())
             dismiss()
         }
         binding.city.setOnClickListener {
             fragment.filter("Махачкала")
-            SharedPreferences.setEventType("Махачкала", requireContext())
             dismiss()
         }
     }

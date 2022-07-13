@@ -14,25 +14,24 @@ class LoginPresenter(private var dataManager: DataManager) : BasePresenter<Login
 
     override fun responseLoginSuccessFully(username: String, password: String) {
         mvpView?.let {
-            it.showProgressView()
+            it.showProgressView(true)
             call = dataManager.getLoginAccountUser(username, password)
             call.enqueue(object : Callback<ResponseLogin> {
                 override fun onResponse(
                     call: Call<ResponseLogin>,
                     response: Response<ResponseLogin>
                 ) {
-                    it.hideProgressView()
                     if (response.isSuccessful) {
+                        it.showProgressView(false)
                         response.body()?.let { res ->
                             it.getLoginSuccessFully(res.getStatus(), res.getMessage())
-                            it.getLoadToken(res.getToken())
-                            it.getLoadUserId(res.getIdUser())
+                            it.getDataSuccess( res.getIdUser(), res.getToken())
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
-                    it.hideProgressView()
+                    it.showProgressView(false)
                     it.connectionView()
                 }
             })

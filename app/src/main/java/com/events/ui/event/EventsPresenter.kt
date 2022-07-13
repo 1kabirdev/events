@@ -15,20 +15,22 @@ class EventsPresenter(private val dataManager: DataManager) :
 
     override fun responseLoadEvents(user_id_e: String, event_id: String) {
         mvpView?.let {
-            it.showProgressBar()
+            it.showProgressBar(true)
             call = dataManager.loadEvents(user_id_e, event_id)
             call.enqueue(object : Callback<ResponseEvents> {
                 override fun onResponse(
                     call: Call<ResponseEvents>,
                     response: Response<ResponseEvents>
                 ) {
-                    it.hideProgressBar()
+                    it.showProgressBar(false)
                     if (response.isSuccessful) {
                         response.body()?.let { res ->
                             it.getLoadData(res.getResponse(), res.getResponse().getUser())
-                            if (res.getResponse().getCostE() != "" && res.getResponse().getCostE() != "0"){
+                            if (res.getResponse().getCostE() != "" && res.getResponse()
+                                    .getCostE() != "0"
+                            ) {
                                 it.getLoadCost(res.getResponse().getCostE())
-                            }else{
+                            } else {
                                 it.getLoadCostNot()
                             }
                         }
@@ -36,7 +38,7 @@ class EventsPresenter(private val dataManager: DataManager) :
                 }
 
                 override fun onFailure(call: Call<ResponseEvents>, t: Throwable) {
-                    it.hideProgressBar()
+                    it.showProgressBar(false)
                     it.noConnection()
                 }
             })

@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Events">
         <activity
+            android:name=".ui.comments.CommentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.setting_password.SettingPasswordActivity"
             android:exported="false" />
         <activity android:name=".ui.organizer.OrganizerActivity" />

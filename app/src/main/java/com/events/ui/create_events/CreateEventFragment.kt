@@ -22,15 +22,18 @@ import androidx.fragment.app.Fragment
 import com.events.App
 import com.events.databinding.FragmentCreateEventBinding
 import com.events.model.create_event.ResponseCreateEvents
-import com.events.utill.SharedPreferences
+import com.events.utill.Constants
+import com.events.utill.PreferencesManager
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 class CreateEventFragment : Fragment(), CreateEventsController.View {
 
+    private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: FragmentCreateEventBinding
     private lateinit var progressBar: ProgressDialog
     private lateinit var presenter: CreateEventsPresenter
@@ -50,6 +53,9 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        preferencesManager = PreferencesManager(requireContext())
+
         presenter = CreateEventsPresenter((requireContext().applicationContext as App).dataManager)
         presenter.attachView(this)
 
@@ -124,7 +130,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                 }
                 else -> {
                     presenter.responseCreateEvents(
-                        SharedPreferences.loadIdUser(requireContext()).toString(),
+                        preferencesManager.getString(Constants.USER_ID),
                         binding.editTextNameEvents.text.toString(),
                         binding.editTextDescEvents.text.toString(),
                         binding.textDateCreateEvents.text.toString(),
@@ -272,13 +278,11 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         }
     }
 
-    override fun showProgress() {
-        progressBar =
-            ProgressDialog.show(requireContext(), "Загрузка.", "Подождите пожалуйста...", false)
-    }
-
-    override fun hideProgress() {
-        progressBar.dismiss()
+    override fun showProgress(show: Boolean) {
+        if (show)
+            progressBar =
+                ProgressDialog.show(requireContext(), "Загрузка", "Подождите пожалуйста...", false)
+        else progressBar.dismiss()
     }
 
     override fun noConnection() {

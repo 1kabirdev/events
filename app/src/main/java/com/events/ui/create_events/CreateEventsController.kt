@@ -6,8 +6,7 @@ import com.events.mvp.MvpView
 interface CreateEventsController {
     interface View : MvpView {
         fun createEvents(responseCreateEvents: ResponseCreateEvents)
-        fun showProgress()
-        fun hideProgress()
+        fun showProgress(show:Boolean)
         fun noConnection()
     }
 

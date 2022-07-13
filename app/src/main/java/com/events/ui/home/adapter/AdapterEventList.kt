@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.text.format.DateUtils
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.events.R
@@ -15,7 +12,8 @@ import com.events.databinding.ItemListEventsBinding
 import com.events.model.list_events.ListEvents
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
-import com.events.utill.SharedPreferences
+import com.events.utill.Constants
+import com.events.utill.PreferencesManager
 import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
@@ -43,7 +41,8 @@ class AdapterEventList(private var events: ArrayList<ListEvents>) :
 
     inner class ViewHolder(val binding: ItemListEventsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        var dateAndTime: Calendar = Calendar.getInstance()
+        private var dateAndTime: Calendar = Calendar.getInstance()
+        private val preferencesManager = PreferencesManager(itemView.context)
 
         @SuppressLint("SetTextI18n")
         fun bindLoad(eventsList: ListEvents) {
@@ -60,8 +59,8 @@ class AdapterEventList(private var events: ArrayList<ListEvents>) :
 
 
                 itemView.setOnClickListener {
-                    if (SharedPreferences.loadIdUser(itemView.context)
-                            .toString() != eventsList.getUser()!!.getUserId()
+                    if (preferencesManager.getString(Constants.USER_ID) != eventsList.getUser()!!
+                            .getUserId()
                     ) {
                         val intent = Intent(itemView.context, EventsActivity::class.java)
                         intent.putExtra("EVENTS_ID", eventsList.getIdE())
@@ -85,24 +84,21 @@ class AdapterEventList(private var events: ArrayList<ListEvents>) :
                         )
                 }
             }
-
         }
 
         private fun getInitialDate(): String {
-            val date = DateUtils.formatDateTime(
+            return DateUtils.formatDateTime(
                 itemView.context,
                 dateAndTime.timeInMillis,
                 DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR
             )
-            return date
         }
 
         private fun getInitialTime(): String {
-            val time = DateUtils.formatDateTime(
+            return DateUtils.formatDateTime(
                 itemView.context,
                 dateAndTime.timeInMillis, DateUtils.FORMAT_SHOW_TIME
             )
-            return time
         }
     }
 }

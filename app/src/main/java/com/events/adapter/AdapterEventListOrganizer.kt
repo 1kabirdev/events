@@ -10,10 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.events.R
 import com.events.model.list_events.ListEvents
-import com.events.model.my_events.MyEventsList
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
-import com.events.utill.SharedPreferences
+import com.events.utill.Constants
+import com.events.utill.PreferencesManager
 import com.squareup.picasso.Picasso
 
 class AdapterEventListOrganizer(private var events: ArrayList<ListEvents>) :
@@ -46,6 +46,7 @@ class AdapterEventListOrganizer(private var events: ArrayList<ListEvents>) :
         private val textCityEvents: TextView = view.findViewById(R.id.textCityEvents)
         private val textTheme: TextView = view.findViewById(R.id.textTheme)
         private val textCost: TextView = view.findViewById(R.id.textCost)
+        private var preferencesManager = PreferencesManager(itemView.context)
 
         @SuppressLint("SetTextI18n")
         fun bindLoad(holder: ViewHolder, eventsList: ListEvents) {
@@ -61,8 +62,8 @@ class AdapterEventListOrganizer(private var events: ArrayList<ListEvents>) :
             }
 
             holder.itemView.setOnClickListener {
-                if (SharedPreferences.loadIdUser(itemView.context)
-                        .toString() != eventsList.getUser()!!.getUserId()
+                if (preferencesManager.getString(Constants.USER_ID) != eventsList.getUser()!!
+                        .getUserId()
                 ) {
                     val intent = Intent(itemView.context, EventsActivity::class.java)
                     intent.putExtra("EVENTS_ID", eventsList.getIdE())

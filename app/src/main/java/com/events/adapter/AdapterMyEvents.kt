@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.events.R
 import com.events.model.my_events.MyEventsList
 import com.events.ui.event.MyEventsActivity
-import com.events.utill.SharedPreferences
 import com.squareup.picasso.Picasso
 
 class AdapterMyEvents(private var events: ArrayList<MyEventsList>) :

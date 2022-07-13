@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ServicesGenerator {
     private fun builder(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constants.ApiBaseUrl())
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)

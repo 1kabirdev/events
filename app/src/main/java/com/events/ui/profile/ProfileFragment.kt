@@ -17,16 +17,17 @@ import com.events.model.profile.ResponseInfoProfile
 import com.events.ui.bottom_sheet.InfoProfileBottomSheet
 import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.login.LoginUserFragment
-import com.events.utill.SharedPreferences
+import com.events.utill.Constants
+import com.events.utill.PreferencesManager
 import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomSheet.OnClickListener {
 
+    private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: FragmentProfileBinding
     private lateinit var presenter: ProfilePresenter
     private lateinit var adapterMyEvents: AdapterMyEvents
     private val limitEvent: Int = 10
-
     var user: ResponseInfoProfile? = null
 
     override fun onCreateView(
@@ -39,6 +40,8 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferencesManager = PreferencesManager(requireContext())
+
         presenter = ProfilePresenter((view.context.applicationContext as App).dataManager)
         presenter.attachView(this)
 
@@ -63,16 +66,15 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         }
 
 
-        presenter.responseLoadDataProfile(SharedPreferences.loadToken(requireContext()).toString())
+        presenter.responseLoadDataProfile(preferencesManager.getString(Constants.TOKEN))
         presenter.responseLoadMyEvents(
-            SharedPreferences.loadIdUser(requireContext()).toString(),
+            preferencesManager.getString(Constants.USER_ID),
             limitEvent.toString()
         )
     }
 
     fun getLogoutAccount() {
-        SharedPreferences.saveIdUser("", requireContext())
-        SharedPreferences.saveToken("", requireContext())
+        preferencesManager.clear()
         (requireContext() as MainActivity).setCurrentFragment(LoginUserFragment())
     }
 
@@ -91,7 +93,7 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         binding.aboutProfile.text = about
 
         user = ResponseInfoProfile(
-            SharedPreferences.loadIdUser(requireContext()).toString(),
+            preferencesManager.getString(Constants.USER_ID),
             username, avatar, phone, last_name, about, create_data
         )
     }

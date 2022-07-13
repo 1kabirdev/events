@@ -19,26 +19,25 @@ class RegisterPresenter(private var dataManager: DataManager) :
         last_name: String
     ) {
         mvpView?.let {
-            it.showProgressView()
+            it.showProgressView(true)
             call = dataManager.getRegisterAccountUser(username, password, phone, last_name)
             call.enqueue(object : Callback<ResponseLogin> {
                 override fun onResponse(
                     call: Call<ResponseLogin>,
                     response: Response<ResponseLogin>
                 ) {
-                    it.hideProgressView()
                     if (response.isSuccessful) {
+                        it.showProgressView(false)
                         response.body()?.let { res ->
                             it.getRegisterUser(res.getStatus(), res.getMessage())
-                            it.getTokenUser(res.getToken())
-                            it.getUserId(res.getIdUser())
+                            it.getDataSuccess(res.getToken(), res.getIdUser())
                         }
                     }
 
                 }
 
                 override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
-                    it.hideProgressView()
+                    it.showProgressView(false)
                     it.noConnection()
                 }
 

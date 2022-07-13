@@ -30,7 +30,6 @@ interface Api {
         @Field("last_name") last_name: String
     ): Call<ResponseLogin>
 
-
     @GET("profile.php")
     fun loadDataProfile(
         @Query("token") token: String

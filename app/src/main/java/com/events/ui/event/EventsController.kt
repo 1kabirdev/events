@@ -10,8 +10,7 @@ interface EventsController : MvpView {
         fun getLoadData(events: Events, user: User)
         fun getLoadCost(cost: String)
         fun getLoadCostNot()
-        fun showProgressBar()
-        fun hideProgressBar()
+        fun showProgressBar(show:Boolean)
         fun noConnection()
     }
 

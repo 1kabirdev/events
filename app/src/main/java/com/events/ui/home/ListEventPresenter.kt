@@ -12,14 +12,14 @@ class ListEventPresenter(private var dataManager: DataManager) :
     private lateinit var call: Call<ResponseListEvents>
     override fun responseEvents(city: String) {
         mvpView?.let {
-            it.showProgress()
+            it.showProgress(true)
             call = dataManager.loadListEvents(city)
             call.enqueue(object : Callback<ResponseListEvents> {
                 override fun onResponse(
                     call: Call<ResponseListEvents>,
                     response: Response<ResponseListEvents>
                 ) {
-                    it.hideProgress()
+                    it.showProgress(false)
                     if (response.isSuccessful) {
                         response.body()?.let { res ->
                             it.getLoadEvent(res.getResponse())
@@ -28,7 +28,7 @@ class ListEventPresenter(private var dataManager: DataManager) :
                 }
 
                 override fun onFailure(call: Call<ResponseListEvents>, t: Throwable) {
-                    it.hideProgress()
+                    it.showProgress(false)
                     it.noConnection()
                 }
             })

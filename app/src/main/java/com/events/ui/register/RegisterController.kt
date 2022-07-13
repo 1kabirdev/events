@@ -5,10 +5,8 @@ import com.events.mvp.MvpView
 interface RegisterController {
     interface View : MvpView {
         fun getRegisterUser(status: Boolean, message: String)
-        fun getTokenUser(token: String)
-        fun getUserId(user_id: String)
-        fun showProgressView()
-        fun hideProgressView()
+        fun getDataSuccess(token: String,user_id: String)
+        fun showProgressView(show:Boolean)
         fun noConnection()
     }
 

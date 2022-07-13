@@ -10,6 +10,7 @@ import com.events.App
 import com.events.databinding.ActivityEventsBinding
 import com.events.model.events.Events
 import com.events.model.events.User
+import com.events.ui.comments.CommentsActivity
 import com.events.ui.organizer.OrganizerActivity
 import com.squareup.picasso.Picasso
 
@@ -43,6 +44,12 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
             textAddressEventView.text = events.getCityE()
             textThemeEventView.text = events.getThemeE()
             textDescEventView.text = events.getDescE()
+
+            btnDiscussEvents.setOnClickListener {
+                val intent = Intent(this@EventsActivity, CommentsActivity::class.java)
+                intent.putExtra("EVENT_ID", eventId)
+                startActivity(intent)
+            }
         }
     }
 
@@ -67,14 +74,14 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
         }
     }
 
-    override fun showProgressBar() {
-        binding.nested.visibility = View.GONE
-        binding.progressBar.visibility = View.VISIBLE
-    }
-
-    override fun hideProgressBar() {
-        binding.nested.visibility = View.VISIBLE
-        binding.progressBar.visibility = View.GONE
+    override fun showProgressBar(show: Boolean) {
+        if (show) {
+            binding.nested.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.nested.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     override fun noConnection() {

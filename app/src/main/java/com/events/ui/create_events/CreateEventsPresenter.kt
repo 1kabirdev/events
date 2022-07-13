@@ -29,7 +29,7 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
         image_e: ByteArray
     ) {
         mvpView?.let {
-            it.showProgress()
+            it.showProgress(true)
             val tsLong = System.currentTimeMillis() / 1000
             val nameImage = "$tsLong.jpg"
             val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), image_e)
@@ -51,7 +51,7 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
                     call: Call<ResponseCreateEvents>,
                     response: Response<ResponseCreateEvents>
                 ) {
-                    it.hideProgress()
+                    it.showProgress(false)
                     if (response.isSuccessful) {
                         response.body()?.let { res ->
                             it.createEvents(res)
@@ -60,7 +60,7 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
                 }
 
                 override fun onFailure(call: Call<ResponseCreateEvents>, t: Throwable) {
-                    it.hideProgress()
+                    it.showProgress(false)
                     it.noConnection()
                 }
             })

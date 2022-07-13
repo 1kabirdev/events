@@ -10,18 +10,20 @@ import androidx.fragment.app.FragmentManager
 import com.events.databinding.ActivityMainBinding
 import com.events.ui.create_events.CreateEventFragment
 import com.events.ui.home.HomeEventsFragment
-import com.events.ui.home.HomeFragment
 import com.events.ui.login.LoginUserFragment
-import com.events.utill.SharedPreferences
+import com.events.utill.Constants
+import com.events.utill.PreferencesManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var preferencesManager: PreferencesManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        preferencesManager = PreferencesManager(this)
         binding.bottomNavView.setOnNavigationItemSelectedListener(this)
         setCurrentFragment(HomeEventsFragment())
     }
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
 
             R.id.navigation_create_event -> {
-                if (SharedPreferences.loadToken(this) != "") {
+                if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
                     setCurrentFragment(CreateEventFragment())
                 } else {
                     alertDialogNotAccount()
@@ -75,7 +77,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 binding.bottomNavView.selectedItemId = R.id.navigation_home
             }
             R.id.navigation_profile -> {
-                if (SharedPreferences.loadToken(this) != "") {
+                if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
                     binding.bottomNavView.selectedItemId = R.id.navigation_home
                 } else {
                     binding.bottomNavView.selectedItemId = R.id.navigation_home

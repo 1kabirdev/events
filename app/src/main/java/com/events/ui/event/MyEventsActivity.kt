@@ -5,19 +5,13 @@ import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.widget.NestedScrollView
 import com.events.App
-import com.events.R
 import com.events.databinding.ActivityMyEventsBinding
-import com.events.model.delete_event.ResponseDeleteEvent
 import com.events.model.events.Events
 import com.events.model.events.User
-import com.events.utill.SharedPreferences
+import com.events.utill.Constants
+import com.events.utill.PreferencesManager
 import com.squareup.picasso.Picasso
 
 class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEventController.View {
@@ -27,11 +21,15 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
     private lateinit var deletePresenter: DeleteEventPresenter
     private lateinit var presenter: EventsPresenter
     private lateinit var eventId: String
+    private lateinit var preferencesManager: PreferencesManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyEventsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        preferencesManager = PreferencesManager(this)
+
         val arguments = intent.extras
         eventId = arguments?.get("EVENTS_ID")?.toString().toString()
         presenter = EventsPresenter((applicationContext as App).dataManager)
@@ -39,7 +37,7 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
         deletePresenter = DeleteEventPresenter((applicationContext as App).dataManager)
         deletePresenter.attachView(this)
         onClickListener()
-        presenter.responseLoadEvents(SharedPreferences.loadIdUser(this).toString(), eventId)
+        presenter.responseLoadEvents(preferencesManager.getString(Constants.USER_ID), eventId)
     }
 
     private fun onClickListener() {
@@ -48,7 +46,7 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
         }
 
         binding.btnDeleteEvent.setOnClickListener {
-            deletePresenter.responseDelete(eventId, SharedPreferences.loadIdUser(this).toString())
+            deletePresenter.responseDelete(eventId, preferencesManager.getString(Constants.USER_ID))
         }
     }
 
@@ -71,14 +69,15 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
         binding.textCostEventView.text = "Бесплатно"
     }
 
-    override fun showProgressBar() {
-        binding.nested.visibility = View.GONE
-        binding.progressBar.visibility = View.VISIBLE
-    }
+    override fun showProgressBar(show: Boolean) {
+        if (show) {
+            binding.nested.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.nested.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
+        }
 
-    override fun hideProgressBar() {
-        binding.nested.visibility = View.VISIBLE
-        binding.progressBar.visibility = View.GONE
     }
 
     override fun noConnection() {

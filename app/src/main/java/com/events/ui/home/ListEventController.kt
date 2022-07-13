@@ -6,8 +6,7 @@ import com.events.mvp.MvpView
 interface ListEventController {
     interface View : MvpView {
         fun getLoadEvent(eventsList: ArrayList<ListEvents>)
-        fun showProgress()
-        fun hideProgress()
+        fun showProgress(show:Boolean)
         fun noConnection()
     }
 

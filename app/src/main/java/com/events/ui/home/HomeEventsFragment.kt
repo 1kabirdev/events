@@ -11,13 +11,14 @@ import com.events.MainActivity
 import com.events.ui.home.adapter.AdapterEventList
 import com.events.databinding.FragmentHomeEventsBinding
 import com.events.model.list_events.ListEvents
-import com.events.utill.SharedPreferences
+import com.events.utill.PreferencesManager
 
 class HomeEventsFragment : Fragment(), ListEventController.View {
 
     private lateinit var binding: FragmentHomeEventsBinding
     private lateinit var adapter: AdapterEventList
     private lateinit var presenter: ListEventPresenter
+    private lateinit var preferencesManager: PreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,15 +30,12 @@ class HomeEventsFragment : Fragment(), ListEventController.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferencesManager = PreferencesManager(requireContext())
+
         presenter = ListEventPresenter((requireContext().applicationContext as App).dataManager)
         presenter.attachView(this)
-        presenter.responseEvents(SharedPreferences.getEventType(requireContext()).toString())
+        presenter.responseEvents("all")
 
-        if (SharedPreferences.getEventType(requireContext())
-                .toString() == "all"
-        ) binding.textEvent.text = "Все мероприятия"
-        else if (SharedPreferences.getEventType(requireContext()).toString() == "Махачкала")
-            binding.textEvent.text = "Мероприятия в Махачкале"
     }
 
     private fun showDialogFilter() {
@@ -64,12 +62,9 @@ class HomeEventsFragment : Fragment(), ListEventController.View {
         }
     }
 
-    override fun showProgress() {
-        binding.progressBar.visibility = View.VISIBLE
-    }
-
-    override fun hideProgress() {
-        binding.progressBar.visibility = View.GONE
+    override fun showProgress(show: Boolean) {
+        if (show) binding.progressBar.visibility = View.VISIBLE
+        else binding.progressBar.visibility = View.GONE
     }
 
     override fun noConnection() {
