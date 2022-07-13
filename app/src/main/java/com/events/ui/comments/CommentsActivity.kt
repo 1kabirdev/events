@@ -3,6 +3,7 @@ package com.events.ui.comments
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.events.databinding.ActivityCommentsBinding
 import com.events.model.comments.CommentsList
@@ -55,5 +56,16 @@ class CommentsActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+            binding.linearNotAuthorized.visibility = View.GONE
+            binding.linearCommentView.visibility = View.VISIBLE
+        } else {
+            binding.linearCommentView.visibility = View.GONE
+            binding.linearNotAuthorized.visibility = View.VISIBLE
+        }
+        super.onStart()
     }
 }
