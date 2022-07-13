@@ -33,15 +33,17 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
 
     @SuppressLint("SetTextI18n")
     override fun getLoadData(events: Events, user: User) {
-        Picasso.get().load(user.getAvatar()).into(binding.avatarProfileView)
-        binding.textUserNameProfile.text = "@" + user.getUsername()
-        binding.textLastNameProfile.text = user.getLastName()
-        Picasso.get().load(events.getImageE()).into(binding.imageEventsView)
-        binding.nameEvents.text = events.getNameE()
-        binding.textDateAndTimeEventView.text = "${events.getDataE()} в ${events.getTimeE()}"
-        binding.textAddressEventView.text = events.getCityE()
-        binding.textThemeEventView.text = events.getThemeE()
-        binding.textDescEventView.text = events.getDescE()
+        with(binding) {
+            Picasso.get().load(user.getAvatar()).into(avatarProfileView)
+            textUserNameProfile.text = "@" + user.getUsername()
+            textLastNameProfile.text = user.getLastName()
+            Picasso.get().load(events.getImageE()).into(imageEventsView)
+            nameEvents.text = events.getNameE()
+            textDateAndTimeEventView.text = "${events.getDataE()} в ${events.getTimeE()}"
+            textAddressEventView.text = events.getCityE()
+            textThemeEventView.text = events.getThemeE()
+            textDescEventView.text = events.getDescE()
+        }
     }
 
     @SuppressLint("SetTextI18n")

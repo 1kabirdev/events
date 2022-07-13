@@ -10,4 +10,5 @@ data class Profile(
     @ColumnInfo(name = "avatar") val avatar: String?,
     @ColumnInfo(name = "username") val username: String?,
     @ColumnInfo(name = "lastName") val lastName:String?,
+    @ColumnInfo(name = "about") val about:String?,
 )

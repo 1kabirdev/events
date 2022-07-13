@@ -16,26 +16,28 @@ class OrganizerPresenter(private var dataManager: DataManager) :
 
     override fun responseOrganizer(userId: String) {
         mvpView?.let {
-            it.showProgressBar()
+            it.showProgressBar(true)
             call = dataManager.getLoadDataOrganizer(userId)
             call.enqueue(object : Callback<ResponseInfoOrganizer> {
                 override fun onResponse(
                     call: Call<ResponseInfoOrganizer>,
                     response: Response<ResponseInfoOrganizer>
                 ) {
-                    it.hideProgressBar()
+                    it.showProgressBar(false)
                     if (response.isSuccessful) {
                         response.body()?.let { res ->
-                            it.loadDataUserName(res.getUsername())
-                            it.loadDataLastName(res.getLastName())
-                            it.loadDataAbout(res.getAbout())
-                            it.loadDataAvatar(res.getAvatar())
+                            it.loadDataOrganizer(
+                                res.getUsername(),
+                                res.getLastName(),
+                                res.getAbout(),
+                                res.getAvatar()
+                            )
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseInfoOrganizer>, t: Throwable) {
-                    it.hideProgressBar()
+                    it.showProgressBar(false)
                     it.noConnection()
                 }
             })
@@ -44,14 +46,14 @@ class OrganizerPresenter(private var dataManager: DataManager) :
 
     override fun responseEventOrganizer(userId: String, limit: String) {
         mvpView?.let {
-            it.showProgressBarEvent()
+            it.showProgressBarEvent(true)
             callEvent = dataManager.loadEventOrganizer(userId, limit)
             callEvent.enqueue(object : Callback<ResponseListEvents> {
                 override fun onResponse(
                     call: Call<ResponseListEvents>,
                     response: Response<ResponseListEvents>
                 ) {
-                    it.hideProgressBarEvent()
+                    it.showProgressBarEvent(false)
                     if (response.isSuccessful) {
                         response.body()?.let { res ->
                             it.getLoadEventsOrganizer(res.getResponse())
@@ -60,7 +62,7 @@ class OrganizerPresenter(private var dataManager: DataManager) :
                 }
 
                 override fun onFailure(call: Call<ResponseListEvents>, t: Throwable) {
-                    it.hideProgressBarEvent()
+                    it.showProgressBarEvent(false)
                 }
             })
         }

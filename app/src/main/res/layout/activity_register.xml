@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_medium"
-                android:text="Регистрация"
+                android:text="EventBook"
                 android:textColor="#001E4A"
                 android:textSize="22sp"
                 app:layout_constraintLeft_toLeftOf="parent"

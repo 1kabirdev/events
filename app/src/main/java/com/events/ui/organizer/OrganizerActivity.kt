@@ -21,12 +21,16 @@ class OrganizerActivity : AppCompatActivity(), OrganizerController.View {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val arguments = intent.extras
         userId = arguments?.get("USER_ID")?.toString().toString()
+
         presenter = OrganizerPresenter((applicationContext as App).dataManager)
         presenter.attachView(this)
+
         presenter.responseOrganizer(userId)
         presenter.responseEventOrganizer(userId, limit)
+
         onClickListener()
     }
 
@@ -37,20 +41,16 @@ class OrganizerActivity : AppCompatActivity(), OrganizerController.View {
     }
 
     @SuppressLint("SetTextI18n")
-    override fun loadDataUserName(username: String) {
-        binding.usernameOrganizer.text = "@$username"
-    }
-
-    override fun loadDataLastName(lastName: String) {
-        binding.lastNameOrganizer.text = lastName
-    }
-
-    override fun loadDataAbout(about: String) {
-        binding.aboutOrganizer.text = about
-    }
-
-    override fun loadDataAvatar(avatar: String) {
+    override fun loadDataOrganizer(
+        username: String,
+        lastName: String,
+        about: String,
+        avatar: String
+    ) {
         Picasso.get().load(avatar).into(binding.avatarOrganizer)
+        binding.usernameOrganizer.text = "@$username"
+        binding.lastNameOrganizer.text = lastName
+        binding.aboutOrganizer.text = about
     }
 
     @SuppressLint("SetTextI18n")
@@ -65,22 +65,19 @@ class OrganizerActivity : AppCompatActivity(), OrganizerController.View {
         }
     }
 
-    override fun showProgressBarEvent() {
-        binding.progressBarEventOrganizer.visibility = View.VISIBLE
+    override fun showProgressBarEvent(show: Boolean) {
+        if (show) binding.progressBarEventOrganizer.visibility = View.VISIBLE
+        else binding.progressBarEventOrganizer.visibility = View.GONE
     }
 
-    override fun hideProgressBarEvent() {
-        binding.progressBarEventOrganizer.visibility = View.GONE
-    }
-
-    override fun showProgressBar() {
-        binding.nestedScrollViewOrganizer.visibility = View.GONE
-        binding.progressBarUser.visibility = View.VISIBLE
-    }
-
-    override fun hideProgressBar() {
-        binding.nestedScrollViewOrganizer.visibility = View.VISIBLE
-        binding.progressBarUser.visibility = View.GONE
+    override fun showProgressBar(show: Boolean) {
+        if (show) {
+            binding.nestedScrollViewOrganizer.visibility = View.GONE
+            binding.progressBarUser.visibility = View.VISIBLE
+        } else {
+            binding.nestedScrollViewOrganizer.visibility = View.VISIBLE
+            binding.progressBarUser.visibility = View.GONE
+        }
     }
 
     override fun noConnection() {

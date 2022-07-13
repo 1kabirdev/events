@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FDFDFF"
     tools:context=".ui.organizer.OrganizerActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayoutUser"
         android:layout_width="match_parent"
-        android:layout_height="66dp"
-        android:background="#4DEBF2FD"
-        app:elevation="0dp">
+        android:layout_height="wrap_content"
+        android:background="#FDFDFF"
+        app:elevation="1dp">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
             app:contentInsetStart="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,11 +26,10 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/btnBackUser"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:background="@drawable/shape_btn_back_event"
                     android:padding="8dp"
                     android:src="@drawable/ic_arrow_back"
                     android:textSize="16sp"
@@ -41,10 +42,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/spectral_sc_regular"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="Профиль"
                     android:textColor="#001E4A"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/btnBackUser"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -75,8 +76,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/avatarOrganizer"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -93,24 +94,24 @@
                         android:id="@+id/usernameOrganizer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sora_medium"
+                        android:fontFamily="@font/manrope_medium"
                         android:hint="Имя аккаунта"
                         android:lines="1"
                         android:maxEms="10"
                         android:textColor="#001E4A"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/lastNameOrganizer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:fontFamily="@font/sora_regular"
+                        android:fontFamily="@font/manrope_regular"
                         android:hint="Указать имя и фамилия"
                         android:lines="1"
                         android:maxEms="16"
                         android:textColor="#001E4A"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -119,13 +120,13 @@
                 android:id="@+id/titleAboutOrganizer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/sora_regular"
+                android:layout_marginTop="26dp"
+                android:fontFamily="@font/manrope_regular"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="О себе:"
                 android:textColor="#51001E4A"
-                android:textSize="16sp"
+                android:textSize="11sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layoutInfoOrganizer" />
 
@@ -133,13 +134,14 @@
                 android:id="@+id/aboutOrganizer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sora_regular"
+                android:fontFamily="@font/manrope_regular"
+                android:layout_marginTop="8dp"
                 android:hint="Отсутствует"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textColor="#001E4A"
                 android:textColorHint="#51001E4A"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleAboutOrganizer" />
 
@@ -147,15 +149,15 @@
                 android:id="@+id/viewLineOrganizer"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="26dp"
-                android:background="#EAEAEA"
+                android:layout_marginTop="16dp"
+                android:background="#ECECEC"
                 app:layout_constraintTop_toBottomOf="@+id/aboutOrganizer" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewLineOrganizer">
 
@@ -163,12 +165,12 @@
                     android:id="@+id/titleEventsOrganizer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_regular"
+                    android:fontFamily="@font/manrope_regular"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:text="Мероприятия 0"
+                    android:text="Мероприятия"
                     android:textColor="#80001E4A"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

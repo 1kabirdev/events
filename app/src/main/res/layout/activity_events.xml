@@ -4,31 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FDFDFF"
     tools:context=".ui.event.MyEventsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#4DEBF2FD"
-        app:elevation="0dp">
+        android:background="#FDFDFF"
+        app:elevation="1dp">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="0dp"
-            app:contentInsetStart="0dp">
+            app:contentScrim="#FDFDFF"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageEventsView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp">
+                android:layout_height="460dp"
+                android:background="#FDFDFF"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#80D1D1D1"
+                android:elevation="0dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/btnBack"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/shape_btn_back_event"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:padding="8dp"
                     android:src="@drawable/ic_arrow_back"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -40,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="46dp"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/spectral_sc_medium"
+                    android:fontFamily="@font/manrope_medium"
                     android:gravity="center"
                     android:lines="1"
                     android:maxEms="11"
@@ -49,9 +63,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/btnBack"
                     app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.appcompat.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -64,24 +77,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/material"
-                android:layout_width="match_parent"
-                android:layout_height="360dp"
-                android:elevation="0dp"
-                app:cardBackgroundColor="#F8F8F8"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="0dp"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageEventsView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
-
-            </com.google.android.material.card.MaterialCardView>
-
             <TextView
                 android:id="@+id/titleDateAndTimeEventView"
                 android:layout_width="match_parent"
@@ -93,7 +88,7 @@
                 android:text="Дата проведения"
                 android:textColor="#65001E4A"
                 android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@+id/material" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textDateAndTimeEventView"
@@ -215,38 +210,16 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDiscussEvents"
                 android:layout_width="180dp"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/shape_btn_discuss"
-                android:fontFamily="@font/sora_medium"
-                android:text="Обсудить"
+                android:fontFamily="@font/manrope_medium"
+                android:text="Обсуждения"
                 android:textAllCaps="false"
+                android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textCostEventView" />
-
-            <View
-                android:id="@+id/viewLine"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="26dp"
-                android:background="@drawable/shape_line"
-                app:layout_constraintTop_toBottomOf="@+id/btnDiscussEvents" />
-
-            <TextView
-                android:id="@+id/textOrg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/manrope_regular"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Организатор"
-                android:textColor="#68001E4A"
-                android:textSize="12sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewLine" />
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintUserAccount"
@@ -257,7 +230,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/textOrg">
+                app:layout_constraintTop_toBottomOf="@+id/btnDiscussEvents">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialAvatar"

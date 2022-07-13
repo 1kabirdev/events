@@ -54,7 +54,7 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
 
     @SuppressLint("SetTextI18n")
     override fun getLoadData(events: Events, user: User) {
-        Picasso.get().load(events.getImageE()).into(binding.imageEventsView)
+        Picasso.get().load(events.getImageE()).into(binding.expandedImage)
         binding.nameEvents.text = events.getNameE()
         binding.textDateAndTimeEventView.text = "${events.getDataE()} в ${events.getTimeE()}"
         binding.textAddressEventView.text = events.getCityE()
