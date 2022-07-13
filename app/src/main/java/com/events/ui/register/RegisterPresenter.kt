@@ -30,7 +30,9 @@ class RegisterPresenter(private var dataManager: DataManager) :
                         it.showProgressView(false)
                         response.body()?.let { res ->
                             it.getRegisterUser(res.getStatus(), res.getMessage())
-                            it.getDataSuccess(res.getToken(), res.getIdUser())
+                            if (res.getStatus()) {
+                                it.getDataSuccess(res.getToken(), res.getIdUser())
+                            }
                         }
                     }
 

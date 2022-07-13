@@ -25,7 +25,9 @@ class LoginPresenter(private var dataManager: DataManager) : BasePresenter<Login
                         it.showProgressView(false)
                         response.body()?.let { res ->
                             it.getLoginSuccessFully(res.getStatus(), res.getMessage())
-                            it.getDataSuccess( res.getIdUser(), res.getToken())
+                            if (res.getStatus()) {
+                                it.getDataSuccess(res.getIdUser(), res.getToken())
+                            }
                         }
                     }
                 }
