@@ -5,19 +5,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.events.App
 import com.events.databinding.ActivityCommentsBinding
 import com.events.model.comments.CommentsList
+import com.events.model.comments.Info
 import com.events.ui.comments.adapter.AdapterComments
+import com.events.ui.login.LoginPresenter
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import java.util.Date
 
-class CommentsActivity : AppCompatActivity() {
+class CommentsActivity : AppCompatActivity(), CommentsContract.View {
 
+    private lateinit var presenter: CommentsPresenter
     private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: ActivityCommentsBinding
     private lateinit var event_id: String
     private var adapterComments = AdapterComments()
+    private var page: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +32,10 @@ class CommentsActivity : AppCompatActivity() {
 
         val args = intent.extras
         event_id = args?.get("EVENT_ID").toString()
+
+        presenter = CommentsPresenter((applicationContext as App).dataManager)
+        presenter.attachView(this)
+        presenter.responseLoadComments(event_id.toInt(), page)
 
         binding.recyclerViewComments.adapter = adapterComments
         onClickListener()
@@ -40,9 +49,9 @@ class CommentsActivity : AppCompatActivity() {
             btnSendMessage.setOnClickListener {
                 if (editTextComment.text.toString().isNotEmpty()) {
                     val comments = CommentsList(
-                        1,
-                        2,
-                        3,
+                        0,
+                        event_id.toInt(),
+                        preferencesManager.getString(Constants.USER_ID).toInt(),
                         preferencesManager.getString(Constants.USERNAME),
                         editTextComment.text.toString(),
                         Date().toString()
@@ -70,5 +79,17 @@ class CommentsActivity : AppCompatActivity() {
             binding.linearNotAuthorized.visibility = View.VISIBLE
         }
         super.onStart()
+    }
+
+    override fun loadComments(info: Info, commentsList: ArrayList<CommentsList>) {
+        adapterComments.addComments(commentsList)
+    }
+
+    override fun progress(show: Boolean) {
+
+    }
+
+    override fun errorConnection() {
+        Toast.makeText(this, "Проверьте подключение к Интеренту", Toast.LENGTH_SHORT).show()
     }
 }
