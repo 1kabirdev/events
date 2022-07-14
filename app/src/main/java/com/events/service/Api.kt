@@ -1,5 +1,6 @@
 package com.events.service
 
+import com.events.model.comments.ResponseComments
 import com.events.model.create_event.ResponseCreateEvents
 import com.events.model.delete_event.ResponseDeleteEvent
 import com.events.model.profile.ResponseInfoProfile
@@ -83,4 +84,10 @@ interface Api {
         @Field("event_id") event_id: String,
         @Field("user_id") user_id: String,
     ): Call<ResponseDeleteEvent>
+
+    @GET("comments.php")
+    fun getCommentsList(
+        @Query("event_id") event_id: Int,
+        @Query("page") page: Int
+    ): Call<ResponseComments>
 }

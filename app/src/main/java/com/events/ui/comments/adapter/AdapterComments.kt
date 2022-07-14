@@ -1,4 +1,4 @@
-package com.events.ui.comments
+package com.events.ui.comments.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -29,7 +29,6 @@ class AdapterComments : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun addLoadingFooter(show: Boolean) {
         isLoadingAdded = show
     }
-
 
     companion object {
         const val ITEM = 0

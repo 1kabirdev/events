@@ -7,8 +7,10 @@ import android.view.View
 import android.widget.Toast
 import com.events.databinding.ActivityCommentsBinding
 import com.events.model.comments.CommentsList
+import com.events.ui.comments.adapter.AdapterComments
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
+import java.util.Date
 
 class CommentsActivity : AppCompatActivity() {
 
@@ -42,7 +44,8 @@ class CommentsActivity : AppCompatActivity() {
                         2,
                         3,
                         preferencesManager.getString(Constants.USERNAME),
-                        editTextComment.text.toString()
+                        editTextComment.text.toString(),
+                        Date().toString()
                     )
                     adapterComments.addComment(comments)
                     editTextComment.text = null

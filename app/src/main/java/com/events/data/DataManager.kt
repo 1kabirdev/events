@@ -1,5 +1,6 @@
 package com.events.data
 
+import com.events.model.comments.ResponseComments
 import com.events.model.create_event.ResponseCreateEvents
 import com.events.model.delete_event.ResponseDeleteEvent
 import com.events.model.profile.ResponseInfoProfile
@@ -73,6 +74,10 @@ class DataManager {
 
     fun deleteEvent(event_id: String, user_id: String): Call<ResponseDeleteEvent> {
         return api.deleteEvent(event_id, user_id)
+    }
+
+    fun getComments(event_id: Int, page: Int): Call<ResponseComments> {
+        return api.getCommentsList(event_id, page)
     }
 
 }
