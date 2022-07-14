@@ -21,3 +21,10 @@ data class Info(
     @SerializedName("count_page") val count_page: Int,
     @SerializedName("count_comments") val count_comments: Int
 )
+
+data class AddComment(
+    @SerializedName("status") val status: Boolean,
+    @SerializedName("username") val username: String,
+    @SerializedName("comment_text") val comment_text: String,
+    @SerializedName("message") val message: String
+)
