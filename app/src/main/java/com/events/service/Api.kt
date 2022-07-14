@@ -1,5 +1,6 @@
 package com.events.service
 
+import com.events.model.comments.AddComment
 import com.events.model.comments.ResponseComments
 import com.events.model.create_event.ResponseCreateEvents
 import com.events.model.delete_event.ResponseDeleteEvent
@@ -90,4 +91,13 @@ interface Api {
         @Query("event_id") event_id: Int,
         @Query("page") page: Int
     ): Call<ResponseComments>
+
+    @FormUrlEncoded
+    @POST("send_comment.php")
+    fun sendComment(
+        @Field("user_id") user_id: Int,
+        @Field("event_id") event_id: Int,
+        @Field("username") username: String,
+        @Field("comment_text") comment_text: String
+    ): Call<AddComment>
 }
