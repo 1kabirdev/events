@@ -17,7 +17,7 @@ class AdapterComments : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun addComments(comment: ArrayList<CommentsList>) {
         commentsList.addAll(comment)
-        notifyItemInserted(commentsList.size - 1)
+        notifyItemInserted(commentsList.size)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -35,7 +35,7 @@ class AdapterComments : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == commentsList.size && isLoadingAdded) LOADING
+        return if (position == commentsList.size - 1 && isLoadingAdded) LOADING
         else ITEM
     }
 

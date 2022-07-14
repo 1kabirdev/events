@@ -13,7 +13,6 @@ class CommentsPresenter(
 ) : BasePresenter<CommentsContract.View>(), CommentsContract.Presenter {
 
     private lateinit var callComments: Call<ResponseComments>
-    private lateinit var callSendComment: Call<AddComment>
 
     override fun responseLoadComments(event_id: Int, page: Int) {
         mvpView?.let {
@@ -40,24 +39,22 @@ class CommentsPresenter(
         }
     }
 
-    override fun responseSendComment(
-        user_id: Int,
-        event_id: Int,
-        username: String,
-        comment_text: String
-    ) {
+    override fun responseLoadCommentsPage(event_id: Int, page: Int) {
         mvpView?.let {
-            callSendComment = dataManager.sendComment(user_id, event_id, username, comment_text)
-            callSendComment.enqueue(object : Callback<AddComment> {
-                override fun onResponse(call: Call<AddComment>, response: Response<AddComment>) {
+            callComments = dataManager.getComments(event_id, page)
+            callComments.enqueue(object : Callback<ResponseComments> {
+                override fun onResponse(
+                    call: Call<ResponseComments>,
+                    response: Response<ResponseComments>
+                ) {
                     if (response.isSuccessful) {
                         response.body()?.let { data ->
-                            it.sendComment(data)
+                            it.loadCommentPage(data.info, data.response)
                         }
                     }
                 }
 
-                override fun onFailure(call: Call<AddComment>, t: Throwable) = Unit
+                override fun onFailure(call: Call<ResponseComments>, t: Throwable) {}
             })
         }
     }

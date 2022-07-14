@@ -15,9 +15,10 @@ interface CommentsContract {
         fun errorConnection()
 
         /**
-         * send comment event
+         * load comment event paging
          */
-        fun sendComment(addComment: AddComment)
+
+        fun loadCommentPage(info: Info, commentsList: ArrayList<CommentsList>)
 
     }
 
@@ -28,14 +29,8 @@ interface CommentsContract {
         fun responseLoadComments(event_id: Int, page: Int)
 
         /**
-         * response send comment
+         * response load comment paging
          */
-
-        fun responseSendComment(
-            user_id: Int,
-            event_id: Int,
-            username: String,
-            comment_text: String
-        )
+        fun responseLoadCommentsPage(event_id: Int, page: Int)
     }
 }
