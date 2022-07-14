@@ -22,8 +22,7 @@ class AdapterComments : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
     fun addComment(comment: CommentsList) {
-        commentsList.add(comment)
-        notifyItemInserted(commentsList.size - 1)
+        commentsList.add(0, comment)
     }
 
     fun addLoadingFooter(show: Boolean) {

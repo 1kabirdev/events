@@ -7,7 +7,7 @@ data class CommentsList(
     @SerializedName("event_id") val event_id: Int,
     @SerializedName("user_id") val user_id: Int,
     @SerializedName("username") val username: String,
-    @SerializedName("text_comments") val text_comments: String,
+    @SerializedName("comment_text") val text_comments: String,
     @SerializedName("data_create") val data_create: String
 )
 
