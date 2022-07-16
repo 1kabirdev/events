@@ -8,7 +8,7 @@ abstract class LinearEndlessScrollEventListener(
 ) :
     RecyclerView.OnScrollListener() {
 
-    private val visibleThreshold = 20
+    private val visibleThreshold = 50
     private var previousTotalItemCount = 0
     private var loading = true
     private var totalItemCount = 0

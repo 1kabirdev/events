@@ -1,9 +1,11 @@
 package com.events.ui.comments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Adapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +19,14 @@ import com.events.ui.comments.adapter.AdapterComments
 import com.events.ui.comments.send_commentImpl.SendCommentContract
 import com.events.ui.comments.send_commentImpl.SendCommentPresenter
 import com.events.ui.login.LoginPresenter
+import com.events.ui.organizer.OrganizerActivity
 import com.events.utill.Constants
 import com.events.utill.LinearEndlessScrollEventListener
 import com.events.utill.PreferencesManager
 import java.util.Date
 
-class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendCommentContract.View {
+class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendCommentContract.View,
+    AdapterComments.AdapterCommentOnClickListener {
 
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var endlessScrollEventListener: LinearEndlessScrollEventListener
@@ -31,11 +35,10 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
     private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: ActivityCommentsBinding
     private lateinit var event_id: String
-    private var adapterComments = AdapterComments()
+    private lateinit var adapterComments: AdapterComments
     private var countComments: Int = 0
     private var isLoading = false
     private var isLastPage = false
-    private var countPage = 0
     private val PAGE_START = 1
     private var currentPage: Int = PAGE_START
 
@@ -54,12 +57,13 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
         presenter = CommentsPresenter((applicationContext as App).dataManager)
         presenter.attachView(this)
         presenter.responseLoadComments(event_id.toInt(), PAGE_START)
-
+        adapterComments = AdapterComments(this)
 
         layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewComments.layoutManager = layoutManager
         setEndlessScrollEventListener()
         binding.recyclerViewComments.addOnScrollListener(endlessScrollEventListener)
+
 
         onClickListener()
     }
@@ -71,9 +75,8 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
                 layoutManager
             ) {
                 override fun onLoadMore(recyclerView: RecyclerView?) {
-                    if (countPage != null) {
-                        isLoading = true
-                        currentPage += 1
+                    isLoading = true
+                    if (currentPage != 0) {
                         presenter.responseLoadCommentsPage(event_id.toInt(), currentPage)
                     }
                 }
@@ -127,10 +130,10 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
             countComments = info.count_comments
             binding.countComment.text = countComments.toString()
         }
-        countPage = info.count_page
+        currentPage = info.next_page
         adapterComments.addComments(commentsList)
         binding.recyclerViewComments.adapter = adapterComments
-        if (currentPage == info.count_page) adapterComments.addLoadingFooter(true) else isLastPage =
+        if (currentPage <= info.count_page) adapterComments.addLoadingFooter(true) else isLastPage =
             true
 
     }
@@ -175,5 +178,11 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
         sendPresenter.detachView()
         presenter.detachView()
         super.onDestroy()
+    }
+
+    override fun onClickUser(user_id: Int) {
+        val intent = Intent(this, OrganizerActivity::class.java)
+        intent.putExtra("USER_ID", user_id.toString())
+        startActivity(intent)
     }
 }

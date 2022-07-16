@@ -8,8 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.events.databinding.ItemListCommentsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.model.comments.CommentsList
+import com.events.utill.Constants
+import com.events.utill.PreferencesManager
 
-class AdapterComments : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AdapterComments(
+    var listener: AdapterCommentOnClickListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var commentsList: MutableList<CommentsList> = arrayListOf()
 
@@ -83,14 +87,34 @@ class AdapterComments : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class ItemViewHolder(val binding: ItemListCommentsBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        var preferencesManager = PreferencesManager(itemView.context)
+
         @SuppressLint("SetTextI18n")
         fun bindView(comment: CommentsList) {
             with(binding) {
-                usernameComments.text = "@${comment.username}"
+                if (comment.username == preferencesManager.getString(Constants.USERNAME))
+                    usernameComments.text = "Вы"
+                else usernameComments.text = "@${comment.username}"
                 textViewComments.text = comment.text_comments
+
+                usernameComments.setOnClickListener {
+                    if (!preferencesManager.getBoolean(Constants.SIGN_UP)) {
+                        listener.onClickUser(comment.user_id)
+                    } else {
+                        if (comment.user_id != preferencesManager.getString(Constants.USER_ID)
+                                .toInt()
+                        ) {
+                            listener.onClickUser(comment.user_id)
+                        }
+                    }
+                }
             }
         }
     }
 
     override fun getItemCount(): Int = commentsList.size
+
+    interface AdapterCommentOnClickListener {
+        fun onClickUser(user_id: Int)
+    }
 }

@@ -2,6 +2,7 @@ package com.events.ui.event
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,7 @@ import com.events.App
 import com.events.databinding.ActivityMyEventsBinding
 import com.events.model.events.Events
 import com.events.model.events.User
+import com.events.ui.comments.CommentsActivity
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import com.squareup.picasso.Picasso
@@ -52,12 +54,20 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
 
     @SuppressLint("SetTextI18n")
     override fun getLoadData(events: Events, user: User) {
-        Picasso.get().load(events.getImageE()).into(binding.expandedImage)
-        binding.nameEvents.text = events.getNameE()
-        binding.textDateAndTimeEventView.text = "${events.getDataE()} в ${events.getTimeE()}"
-        binding.textAddressEventView.text = events.getCityE()
-        binding.textThemeEventView.text = events.getThemeE()
-        binding.textDescEventView.text = events.getDescE()
+        with(binding) {
+            Picasso.get().load(events.getImageE()).into(expandedImage)
+            nameEvents.text = events.getNameE()
+            textDateAndTimeEventView.text = "${events.getDataE()} в ${events.getTimeE()}"
+            textAddressEventView.text = events.getCityE()
+            textThemeEventView.text = events.getThemeE()
+            textDescEventView.text = events.getDescE()
+
+            btnDiscussEvents.setOnClickListener {
+                val intent = Intent(this@MyEventsActivity, CommentsActivity::class.java)
+                intent.putExtra("EVENT_ID", eventId)
+                startActivity(intent)
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
