@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.events.App
 import com.events.databinding.ActivityMyEventsBinding
 import com.events.model.events.Events
@@ -55,7 +56,7 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
     @SuppressLint("SetTextI18n")
     override fun getLoadData(events: Events, user: User) {
         with(binding) {
-            Picasso.get().load(events.getImageE()).into(expandedImage)
+            Glide.with(this@MyEventsActivity).load(events.getImageE()).into(imageEventsView)
             nameEvents.text = events.getNameE()
             textDateAndTimeEventView.text = "${events.getDataE()} в ${events.getTimeE()}"
             textAddressEventView.text = events.getCityE()

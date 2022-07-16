@@ -56,7 +56,7 @@ class OrganizerPresenter(private var dataManager: DataManager) :
                     it.showProgressBarEvent(false)
                     if (response.isSuccessful) {
                         response.body()?.let { res ->
-                            it.getLoadEventsOrganizer(res.getResponse())
+                            it.getLoadEventsOrganizer(res.response)
                         }
                     }
                 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.events.App
 import com.events.databinding.ActivityEventsBinding
 import com.events.model.events.Events
@@ -38,7 +39,7 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
             Picasso.get().load(user.getAvatar()).into(avatarProfileView)
             textUserNameProfile.text = "@" + user.getUsername()
             textLastNameProfile.text = user.getLastName()
-            Picasso.get().load(events.getImageE()).into(imageEventsView)
+            Glide.with(this@EventsActivity).load(events.getImageE()).into(imageEventsView)
             nameEvents.text = events.getNameE()
             textDateAndTimeEventView.text = "${events.getDataE()} в ${events.getTimeE()}"
             textAddressEventView.text = events.getCityE()
