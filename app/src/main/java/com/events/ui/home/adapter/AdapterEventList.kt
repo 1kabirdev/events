@@ -4,12 +4,18 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.text.format.DateUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.events.R
+import com.events.databinding.ItemListCommentsBinding
 import com.events.databinding.ItemListEventsBinding
+import com.events.databinding.ItemLoadingViewBinding
+import com.events.model.comments.CommentsList
 import com.events.model.list_events.ListEvents
+import com.events.ui.comments.adapter.AdapterComments
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
 import com.events.utill.Constants
@@ -18,28 +24,77 @@ import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AdapterEventList(private var events: ArrayList<ListEvents>) :
-    RecyclerView.Adapter<AdapterEventList.ViewHolder>() {
+class AdapterEventList(
+    private var listener: OnClickListener
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            ItemListEventsBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    private var eventsList: MutableList<ListEvents> = arrayListOf()
+    private var isLoadingAdded = false
+
+    fun addComments(event: ArrayList<ListEvents>) {
+        eventsList.addAll(event)
+        notifyItemInserted(eventsList.size - 1)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindLoad(events[position])
+    fun addLoadingFooter(show: Boolean) {
+        isLoadingAdded = show
     }
 
-    override fun getItemCount(): Int {
-        return events.size
+    companion object {
+        const val ITEM = 0
+        const val LOADING = 1
     }
 
-    inner class ViewHolder(val binding: ItemListEventsBinding) :
+    override fun getItemViewType(position: Int): Int {
+        return if (position == eventsList.size - 1 && isLoadingAdded) LOADING
+        else ITEM
+    }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        var viewHolder: RecyclerView.ViewHolder? = null
+        when (viewType) {
+            LOADING -> {
+                val viewLoading = ItemLoadingViewBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                viewHolder = LoadingViewHolder(viewLoading)
+            }
+            ITEM -> {
+                val binding = ItemListEventsBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                viewHolder = ItemEventViewHolder(binding)
+            }
+        }
+        return viewHolder!!
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            LOADING -> {
+                val loadingViewHolder = holder as LoadingViewHolder
+                loadingViewHolder.binding.progressViewComment.visibility = View.VISIBLE
+            }
+            ITEM -> {
+                val event = eventsList[position]
+                val viewHolderEvent = holder as ItemEventViewHolder
+                viewHolderEvent.bindLoad(event)
+            }
+        }
+    }
+
+    override fun getItemCount(): Int = eventsList.size
+
+    inner class LoadingViewHolder(val binding: ItemLoadingViewBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class ItemEventViewHolder(val binding: ItemListEventsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private var dateAndTime: Calendar = Calendar.getInstance()
         private val preferencesManager = PreferencesManager(itemView.context)
@@ -47,33 +102,31 @@ class AdapterEventList(private var events: ArrayList<ListEvents>) :
         @SuppressLint("SetTextI18n")
         fun bindLoad(eventsList: ListEvents) {
             with(binding) {
-                textNameEvent.text = eventsList.getNameE()
-                textDateAndTime.text = "${eventsList.getDataE()} в ${eventsList.getTimeE()}"
-                Picasso.get().load(eventsList.getImageE()).into(imageEvents)
-                textCityEvents.text = eventsList.getCityE()
-                textTheme.text = eventsList.getThemeE()
+                textNameEvent.text = eventsList.nameE
+                textDateAndTime.text = "${eventsList.dataE} в ${eventsList.timeE}"
+                Glide.with(itemView.context).load(eventsList.imageE).into(imageEvents)
+                textCityEvents.text = eventsList.cityE
+                textTheme.text = eventsList.themeE
 
-                if (eventsList.getCostE() != "" && eventsList.getCostE() != "0") textCost.text =
-                    "${eventsList.getCostE()} р"
+                if (eventsList.costE != "" && eventsList.costE != "0") textCost.text =
+                    "${eventsList.costE} р"
                 else textCost.text = "Бесплатно."
 
 
                 itemView.setOnClickListener {
-                    if (preferencesManager.getString(Constants.USER_ID) != eventsList.getUser()!!
-                            .getUserId()
+                    if (preferencesManager.getString(Constants.USER_ID) != eventsList.user!!
+                            .userId
                     ) {
-                        val intent = Intent(itemView.context, EventsActivity::class.java)
-                        intent.putExtra("EVENTS_ID", eventsList.getIdE())
-                        intent.putExtra("USER_ID", eventsList.getUser()!!.getUserId())
-                        it.context.startActivity(intent)
+                        listener.onClickEvent(
+                            eventsList.idE.toInt(),
+                            eventsList.user!!.userId.toInt()
+                        )
                     } else {
-                        val intent = Intent(itemView.context, MyEventsActivity::class.java)
-                        intent.putExtra("EVENTS_ID", eventsList.getIdE())
-                        it.context.startActivity(intent)
+                        listener.onClickMyEvent(eventsList.idE.toInt())
                     }
                 }
 
-                if (eventsList.getDataE() < getInitialDate() || eventsList.getTimeE() < getInitialTime()) {
+                if (eventsList.dataE < getInitialDate() && eventsList.timeE < getInitialTime()) {
                     closeEvents.text = "Не активен"
                 } else {
                     closeEvents.text = "Активен"
@@ -100,5 +153,10 @@ class AdapterEventList(private var events: ArrayList<ListEvents>) :
                 dateAndTime.timeInMillis, DateUtils.FORMAT_SHOW_TIME
             )
         }
+    }
+
+    interface OnClickListener {
+        fun onClickEvent(event_id: Int, user_id: Int)
+        fun onClickMyEvent(event_id: Int)
     }
 }

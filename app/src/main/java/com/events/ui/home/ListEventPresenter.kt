@@ -10,10 +10,11 @@ import retrofit2.Response
 class ListEventPresenter(private var dataManager: DataManager) :
     BasePresenter<ListEventController.View>(), ListEventController.Presenter {
     private lateinit var call: Call<ResponseListEvents>
-    override fun responseEvents(city: String) {
+
+    override fun responseEvents(page: Int) {
         mvpView?.let {
             it.showProgress(true)
-            call = dataManager.loadListEvents(city)
+            call = dataManager.loadListEvents(page)
             call.enqueue(object : Callback<ResponseListEvents> {
                 override fun onResponse(
                     call: Call<ResponseListEvents>,
@@ -22,7 +23,10 @@ class ListEventPresenter(private var dataManager: DataManager) :
                     it.showProgress(false)
                     if (response.isSuccessful) {
                         response.body()?.let { res ->
-                            it.getLoadEvent(res.getResponse())
+                            it.getLoadEvent(
+                                res.infoEvents,
+                                res.response
+                            )
                         }
                     }
                 }
@@ -35,9 +39,9 @@ class ListEventPresenter(private var dataManager: DataManager) :
         }
     }
 
-    override fun responseEventsFilter(city: String) {
+    override fun responseEventsPage(page: Int) {
         mvpView?.let {
-            call = dataManager.loadListEvents(city)
+            call = dataManager.loadListEvents(page)
             call.enqueue(object : Callback<ResponseListEvents> {
                 override fun onResponse(
                     call: Call<ResponseListEvents>,
@@ -45,14 +49,15 @@ class ListEventPresenter(private var dataManager: DataManager) :
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let { res ->
-                            it.getLoadEvent(res.getResponse())
+                            it.getLoadEventPage(
+                                res.infoEvents,
+                                res.response
+                            )
                         }
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseListEvents>, t: Throwable) {
-                    it.noConnection()
-                }
+                override fun onFailure(call: Call<ResponseListEvents>, t: Throwable) {}
             })
         }
     }

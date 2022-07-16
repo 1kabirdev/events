@@ -56,7 +56,9 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
 
         presenter = CommentsPresenter((applicationContext as App).dataManager)
         presenter.attachView(this)
+
         presenter.responseLoadComments(event_id.toInt(), PAGE_START)
+
         adapterComments = AdapterComments(this)
 
         layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -133,7 +135,7 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
         currentPage = info.next_page
         adapterComments.addComments(commentsList)
         binding.recyclerViewComments.adapter = adapterComments
-        if (currentPage <= info.count_page) adapterComments.addLoadingFooter(true) else isLastPage =
+        if (info.next_page != 0) adapterComments.addLoadingFooter(true) else isLastPage =
             true
 
     }
@@ -143,10 +145,11 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
             countComments = info.count_comments
             binding.countComment.text = countComments.toString()
         }
+        currentPage = info.next_page
         adapterComments.addComments(commentsList)
         isLoading = false
         adapterComments.addLoadingFooter(false)
-        if (currentPage == info.count_page) adapterComments.addLoadingFooter(true) else isLastPage =
+        if (info.next_page != 0) adapterComments.addLoadingFooter(true) else isLastPage =
             true
     }
 

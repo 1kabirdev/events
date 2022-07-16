@@ -21,7 +21,7 @@ class AdapterComments(
 
     fun addComments(comment: ArrayList<CommentsList>) {
         commentsList.addAll(comment)
-        notifyItemInserted(commentsList.size)
+        notifyItemInserted(commentsList.size - 1)
     }
 
     @SuppressLint("NotifyDataSetChanged")

@@ -70,7 +70,7 @@ interface Api {
 
     @GET("list_events.php")
     fun loadListEvents(
-        @Query("city") city: String
+        @Query("page") page: Int
     ): Call<ResponseListEvents>
 
     @GET("events.php")

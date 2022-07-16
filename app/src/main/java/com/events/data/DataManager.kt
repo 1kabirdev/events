@@ -65,8 +65,8 @@ class DataManager {
         return api.loadMyEvents(user_id, limit)
     }
 
-    fun loadListEvents(city: String): Call<ResponseListEvents> {
-        return api.loadListEvents(city)
+    fun loadListEvents(page: Int): Call<ResponseListEvents> {
+        return api.loadListEvents(page)
     }
 
     fun loadEvents(user_id: String, event_id: String): Call<ResponseEvents> {
