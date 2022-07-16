@@ -134,8 +134,8 @@
                 android:id="@+id/aboutOrganizer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_regular"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/manrope_regular"
                 android:hint="Отсутствует"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -203,7 +203,7 @@
                 android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/viewLineOrganizer">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/icon_now_event_User"
                     android:layout_width="66dp"
                     android:layout_height="66dp"
@@ -219,7 +219,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/spectral_sc_medium"
                     android:gravity="center"
-                    android:text="Здесь будут отображаться\nваши события"
+                    android:text="Здесь будут отображаться\nМероприятия"
                     android:textColor="#5A5A5A"
                     android:textSize="14sp"
                     app:layout_constraintLeft_toLeftOf="parent"

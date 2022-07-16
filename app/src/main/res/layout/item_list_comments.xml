@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="16dp"
-    android:paddingTop="16dp"
+    android:paddingTop="8dp"
     android:paddingEnd="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_bold"
             android:hint="username"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
             android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,10 +29,12 @@
             android:id="@+id/textViewComments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textColor="@color/black"
             android:fontFamily="@font/manrope_regular"
             android:hint="text comment"
+            android:paddingTop="4dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@+id/usernameComments" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

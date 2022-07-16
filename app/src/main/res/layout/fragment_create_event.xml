@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="#FDFDFF"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FDFDFF">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FDFDFF"
-        app:elevation="1dp">
+        app:elevation="1dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -46,20 +47,19 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:paddingBottom="26dp"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            android:paddingBottom="26dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardViewImage"
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
+                android:layout_height="360dp"
                 app:cardBackgroundColor="#F3F3F3"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="0dp"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -70,18 +70,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/manrope_regular"
-                    android:text="Выберите фото"
+                    android:fontFamily="@font/manrope_medium"
+                    android:text="Выберите фотографию"
                     android:textColor="#60001E4A" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/deleteImageSelected"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:background="@drawable/shape_btn_del_image"
                     android:padding="10dp"
-                    android:src="@drawable/ic_delete_image"
+                    android:src="@drawable/ic_delete_event"
                     android:visibility="gone" />
             </com.google.android.material.card.MaterialCardView>
 
@@ -92,8 +92,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_event"
-                android:fontFamily="@font/manrope_regular"
+                android:background="@drawable/shape_edit_text_bkg"
+                android:fontFamily="@font/manrope_medium"
                 android:hint="Название"
                 android:inputType="text"
                 android:paddingStart="16dp"
@@ -109,8 +109,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_event"
-                android:fontFamily="@font/manrope_regular"
+                android:background="@drawable/shape_edit_text_bkg"
+                android:fontFamily="@font/manrope_medium"
                 android:gravity="top"
                 android:hint="Описание"
                 android:inputType="textMultiLine"
@@ -144,7 +144,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_event"
+                android:background="@drawable/shape_edit_text_bkg"
                 android:padding="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/titleBeginning">
 
@@ -152,9 +152,9 @@
                     android:id="@+id/titleDateCreate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/manrope_regular"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="Дата проведения:"
-                    android:textColor="#80001E4A"
+                    android:textColor="#66000000"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -165,9 +165,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/manrope_regular"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="Указать дату"
-                    android:textColor="#001E4A"
+                    android:textColor="#000000"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -182,7 +182,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_event"
+                android:background="@drawable/shape_edit_text_bkg"
                 android:padding="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/constraintDateCreateEvents">
 
@@ -190,9 +190,9 @@
                     android:id="@+id/titleTimeCreate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/manrope_regular"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="Время проведения:"
-                    android:textColor="#80001E4A"
+                    android:textColor="#66000000"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -203,9 +203,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/manrope_regular"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="Указать время"
-                    android:textColor="#001E4A"
+                    android:textColor="#000000"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -220,9 +220,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-
-                android:background="@drawable/shape_edit_text_event"
-                android:fontFamily="@font/manrope_regular"
+                android:background="@drawable/shape_edit_text_bkg"
+                android:fontFamily="@font/manrope_medium"
                 android:hint="Тема мероприятии"
                 android:inputType="text"
                 android:paddingStart="16dp"
@@ -238,8 +237,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_event"
-                android:fontFamily="@font/manrope_regular"
+                android:background="@drawable/shape_edit_text_bkg"
+                android:fontFamily="@font/manrope_medium"
                 android:hint="Город"
                 android:inputType="text"
                 android:paddingStart="16dp"
@@ -256,8 +255,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_event"
-                android:fontFamily="@font/manrope_regular"
+                android:background="@drawable/shape_edit_text_bkg"
+                android:fontFamily="@font/manrope_medium"
                 android:hint="Стоимость"
                 android:inputType="number"
                 android:paddingStart="16dp"
@@ -283,7 +282,7 @@
                     android:layout_height="40dp"
                     android:layout_weight="2"
                     android:background="@drawable/shape_btn_bkg"
-                    android:fontFamily="@font/manrope_regular"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="Создать мероприятие"
                     android:textAllCaps="false"
                     android:textColor="#fff"
@@ -296,7 +295,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/manrope_regular"
+                    android:fontFamily="@font/manrope_medium"
                     android:text="Очистить"
                     android:textAllCaps="false"
                     android:textColor="#001E4A"
@@ -305,4 +304,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
