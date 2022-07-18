@@ -1,13 +1,13 @@
 package com.events.ui.profile
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.events.App
 import com.events.MainActivity
 import com.events.adapter.AdapterMyEvents
@@ -19,17 +19,24 @@ import com.events.ui.bottom_sheet.InfoProfileBottomSheet
 import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.login.LoginUserFragment
 import com.events.utill.Constants
+import com.events.utill.LinearEventEndlessScrollEventListener
 import com.events.utill.PreferencesManager
 import com.squareup.picasso.Picasso
 
-class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomSheet.OnClickListener {
+class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomSheet.OnClickListener,
+    AdapterMyEvents.OnClickListener {
 
     private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: FragmentProfileBinding
     private lateinit var presenter: ProfilePresenter
     private lateinit var adapterMyEvents: AdapterMyEvents
-    private val START_PAGE: Int = 1
-    private var current_page = START_PAGE + 1
+    private lateinit var endlessScrollEventListener: LinearEventEndlessScrollEventListener
+    private lateinit var layoutManager: LinearLayoutManager
+    private var errorFailed = false
+    private var isLoading = false
+    private var isLastPage = false
+    private val PAGE_START = 1
+    private var currentPage: Int = PAGE_START
     var user: ProfileData? = null
 
     override fun onCreateView(
@@ -48,28 +55,47 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         presenter.attachView(this)
         presenter.responseLoadDataProfile(
             preferencesManager.getString(Constants.USER_ID),
-            START_PAGE
+            PAGE_START
         )
         with(binding) {
-            btnClickEditProfile.setOnClickListener {
-                val intent = Intent(requireContext(), EditProfileActivity::class.java)
-                intent.putExtra("AVATAR", user!!.avatar)
-                intent.putExtra("USERNAME", user!!.username)
-                intent.putExtra("LASTNAME", user!!.last_name)
-                intent.putExtra("ABOUT", user!!.about)
-                startActivity(intent)
-            }
 
-            btnAddEvents.setOnClickListener {
+            toolbarProfile.btnAddEvents.setOnClickListener {
                 (requireActivity() as MainActivity).getOnCreateEvents()
             }
 
-            btnMoreProfile.setOnClickListener {
-                (requireActivity() as MainActivity).createDialogFragment(
-                    InfoProfileBottomSheet(this@ProfileFragment, this@ProfileFragment)
+            btnReplyProfile.setOnClickListener {
+                presenter.responseLoadDataProfile(
+                    preferencesManager.getString(Constants.USER_ID),
+                    PAGE_START
                 )
             }
+
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerViewEvents.layoutManager = layoutManager
+            setEndlessScrollEventListener()
+            recyclerViewEvents.addOnScrollListener(endlessScrollEventListener)
         }
+    }
+
+
+    private fun setEndlessScrollEventListener() {
+        endlessScrollEventListener =
+            object : LinearEventEndlessScrollEventListener(
+                layoutManager
+            ) {
+                override fun onLoadMore(recyclerView: RecyclerView?) {
+                    recyclerView.apply {
+                        isLoading = true
+                        if (currentPage != 0) {
+                            presenter.responseLoadDataPage(
+                                preferencesManager.getString(Constants.USER_ID),
+                                currentPage
+                            )
+                        }
+                    }
+                }
+            }
     }
 
     fun getLogoutAccount() {
@@ -77,16 +103,11 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         (requireContext() as MainActivity).setCurrentFragment(LoginUserFragment())
     }
 
-    @SuppressLint("SetTextI18n")
     override fun getLoadData(
         profileData: ProfileData,
         infoPage: InfoPage,
         eventsList: ArrayList<ResponseEvents>
     ) {
-        Picasso.get().load(profileData.avatar).into(binding.avatarProfile)
-        binding.usernameProfile.text = "@${profileData.username}"
-        binding.lastNameProfile.text = profileData.last_name
-        binding.aboutProfile.text = profileData.about
 
         user = ProfileData(
             preferencesManager.getString(Constants.USER_ID),
@@ -97,36 +118,57 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
             profileData.about,
             profileData.create_data
         )
+        currentPage = infoPage.next_page
+        adapterMyEvents = AdapterMyEvents(eventsList, this@ProfileFragment)
+        adapterMyEvents.profile(profileData)
+        adapterMyEvents.infoPage(infoPage.count_event)
+        with(binding) {
 
-        adapterMyEvents = AdapterMyEvents(eventsList)
-        if (eventsList.size != 0) {
-            binding.titleEvents.text = "Мероприятия (${eventsList.size})"
-            binding.recyclerViewEvents.adapter = adapterMyEvents
-        } else {
-            binding.constraintRecyclerView.visibility = View.GONE
-            binding.constraintNotEvents.visibility = View.VISIBLE
+            recyclerViewEvents.adapter = adapterMyEvents
+
+            /**
+             * menu toolbar
+             */
+            toolbarProfile.btnMoreProfile.setOnClickListener {
+                (requireActivity() as MainActivity).createDialogFragment(
+                    InfoProfileBottomSheet(this@ProfileFragment, this@ProfileFragment)
+                )
+            }
         }
+        if (infoPage.next_page != 0)
+            if (currentPage <= infoPage.count_page) adapterMyEvents.addLoadingFooter() else isLastPage =
+                true
+    }
+
+    override fun getLoadDataPage(infoPage: InfoPage, eventsList: ArrayList<ResponseEvents>) {
+        currentPage = infoPage.next_page
+        adapterMyEvents.addAll(eventsList)
+        isLoading = false
+        adapterMyEvents.removeLoadingFooter()
+        if (infoPage.next_page != 0)
+            if (currentPage != infoPage.count_page) adapterMyEvents.addLoadingFooter() else isLastPage =
+                true
     }
 
     override fun progressBar(show: Boolean) {
         if (show) {
-            binding.nestedScrollViewProfile.visibility = View.GONE
+            binding.constraintConnection.visibility = View.GONE
             binding.progressBarEventView.visibility = View.VISIBLE
         } else {
-            binding.nestedScrollViewProfile.visibility = View.VISIBLE
+            binding.constraintConnection.visibility = View.GONE
             binding.progressBarEventView.visibility = View.GONE
         }
     }
 
     override fun noConnection() {
-        binding.nestedScrollViewProfile.visibility = View.GONE
         binding.progressBarEventView.visibility = View.GONE
-        binding.noConnectionView.visibility = View.VISIBLE
-        Toast.makeText(
-            requireContext(),
-            "Проверьте подключение интернета.",
-            Toast.LENGTH_SHORT
-        ).show()
+        binding.constraintConnection.visibility = View.VISIBLE
+    }
+
+    override fun noConnectPage() {
+        errorFailed = true
+        adapterMyEvents.removeLoadingFooter()
+        adapterMyEvents.showRetry(true)
     }
 
     override fun onClickEdit() {
@@ -136,6 +178,25 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         intent.putExtra("LASTNAME", user!!.last_name)
         intent.putExtra("ABOUT", user!!.about)
         startActivity(intent)
+    }
+
+    override fun onClickUserEdit(profileData: ProfileData) {
+        val intent = Intent(requireContext(), EditProfileActivity::class.java)
+        intent.putExtra("AVATAR", profileData.avatar)
+        intent.putExtra("USERNAME", profileData.username)
+        intent.putExtra("LASTNAME", profileData.last_name)
+        intent.putExtra("ABOUT", profileData.about)
+        startActivity(intent)
+    }
+
+    override fun OnClickReply() {
+        errorFailed = false
+        adapterMyEvents.showRetry(false)
+        adapterMyEvents.addLoadingFooter()
+        presenter.responseLoadDataPage(
+            preferencesManager.getString(Constants.USER_ID),
+            currentPage
+        )
     }
 
 }

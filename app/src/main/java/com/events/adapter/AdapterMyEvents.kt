@@ -10,34 +10,143 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.events.R
+import com.events.databinding.ItemErrorConnectionViewBinding
 import com.events.databinding.ItemListMyEventsBinding
+import com.events.databinding.ItemLoadingViewBinding
+import com.events.databinding.ItemProfileBinding
 import com.events.model.my_events.MyEventsList
+import com.events.model.profile.InfoPage
+import com.events.model.profile.ProfileData
 import com.events.model.profile.ResponseEvents
 import com.events.ui.event.MyEventsActivity
 import com.squareup.picasso.Picasso
 
-class AdapterMyEvents(private var events: ArrayList<ResponseEvents>) :
-    RecyclerView.Adapter<AdapterMyEvents.ViewHolder>() {
+class AdapterMyEvents(
+    private var events: ArrayList<ResponseEvents>,
+    private var listener: OnClickListener
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterMyEvents.ViewHolder {
-        return ViewHolder(
-            ItemListMyEventsBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-        )
+    private var profileData: ProfileData? = null
+    private var countEvent = 0
+    private var isLoadingAdded = false
+    private var errorFailed = false
+
+    fun addLoadingFooter() {
+        isLoadingAdded = true
     }
 
-    override fun onBindViewHolder(holder: AdapterMyEvents.ViewHolder, position: Int) {
-        val eventsLite = events[position]
-        holder.bindLoad(eventsLite)
+    fun removeLoadingFooter() {
+        isLoadingAdded = false
     }
 
-    override fun getItemCount(): Int = events.size
+    fun addAll(wishlist: ArrayList<ResponseEvents>) {
+        events.addAll(wishlist)
+        notifyItemInserted(events.size - 1)
+    }
 
-    inner class ViewHolder(val binding: ItemListMyEventsBinding) :
+    fun profile(profileData: ProfileData) {
+        this.profileData = profileData
+    }
+
+    fun infoPage(countEvent: Int) {
+        this.countEvent = countEvent
+    }
+
+    /**
+     * Функция для отображаения ошибки при отсутствии интернета
+     */
+    fun showRetry(show: Boolean) {
+        errorFailed = show
+        notifyItemChanged(events.size)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (isPositionHeader(position)) PROFILE
+        else if (position == events.size && errorFailed) ERROR_CONNECT
+        else if (position == events.size && isLoadingAdded) LOADING
+        else ITEM_EVENTS
+    }
+
+    private fun isPositionHeader(position: Int): Boolean = position == 0
+
+    companion object {
+        const val ITEM_EVENTS = 0
+        const val LOADING = 1
+        const val PROFILE = 2
+        const val ERROR_CONNECT = 3
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        var viewHolder: RecyclerView.ViewHolder? = null
+        when (viewType) {
+            LOADING -> {
+                val loadingViewHolder = ItemLoadingViewBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                viewHolder = LoadingViewHolder(loadingViewHolder)
+            }
+            ITEM_EVENTS -> {
+                val itemEventsHolder = ItemListMyEventsBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                viewHolder = EventsViewHolder(itemEventsHolder)
+            }
+
+            PROFILE -> {
+                val profileViewHolder = ItemProfileBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                viewHolder = ProfileViewHolder(profileViewHolder)
+            }
+
+            ERROR_CONNECT -> {
+                val errorConnection = ItemErrorConnectionViewBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                viewHolder = ErrorConnectionViewHolder(errorConnection)
+            }
+        }
+        return viewHolder!!
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            LOADING -> {
+                val loadingViewHolder = holder as LoadingViewHolder
+                loadingViewHolder.binding.progressViewComment.visibility = View.VISIBLE
+            }
+
+            ITEM_EVENTS -> {
+                val event = events[position - 1]
+                val eventViewHolder = holder as EventsViewHolder
+                eventViewHolder.bindLoad(event)
+            }
+
+            PROFILE -> {
+                val profileViewHolder = holder as ProfileViewHolder
+                profileViewHolder.bindViewProfile(profileData!!)
+            }
+
+            ERROR_CONNECT -> {
+                val errorConnectViewHolder = holder as ErrorConnectionViewHolder
+                errorConnectViewHolder.binding.notConnection.visibility = View.VISIBLE
+                errorConnectViewHolder.binding.btnReplyProfile.setOnClickListener {
+                    listener.OnClickReply()
+                }
+            }
+        }
+    }
+
+    override fun getItemCount(): Int = events.size + 1
+
+    inner class EventsViewHolder(val binding: ItemListMyEventsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
         fun bindLoad(eventsList: ResponseEvents) {
             with(binding) {
                 textNameEvent.text = eventsList.nameE
@@ -57,5 +166,33 @@ class AdapterMyEvents(private var events: ArrayList<ResponseEvents>) :
                 }
             }
         }
+    }
+
+    inner class ProfileViewHolder(val binding: ItemProfileBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindViewProfile(profileData: ProfileData) {
+            with(binding) {
+                textViewCountEvent.text = countEvent.toString()
+                Glide.with(itemView.context).load(profileData.avatar).into(avatarProfile)
+                usernameProfile.text = "@${profileData.username}"
+                aboutProfile.text = profileData.about
+                lastNameProfile.text = profileData.last_name
+                btnClickEditProfile.setOnClickListener {
+                    listener.onClickUserEdit(profileData)
+                }
+            }
+        }
+    }
+
+    inner class LoadingViewHolder(val binding: ItemLoadingViewBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class ErrorConnectionViewHolder(val binding: ItemErrorConnectionViewBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+
+    interface OnClickListener {
+        fun onClickUserEdit(profileData: ProfileData)
+        fun OnClickReply()
     }
 }

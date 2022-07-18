@@ -13,11 +13,18 @@ interface ProfileController {
             eventsList: ArrayList<ResponseEvents>
         )
 
+        fun getLoadDataPage(
+            infoPage: InfoPage,
+            eventsList: ArrayList<ResponseEvents>
+        )
+
         fun progressBar(show: Boolean)
         fun noConnection()
+        fun noConnectPage()
     }
 
     interface Presenter : MvpView {
         fun responseLoadDataProfile(user_id: String, page: Int)
+        fun responseLoadDataPage(user_id: String, page: Int)
     }
 }

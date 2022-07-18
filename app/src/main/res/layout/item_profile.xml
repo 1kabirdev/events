@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="26dp"
+    android:paddingBottom="26dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutInfoProfile"
@@ -112,15 +114,34 @@
         android:background="#ECECEC"
         app:layout_constraintTop_toBottomOf="@+id/btnClickEditProfile" />
 
-    <TextView
-        android:layout_width="match_parent"
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/manrope_medium"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="Мои мероприятия"
-        android:textSize="13sp"
-        app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
+            android:gravity="center_vertical"
+            android:text="Мои мероприятия"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/textViewCountEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/manrope_bold"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
