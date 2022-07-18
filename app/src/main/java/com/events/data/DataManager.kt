@@ -37,8 +37,8 @@ class DataManager {
     }
 
 
-    fun loadEventOrganizer(user_id: String, limit: String): Call<ResponseListEvents> {
-        return api.loadListEventsOrganizer(user_id, limit)
+    fun loadEventOrganizer(user_id: String, page: String): Call<ResponseListEvents> {
+        return api.loadListEventsOrganizer(user_id, page)
     }
 
     fun createEvents(
@@ -57,12 +57,8 @@ class DataManager {
         )
     }
 
-    fun getLoadInfoProfile(token: String): Call<ResponseInfoProfile> {
-        return api.loadDataProfile(token)
-    }
-
-    fun loadMyEvents(user_id: String, limit: String): Call<ResponseMyEvents> {
-        return api.loadMyEvents(user_id, limit)
+    fun getLoadInfoProfile(user_id: String,page:Int): Call<ResponseInfoProfile> {
+        return api.loadDataProfile(user_id, page)
     }
 
     fun loadHomeListEvents(page: Int): Call<ResponseListEvents> {

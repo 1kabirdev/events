@@ -12,8 +12,9 @@ import com.events.App
 import com.events.MainActivity
 import com.events.adapter.AdapterMyEvents
 import com.events.databinding.FragmentProfileBinding
-import com.events.model.my_events.MyEventsList
-import com.events.model.profile.ResponseInfoProfile
+import com.events.model.profile.InfoPage
+import com.events.model.profile.ProfileData
+import com.events.model.profile.ResponseEvents
 import com.events.ui.bottom_sheet.InfoProfileBottomSheet
 import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.login.LoginUserFragment
@@ -27,8 +28,9 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
     private lateinit var binding: FragmentProfileBinding
     private lateinit var presenter: ProfilePresenter
     private lateinit var adapterMyEvents: AdapterMyEvents
-    private val limitEvent: Int = 10
-    var user: ResponseInfoProfile? = null
+    private val START_PAGE: Int = 1
+    private var current_page = START_PAGE + 1
+    var user: ProfileData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +46,10 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
 
         presenter = ProfilePresenter((view.context.applicationContext as App).dataManager)
         presenter.attachView(this)
-
+        presenter.responseLoadDataProfile(
+            preferencesManager.getString(Constants.USER_ID),
+            START_PAGE
+        )
         with(binding) {
             btnClickEditProfile.setOnClickListener {
                 val intent = Intent(requireContext(), EditProfileActivity::class.java)
@@ -58,19 +63,13 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
             btnAddEvents.setOnClickListener {
                 (requireActivity() as MainActivity).getOnCreateEvents()
             }
-        }
-        binding.btnMoreProfile.setOnClickListener {
-            (requireActivity() as MainActivity).createDialogFragment(
-                InfoProfileBottomSheet(this, this)
-            )
-        }
 
-
-        presenter.responseLoadDataProfile(preferencesManager.getString(Constants.TOKEN))
-        presenter.responseLoadMyEvents(
-            preferencesManager.getString(Constants.USER_ID),
-            limitEvent.toString()
-        )
+            btnMoreProfile.setOnClickListener {
+                (requireActivity() as MainActivity).createDialogFragment(
+                    InfoProfileBottomSheet(this@ProfileFragment, this@ProfileFragment)
+                )
+            }
+        }
     }
 
     fun getLogoutAccount() {
@@ -80,26 +79,25 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
 
     @SuppressLint("SetTextI18n")
     override fun getLoadData(
-        username: String,
-        avatar: String,
-        phone: String,
-        last_name: String,
-        create_data: String,
-        about: String
+        profileData: ProfileData,
+        infoPage: InfoPage,
+        eventsList: ArrayList<ResponseEvents>
     ) {
-        Picasso.get().load(avatar).into(binding.avatarProfile)
-        binding.usernameProfile.text = "@$username"
-        binding.lastNameProfile.text = last_name
-        binding.aboutProfile.text = about
+        Picasso.get().load(profileData.avatar).into(binding.avatarProfile)
+        binding.usernameProfile.text = "@${profileData.username}"
+        binding.lastNameProfile.text = profileData.last_name
+        binding.aboutProfile.text = profileData.about
 
-        user = ResponseInfoProfile(
+        user = ProfileData(
             preferencesManager.getString(Constants.USER_ID),
-            username, avatar, phone, last_name, about, create_data
+            profileData.username,
+            profileData.avatar,
+            profileData.phone,
+            profileData.last_name,
+            profileData.about,
+            profileData.create_data
         )
-    }
 
-    @SuppressLint("SetTextI18n")
-    override fun getLoadMyEvents(eventsList: ArrayList<MyEventsList>) {
         adapterMyEvents = AdapterMyEvents(eventsList)
         if (eventsList.size != 0) {
             binding.titleEvents.text = "Мероприятия (${eventsList.size})"
@@ -110,27 +108,19 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         }
     }
 
-    override fun showProgressViewEvents() {
-        binding.progressBarEventView.visibility = View.VISIBLE
-    }
-
-    override fun hideProgressViewEvents() {
-        binding.progressBarEventView.visibility = View.GONE
-    }
-
-    override fun showProgressView() {
-        binding.nestedScrollViewProfile.visibility = View.GONE
-        binding.progressBarProfile.visibility = View.VISIBLE
-    }
-
-    override fun hideProgressView() {
-        binding.nestedScrollViewProfile.visibility = View.VISIBLE
-        binding.progressBarProfile.visibility = View.GONE
+    override fun progressBar(show: Boolean) {
+        if (show) {
+            binding.nestedScrollViewProfile.visibility = View.GONE
+            binding.progressBarEventView.visibility = View.VISIBLE
+        } else {
+            binding.nestedScrollViewProfile.visibility = View.VISIBLE
+            binding.progressBarEventView.visibility = View.GONE
+        }
     }
 
     override fun noConnection() {
         binding.nestedScrollViewProfile.visibility = View.GONE
-        binding.progressBarProfile.visibility = View.GONE
+        binding.progressBarEventView.visibility = View.GONE
         binding.noConnectionView.visibility = View.VISIBLE
         Toast.makeText(
             requireContext(),

@@ -32,9 +32,13 @@ interface Api {
         @Field("last_name") last_name: String
     ): Call<ResponseLogin>
 
+    /**
+     * Load profile and event user
+     */
     @GET("profile.php")
     fun loadDataProfile(
-        @Query("token") token: String
+        @Query("user_id") user_id: String,
+        @Query("page") page: Int
     ): Call<ResponseInfoProfile>
 
     @GET("organizer.php")
@@ -45,7 +49,7 @@ interface Api {
     @GET("event_organizer.php")
     fun loadListEventsOrganizer(
         @Query("user_id_e") user_id: String,
-        @Query("limit_e") limit: String
+        @Query("page") page: String
     ): Call<ResponseListEvents>
 
     @Multipart
@@ -61,12 +65,6 @@ interface Api {
         @Part("cost_e") cost_e: RequestBody,
         @Part image_e: MultipartBody.Part,
     ): Call<ResponseCreateEvents>
-
-    @GET("my_events.php")
-    fun loadMyEvents(
-        @Query("user_id_e") user_id: String,
-        @Query("limit_e") limit: String
-    ): Call<ResponseMyEvents>
 
     @GET("home_list_events.php")
     fun loadHomeListEvents(

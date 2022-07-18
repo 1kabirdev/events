@@ -136,10 +136,10 @@
                 android:id="@+id/titleAboutProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
                 android:layout_marginTop="26dp"
                 android:fontFamily="@font/manrope_regular"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="О себе:"
                 android:textColor="#51001E4A"
                 android:textSize="11sp"
@@ -150,11 +150,11 @@
                 android:id="@+id/aboutProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp"
                 android:layout_marginTop="8dp"
-                android:paddingEnd="16dp"
                 android:fontFamily="@font/manrope_regular"
                 android:hint="Добавить о себе"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="#001E4A"
                 android:textColorHint="#51001E4A"
                 android:textSize="13sp"
@@ -168,8 +168,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:elevation="0dp"
                 android:background="@drawable/shape_btn_edit_profile"
+                android:elevation="0dp"
                 android:text="Редактировать профиль"
                 android:textAllCaps="false"
                 android:textSize="14sp"
@@ -195,9 +195,9 @@
                     android:id="@+id/titleEvents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_regular"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:fontFamily="@font/manrope_regular"
                     android:text="Мероприятия"
                     android:textColor="#80001E4A"
                     android:textSize="14sp"
@@ -211,16 +211,6 @@
                     android:layout_marginTop="16dp"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/titleEvents" />
-
-                <ProgressBar
-                    android:id="@+id/progressBarEventView"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_marginTop="26dp"
-                    android:visibility="gone"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/titleEvents" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -260,11 +250,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-
     <ProgressBar
-        android:id="@+id/progressBarProfile"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:id="@+id/progressBarEventView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="26dp"
         android:visibility="gone" />

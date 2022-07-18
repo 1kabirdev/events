@@ -1,30 +1,23 @@
 package com.events.ui.profile
 
-import com.events.model.my_events.MyEventsList
+import com.events.model.profile.InfoPage
+import com.events.model.profile.ProfileData
+import com.events.model.profile.ResponseEvents
 import com.events.mvp.MvpView
 
 interface ProfileController {
     interface View : MvpView {
         fun getLoadData(
-            username: String,
-            avatar: String,
-            phone: String,
-            last_name: String,
-            create_data: String,
-            about: String
+            profileData: ProfileData,
+            infoPage: InfoPage,
+            eventsList: ArrayList<ResponseEvents>
         )
 
-        fun getLoadMyEvents(eventsList: ArrayList<MyEventsList>)
-        fun showProgressViewEvents()
-        fun hideProgressViewEvents()
-
-        fun showProgressView()
-        fun hideProgressView()
+        fun progressBar(show: Boolean)
         fun noConnection()
     }
 
     interface Presenter : MvpView {
-        fun responseLoadDataProfile(token: String)
-        fun responseLoadMyEvents(user_id: String, limit: String)
+        fun responseLoadDataProfile(user_id: String, page: Int)
     }
 }

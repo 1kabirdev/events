@@ -44,10 +44,10 @@ class OrganizerPresenter(private var dataManager: DataManager) :
         }
     }
 
-    override fun responseEventOrganizer(userId: String, limit: String) {
+    override fun responseEventOrganizer(userId: String, page: String) {
         mvpView?.let {
             it.showProgressBarEvent(true)
-            callEvent = dataManager.loadEventOrganizer(userId, limit)
+            callEvent = dataManager.loadEventOrganizer(userId, page)
             callEvent.enqueue(object : Callback<ResponseListEvents> {
                 override fun onResponse(
                     call: Call<ResponseListEvents>,
