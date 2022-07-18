@@ -68,8 +68,8 @@ interface Api {
         @Query("limit_e") limit: String
     ): Call<ResponseMyEvents>
 
-    @GET("list_events.php")
-    fun loadListEvents(
+    @GET("home_list_events.php")
+    fun loadHomeListEvents(
         @Query("page") page: Int
     ): Call<ResponseListEvents>
 

@@ -14,7 +14,7 @@ class ListEventPresenter(private var dataManager: DataManager) :
     override fun responseEvents(page: Int) {
         mvpView?.let {
             it.showProgress(true)
-            call = dataManager.loadListEvents(page)
+            call = dataManager.loadHomeListEvents(page)
             call.enqueue(object : Callback<ResponseListEvents> {
                 override fun onResponse(
                     call: Call<ResponseListEvents>,
@@ -41,7 +41,7 @@ class ListEventPresenter(private var dataManager: DataManager) :
 
     override fun responseEventsPage(page: Int) {
         mvpView?.let {
-            call = dataManager.loadListEvents(page)
+            call = dataManager.loadHomeListEvents(page)
             call.enqueue(object : Callback<ResponseListEvents> {
                 override fun onResponse(
                     call: Call<ResponseListEvents>,
