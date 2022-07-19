@@ -11,58 +11,57 @@ import retrofit2.Response
 class OrganizerPresenter(private var dataManager: DataManager) :
     BasePresenter<OrganizerController.View>(), OrganizerController.Presenter {
 
-    private lateinit var call: Call<ResponseInfoOrganizer>
     private lateinit var callEvent: Call<ResponseListEvents>
 
-    override fun responseOrganizer(userId: String) {
+    override fun responseEventOrganizer(userId: String, page: Int) {
         mvpView?.let {
-            it.showProgressBar(true)
-            call = dataManager.getLoadDataOrganizer(userId)
-            call.enqueue(object : Callback<ResponseInfoOrganizer> {
-                override fun onResponse(
-                    call: Call<ResponseInfoOrganizer>,
-                    response: Response<ResponseInfoOrganizer>
-                ) {
-                    it.showProgressBar(false)
-                    if (response.isSuccessful) {
-                        response.body()?.let { res ->
-                            it.loadDataOrganizer(
-                                res.getUsername(),
-                                res.getLastName(),
-                                res.getAbout(),
-                                res.getAvatar()
-                            )
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseInfoOrganizer>, t: Throwable) {
-                    it.showProgressBar(false)
-                    it.noConnection()
-                }
-            })
-        }
-    }
-
-    override fun responseEventOrganizer(userId: String, page: String) {
-        mvpView?.let {
-            it.showProgressBarEvent(true)
+            it.progressBar(true)
             callEvent = dataManager.loadEventOrganizer(userId, page)
             callEvent.enqueue(object : Callback<ResponseListEvents> {
                 override fun onResponse(
                     call: Call<ResponseListEvents>,
                     response: Response<ResponseListEvents>
                 ) {
-                    it.showProgressBarEvent(false)
+                    it.progressBar(false)
                     if (response.isSuccessful) {
-                        response.body()?.let { res ->
-                            it.getLoadEventsOrganizer(res.response)
+                        response.body()?.let { data ->
+                            it.getLoadEventsOrganizer(
+                                data.organize,
+                                data.infoPage,
+                                data.response
+                            )
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseListEvents>, t: Throwable) {
-                    it.showProgressBarEvent(false)
+                    it.progressBar(false)
+                    it.noConnection()
+                }
+            })
+        }
+    }
+
+    override fun responseEventOrganizerPage(userId: String, page: Int) {
+        mvpView?.let {
+            callEvent = dataManager.loadEventOrganizer(userId, page)
+            callEvent.enqueue(object : Callback<ResponseListEvents> {
+                override fun onResponse(
+                    call: Call<ResponseListEvents>,
+                    response: Response<ResponseListEvents>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let { data ->
+                            it.getLoadEventsOrganizerPage(
+                                data.infoPage,
+                                data.response
+                            )
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseListEvents>, t: Throwable) {
+                    it.noConnectionPage()
                 }
             })
         }

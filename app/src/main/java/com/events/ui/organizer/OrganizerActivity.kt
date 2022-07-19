@@ -1,22 +1,39 @@
 package com.events.ui.organizer
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.events.App
 import com.events.adapter.AdapterEventListOrganizer
 import com.events.databinding.ActivityUserBinding
+import com.events.model.list_events.InfoPage
 import com.events.model.list_events.ListEvents
+import com.events.model.list_events.Organize
+import com.events.model.profile.ProfileData
+import com.events.ui.event.EventsActivity
+import com.events.utill.Constants
+import com.events.utill.LinearEventEndlessScrollEventListener
 import com.squareup.picasso.Picasso
 
-class OrganizerActivity : AppCompatActivity(), OrganizerController.View {
+class OrganizerActivity : AppCompatActivity(), OrganizerController.View,
+    AdapterEventListOrganizer.OnClickListener {
 
     private lateinit var binding: ActivityUserBinding
     private lateinit var presenter: OrganizerPresenter
     private lateinit var adapterEventList: AdapterEventListOrganizer
     private lateinit var userId: String
-    private var limit: String = "10"
+    private lateinit var endlessScrollEventListener: LinearEventEndlessScrollEventListener
+    private lateinit var layoutManager: LinearLayoutManager
+    private var errorFailed = false
+    private var isLoading = false
+    private var isLastPage = false
+    private val PAGE_START = 1
+    private var currentPage: Int = PAGE_START
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
@@ -25,63 +42,110 @@ class OrganizerActivity : AppCompatActivity(), OrganizerController.View {
         val arguments = intent.extras
         userId = arguments?.get("USER_ID")?.toString().toString()
 
+        onClickListener()
+
         presenter = OrganizerPresenter((applicationContext as App).dataManager)
         presenter.attachView(this)
+        presenter.responseEventOrganizer(userId, PAGE_START)
 
-        presenter.responseOrganizer(userId)
-        presenter.responseEventOrganizer(userId, limit)
-
-        onClickListener()
+        layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerViewEventsOrganizer.layoutManager = layoutManager
+        setEndlessScrollEventListener()
+        binding.recyclerViewEventsOrganizer.addOnScrollListener(endlessScrollEventListener)
     }
 
     private fun onClickListener() {
-        binding.btnBackUser.setOnClickListener {
-            finish()
+        binding.toolbarOrganizer.btnBackUser.setOnClickListener { finish() }
+
+        binding.btnReplyProfile.setOnClickListener {
+            presenter.responseEventOrganizer(
+                userId,
+                PAGE_START
+            )
         }
     }
 
+    private fun setEndlessScrollEventListener() {
+        endlessScrollEventListener =
+            object : LinearEventEndlessScrollEventListener(
+                layoutManager
+            ) {
+                override fun onLoadMore(recyclerView: RecyclerView?) {
+                    recyclerView.apply {
+                        isLoading = true
+                        if (currentPage != 0) {
+                            presenter.responseEventOrganizerPage(
+                                userId,
+                                currentPage
+                            )
+                        }
+                    }
+                }
+            }
+    }
+
     @SuppressLint("SetTextI18n")
-    override fun loadDataOrganizer(
-        username: String,
-        lastName: String,
-        about: String,
-        avatar: String
+    override fun getLoadEventsOrganizer(
+        organize: Organize,
+        infoPage: InfoPage,
+        eventsList: ArrayList<ListEvents>
     ) {
-        Picasso.get().load(avatar).into(binding.avatarOrganizer)
-        binding.usernameOrganizer.text = "@$username"
-        binding.lastNameOrganizer.text = lastName
-        binding.aboutOrganizer.text = about
+        adapterEventList = AdapterEventListOrganizer(eventsList, this)
+        adapterEventList.organizer(organize)
+        adapterEventList.infoPage(infoPage.count_event)
+        binding.recyclerViewEventsOrganizer.adapter = adapterEventList
+
+        if (infoPage.next_page != 0)
+            if (currentPage <= infoPage.count_page) adapterEventList.addLoadingFooter() else isLastPage =
+                true
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun getLoadEventsOrganizer(eventsList: ArrayList<ListEvents>) {
-        adapterEventList = AdapterEventListOrganizer(eventsList)
-        if (eventsList.size != 0) {
-            binding.titleEventsOrganizer.text = "Мероприятия (${eventsList.size})"
-            binding.recyclerViewEventsOrganizer.adapter = adapterEventList
-        } else {
-            binding.constraintNotEvents.visibility = View.VISIBLE
-            binding.constraintRecyclerView.visibility = View.GONE
-        }
+    override fun getLoadEventsOrganizerPage(infoPage: InfoPage, eventsList: ArrayList<ListEvents>) {
+        currentPage = infoPage.next_page
+        adapterEventList.addAll(eventsList)
+        isLoading = false
+        adapterEventList.removeLoadingFooter()
+        if (infoPage.next_page != 0)
+            if (currentPage != infoPage.count_page) adapterEventList.addLoadingFooter() else isLastPage =
+                true
     }
 
-    override fun showProgressBarEvent(show: Boolean) {
-        if (show) binding.progressBarEventOrganizer.visibility = View.VISIBLE
-        else binding.progressBarEventOrganizer.visibility = View.GONE
-    }
-
-    override fun showProgressBar(show: Boolean) {
+    override fun progressBar(show: Boolean) {
         if (show) {
-            binding.nestedScrollViewOrganizer.visibility = View.GONE
-            binding.progressBarUser.visibility = View.VISIBLE
+            binding.constraintConnection.visibility = View.GONE
+            binding.progressBarOrganizer.visibility = View.VISIBLE
         } else {
-            binding.nestedScrollViewOrganizer.visibility = View.VISIBLE
-            binding.progressBarUser.visibility = View.GONE
+            binding.progressBarOrganizer.visibility = View.GONE
+            binding.constraintConnection.visibility = View.VISIBLE
         }
     }
 
     override fun noConnection() {
-        binding.progressBarUser.visibility = View.GONE
-        binding.noConnectionViewUser.visibility = View.VISIBLE
+        binding.progressBarOrganizer.visibility = View.GONE
+        binding.constraintConnection.visibility = View.VISIBLE
+    }
+
+    override fun noConnectionPage() {
+        errorFailed = true
+        adapterEventList.removeLoadingFooter()
+        adapterEventList.showRetry(true)
+    }
+
+    override fun onClickEvent(id: Int, user_id: Int) {
+        val intent = Intent(this, EventsActivity::class.java)
+        intent.putExtra("EVENTS_ID", id.toString())
+        intent.putExtra("USER_ID", user_id.toString())
+        startActivity(intent)
+    }
+
+    override fun OnClickReply() {
+        errorFailed = false
+        adapterEventList.showRetry(false)
+        adapterEventList.addLoadingFooter()
+        presenter.responseEventOrganizer(
+            userId,
+            currentPage
+        )
     }
 }

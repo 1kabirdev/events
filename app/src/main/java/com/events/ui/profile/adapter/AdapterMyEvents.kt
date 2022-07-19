@@ -1,25 +1,18 @@
-package com.events.adapter
+package com.events.ui.profile.adapter
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.events.R
 import com.events.databinding.ItemErrorConnectionViewBinding
 import com.events.databinding.ItemListMyEventsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.databinding.ItemProfileBinding
-import com.events.model.my_events.MyEventsList
-import com.events.model.profile.InfoPage
 import com.events.model.profile.ProfileData
 import com.events.model.profile.ResponseEvents
 import com.events.ui.event.MyEventsActivity
-import com.squareup.picasso.Picasso
 
 class AdapterMyEvents(
     private var events: ArrayList<ResponseEvents>,
@@ -40,8 +33,8 @@ class AdapterMyEvents(
         isLoadingAdded = false
     }
 
-    fun addAll(wishlist: ArrayList<ResponseEvents>) {
-        events.addAll(wishlist)
+    fun addAll(_events: ArrayList<ResponseEvents>) {
+        events.addAll(_events)
         notifyItemInserted(events.size - 1)
     }
 

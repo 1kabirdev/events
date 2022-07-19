@@ -10,73 +10,192 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.events.R
-import com.events.databinding.ItemListEventsOrganizerBinding
+import com.events.databinding.*
+import com.events.model.list_events.InfoPage
 import com.events.model.list_events.ListEvents
+import com.events.model.list_events.Organize
+import com.events.model.profile.ResponseEvents
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
+import com.events.ui.profile.adapter.AdapterMyEvents
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import com.squareup.picasso.Picasso
 
-class AdapterEventListOrganizer(private var events: ArrayList<ListEvents>) :
-    RecyclerView.Adapter<AdapterEventListOrganizer.ViewHolder>() {
+class AdapterEventListOrganizer(
+    private var events: ArrayList<ListEvents>,
+    private var listener: OnClickListener
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var organize: Organize? = null
+    private var countEvent = 0
+    private var isLoadingAdded = false
+    private var errorFailed = false
+
+
+    fun organizer(organize: Organize) {
+        this.organize = organize
+    }
+
+    fun infoPage(countEvent: Int) {
+        this.countEvent = countEvent
+    }
+
+    fun addLoadingFooter() {
+        isLoadingAdded = true
+    }
+
+    fun removeLoadingFooter() {
+        isLoadingAdded = false
+    }
+
+    fun addAll(_events: ArrayList<ListEvents>) {
+        events.addAll(_events)
+        notifyItemInserted(events.size - 1)
+    }
+
+    /**
+     * Функция для отображаения ошибки при отсутствии интернета
+     */
+    fun showRetry(show: Boolean) {
+        errorFailed = show
+        notifyItemChanged(events.size)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (isPositionHeader(position)) ORGANIZER
+        else if (position == events.size && errorFailed) ERROR_CONNECT
+        else if (position == events.size && isLoadingAdded) LOADING
+        else ITEM_EVENTS
+    }
+
+    private fun isPositionHeader(position: Int): Boolean = position == 0
+
+    companion object {
+        const val ITEM_EVENTS = 0
+        const val LOADING = 1
+        const val ORGANIZER = 2
+        const val ERROR_CONNECT = 3
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): AdapterEventListOrganizer.ViewHolder {
-        return ViewHolder(
-            ItemListEventsOrganizerBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    ): RecyclerView.ViewHolder {
+        var viewHolder: RecyclerView.ViewHolder? = null
+        when (viewType) {
+            LOADING -> {
+                val loadingViewHolder = ItemLoadingViewBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                viewHolder = LoadingViewHolder(loadingViewHolder)
+            }
+            ITEM_EVENTS -> {
+                val itemEventsHolder = ItemListEventsOrganizerBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                viewHolder = EventViewHolder(itemEventsHolder)
+            }
+
+            ORGANIZER -> {
+                val profileViewHolder = ItemOrganizerBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                viewHolder = OrganizerViewHolder(profileViewHolder)
+            }
+
+            ERROR_CONNECT -> {
+                val errorConnection = ItemErrorConnectionViewBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                viewHolder = ErrorConnectViewHolder(errorConnection)
+            }
+        }
+        return viewHolder!!
     }
 
-    override fun onBindViewHolder(holder: AdapterEventListOrganizer.ViewHolder, position: Int) {
-        val eventsLite = events[position]
-        holder.bindLoad(eventsLite)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            LOADING -> {
+                val loadingViewHolder = holder as LoadingViewHolder
+                loadingViewHolder.binding.progressViewComment.visibility = View.VISIBLE
+            }
+
+            ITEM_EVENTS -> {
+                val event = events[position - 1]
+                val eventViewHolder = holder as EventViewHolder
+                eventViewHolder.bindLoadEvent(event)
+            }
+
+            ORGANIZER -> {
+                val profileViewHolder = holder as OrganizerViewHolder
+                profileViewHolder.bindViewOrganizer(organize!!)
+            }
+
+            ERROR_CONNECT -> {
+                val errorConnectViewHolder = holder as ErrorConnectViewHolder
+                errorConnectViewHolder.binding.notConnection.visibility = View.VISIBLE
+                errorConnectViewHolder.binding.btnReplyProfile.setOnClickListener {
+                    listener.OnClickReply()
+                }
+            }
+        }
     }
 
-    override fun getItemCount(): Int {
-        return events.size
-    }
+    override fun getItemCount(): Int = events.size + 1
 
-    inner class ViewHolder(val binding: ItemListEventsOrganizerBinding) :
+
+    inner class EventViewHolder(val binding: ItemListEventsOrganizerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private var preferencesManager = PreferencesManager(itemView.context)
-
-        @SuppressLint("SetTextI18n")
-        fun bindLoad(eventsList: ListEvents) {
+        fun bindLoadEvent(eventsList: ListEvents) {
             with(binding) {
                 textNameEvent.text = eventsList.nameE
                 textDateAndTime.text = "${eventsList.dataE} в ${eventsList.timeE}"
                 Glide.with(itemView.context).load(eventsList.imageE).into(imageEvents)
                 textCityEvents.text = eventsList.cityE
                 textTheme.text = eventsList.themeE
-                if (eventsList.costE != "" && eventsList.costE != "0") {
-                    textCost.text = "${eventsList.costE} р"
-                } else {
-                    textCost.text = "Бесплатно."
-                }
+
+                if (eventsList.costE != "" && eventsList.costE != "0") textCost.text =
+                    "${eventsList.costE} р"
+                else textCost.text = "Бесплатно."
+
 
                 itemView.setOnClickListener {
-                    if (preferencesManager.getString(Constants.USER_ID) != eventsList.user!!
-                            .userId
-                    ) {
-                        val intent = Intent(itemView.context, EventsActivity::class.java)
-                        intent.putExtra("EVENTS_ID", eventsList.idE)
-                        intent.putExtra("USER_ID", eventsList.user!!.userId)
-                        it.context.startActivity(intent)
-                    } else {
-                        val intent = Intent(itemView.context, MyEventsActivity::class.java)
-                        intent.putExtra("EVENTS_ID", eventsList.idE)
-                        it.context.startActivity(intent)
-                    }
+                    listener.onClickEvent(eventsList.idE.toInt(), eventsList.user!!.userId.toInt())
                 }
             }
         }
+    }
+
+    inner class LoadingViewHolder(val binding: ItemLoadingViewBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+
+    inner class ErrorConnectViewHolder(val binding: ItemErrorConnectionViewBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class OrganizerViewHolder(val binding: ItemOrganizerBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindViewOrganizer(organize: Organize) {
+            with(binding) {
+                Glide.with(itemView.context).load(organize.avatar).into(avatarOrganizer)
+                usernameOrganizer.text = "@${organize.username}"
+                lastNameOrganizer.text = organize.lastName
+                aboutOrganizer.text = organize.about
+                textViewCountEvent.text = countEvent.toString()
+            }
+        }
+    }
+
+
+    interface OnClickListener {
+        fun onClickEvent(id: Int, user_id: Int)
+        fun OnClickReply()
     }
 }

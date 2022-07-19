@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.events.App
 import com.events.MainActivity
-import com.events.adapter.AdapterMyEvents
 import com.events.databinding.FragmentProfileBinding
 import com.events.model.profile.InfoPage
 import com.events.model.profile.ProfileData
@@ -18,10 +17,10 @@ import com.events.model.profile.ResponseEvents
 import com.events.ui.bottom_sheet.InfoProfileBottomSheet
 import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.login.LoginUserFragment
+import com.events.ui.profile.adapter.AdapterMyEvents
 import com.events.utill.Constants
 import com.events.utill.LinearEventEndlessScrollEventListener
 import com.events.utill.PreferencesManager
-import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomSheet.OnClickListener,
     AdapterMyEvents.OnClickListener {

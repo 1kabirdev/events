@@ -33,12 +33,7 @@ class DataManager {
         return api.registerAccountUser(username, password, phone, last_name)
     }
 
-    fun getLoadDataOrganizer(user_id: String): Call<ResponseInfoOrganizer> {
-        return api.loadDataOrganizer(user_id)
-    }
-
-
-    fun loadEventOrganizer(user_id: String, page: String): Call<ResponseListEvents> {
+    fun loadEventOrganizer(user_id: String, page: Int): Call<ResponseListEvents> {
         return api.loadListEventsOrganizer(user_id, page)
     }
 

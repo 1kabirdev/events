@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseListEvents(
     @SerializedName("organize") val organize: Organize,
-    @SerializedName("info") val infoEvents: InfoEvents,
+    @SerializedName("info") val infoPage: InfoPage,
     @SerializedName("response") var response: ArrayList<ListEvents>
 )
 
-data class InfoEvents(
+data class InfoPage(
     @SerializedName("page") val page: Int,
     @SerializedName("next_page") val next_page: Int,
     @SerializedName("count_page") val count_page: Int,
@@ -38,6 +38,7 @@ data class Organize(
     @SerializedName("user_id") var userId: String,
     @SerializedName("username") var username: String,
     @SerializedName("last_name") var lastName: String,
-    @SerializedName("avatar") var avatar: String
+    @SerializedName("avatar") var avatar: String,
+    @SerializedName("about") var about: String,
 
 )

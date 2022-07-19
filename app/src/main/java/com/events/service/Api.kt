@@ -42,15 +42,10 @@ interface Api {
         @Query("page") page: Int
     ): Call<ResponseInfoProfile>
 
-    @GET("organizer.php")
-    fun loadDataOrganizer(
-        @Query("user_id") user_id: String
-    ): Call<ResponseInfoOrganizer>
-
     @GET("event_organizer.php")
     fun loadListEventsOrganizer(
         @Query("user_id_e") user_id: String,
-        @Query("page") page: String
+        @Query("page") page: Int
     ): Call<ResponseListEvents>
 
     @Multipart
