@@ -1,7 +1,7 @@
 package com.events.ui.home
 
-import com.events.model.list_events.InfoEvents
-import com.events.model.list_events.ListEvents
+import com.events.model.home.InfoEvents
+import com.events.model.home.ListEvents
 import com.events.mvp.MvpView
 
 interface ListEventController {

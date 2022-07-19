@@ -1,6 +1,5 @@
 package com.events.ui.home
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,14 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.events.App
-import com.events.MainActivity
 import com.events.ui.home.adapter.AdapterEventList
 import com.events.databinding.FragmentHomeEventsBinding
-import com.events.model.list_events.InfoEvents
-import com.events.model.list_events.ListEvents
+import com.events.model.home.InfoEvents
+import com.events.model.home.ListEvents
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
-import com.events.utill.LinearEndlessScrollEventListener
 import com.events.utill.LinearEventEndlessScrollEventListener
 import com.events.utill.PreferencesManager
 

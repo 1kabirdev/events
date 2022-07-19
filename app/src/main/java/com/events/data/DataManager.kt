@@ -7,6 +7,7 @@ import com.events.model.delete_event.ResponseDeleteEvent
 import com.events.model.profile.ResponseInfoProfile
 import com.events.model.login.ResponseLogin
 import com.events.model.events.ResponseEvents
+import com.events.model.home.ResponseHomeEvents
 import com.events.model.list_events.ResponseListEvents
 import com.events.model.my_events.ResponseMyEvents
 import com.events.model.organizer.ResponseInfoOrganizer
@@ -61,7 +62,7 @@ class DataManager {
         return api.loadDataProfile(user_id, page)
     }
 
-    fun loadHomeListEvents(page: Int): Call<ResponseListEvents> {
+    fun loadHomeListEvents(page: Int): Call<ResponseHomeEvents> {
         return api.loadHomeListEvents(page)
     }
 

@@ -7,6 +7,7 @@ import com.events.model.delete_event.ResponseDeleteEvent
 import com.events.model.profile.ResponseInfoProfile
 import com.events.model.login.ResponseLogin
 import com.events.model.events.ResponseEvents
+import com.events.model.home.ResponseHomeEvents
 import com.events.model.list_events.ResponseListEvents
 import com.events.model.my_events.ResponseMyEvents
 import com.events.model.organizer.ResponseInfoOrganizer
@@ -69,7 +70,7 @@ interface Api {
     @GET("home_list_events.php")
     fun loadHomeListEvents(
         @Query("page") page: Int
-    ): Call<ResponseListEvents>
+    ): Call<ResponseHomeEvents>
 
     @GET("events.php")
     fun loadEvents(

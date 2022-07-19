@@ -1,7 +1,6 @@
 package com.events.ui.home.adapter
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.events.R
-import com.events.databinding.ItemListCommentsBinding
 import com.events.databinding.ItemListEventsBinding
 import com.events.databinding.ItemLoadingViewBinding
-import com.events.model.comments.CommentsList
-import com.events.model.list_events.ListEvents
-import com.events.ui.comments.adapter.AdapterComments
-import com.events.ui.event.EventsActivity
-import com.events.ui.event.MyEventsActivity
+import com.events.model.home.ListEvents
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
-import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
 

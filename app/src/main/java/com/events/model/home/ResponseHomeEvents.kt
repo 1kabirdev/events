@@ -1,9 +1,8 @@
-package com.events.model.list_events
+package com.events.model.home
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseListEvents(
-    @SerializedName("organize") val organize: Organize,
+data class ResponseHomeEvents(
     @SerializedName("info") val infoEvents: InfoEvents,
     @SerializedName("response") var response: ArrayList<ListEvents>
 )
@@ -31,13 +30,6 @@ data class ListEvents(
 
 data class UsersEvent(
     @SerializedName("user_id") var userId: String,
-    @SerializedName("avatar") var avatar: String
-)
-
-data class Organize(
-    @SerializedName("user_id") var userId: String,
-    @SerializedName("username") var username: String,
-    @SerializedName("last_name") var lastName: String,
     @SerializedName("avatar") var avatar: String
 
 )
