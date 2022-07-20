@@ -163,6 +163,7 @@ class AdapterMyEvents(
 
     inner class ProfileViewHolder(val binding: ItemProfileBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bindViewProfile(profileData: ProfileData) {
             with(binding) {
                 textViewCountEvent.text = countEvent.toString()

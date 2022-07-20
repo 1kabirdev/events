@@ -2,7 +2,6 @@ package com.events.ui.event
 
 import com.events.model.events.Events
 import com.events.model.events.User
-import com.events.model.list_events.UsersEvent
 import com.events.mvp.MvpView
 
 interface EventsController : MvpView {

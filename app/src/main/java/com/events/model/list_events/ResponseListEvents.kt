@@ -26,12 +26,6 @@ data class ListEvents(
     @SerializedName("city_e") var cityE: String,
     @SerializedName("cost_e") var costE: String,
     @SerializedName("create_date_e") var createDateE: String,
-    @SerializedName("user") var user: UsersEvent? = null
-)
-
-data class UsersEvent(
-    @SerializedName("user_id") var userId: String,
-    @SerializedName("avatar") var avatar: String
 )
 
 data class Organize(

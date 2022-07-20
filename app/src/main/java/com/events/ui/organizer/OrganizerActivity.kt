@@ -4,20 +4,18 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.events.App
-import com.events.adapter.AdapterEventListOrganizer
 import com.events.databinding.ActivityUserBinding
 import com.events.model.list_events.InfoPage
 import com.events.model.list_events.ListEvents
 import com.events.model.list_events.Organize
-import com.events.model.profile.ProfileData
 import com.events.ui.event.EventsActivity
-import com.events.utill.Constants
+import com.events.ui.organizer.adapter.AdapterEventListOrganizer
 import com.events.utill.LinearEventEndlessScrollEventListener
-import com.squareup.picasso.Picasso
 
 class OrganizerActivity : AppCompatActivity(), OrganizerController.View,
     AdapterEventListOrganizer.OnClickListener {
@@ -91,10 +89,15 @@ class OrganizerActivity : AppCompatActivity(), OrganizerController.View,
         infoPage: InfoPage,
         eventsList: ArrayList<ListEvents>
     ) {
-        adapterEventList = AdapterEventListOrganizer(eventsList, this)
+        currentPage = infoPage.next_page
+        adapterEventList = AdapterEventListOrganizer(eventsList, this@OrganizerActivity)
         adapterEventList.organizer(organize)
         adapterEventList.infoPage(infoPage.count_event)
-        binding.recyclerViewEventsOrganizer.adapter = adapterEventList
+
+        with(binding) {
+            recyclerViewEventsOrganizer.adapter = adapterEventList
+        }
+
 
         if (infoPage.next_page != 0)
             if (currentPage <= infoPage.count_page) adapterEventList.addLoadingFooter() else isLastPage =
@@ -117,7 +120,7 @@ class OrganizerActivity : AppCompatActivity(), OrganizerController.View,
             binding.progressBarOrganizer.visibility = View.VISIBLE
         } else {
             binding.progressBarOrganizer.visibility = View.GONE
-            binding.constraintConnection.visibility = View.VISIBLE
+            binding.constraintConnection.visibility = View.GONE
         }
     }
 
@@ -132,10 +135,10 @@ class OrganizerActivity : AppCompatActivity(), OrganizerController.View,
         adapterEventList.showRetry(true)
     }
 
-    override fun onClickEvent(id: Int, user_id: Int) {
+    override fun onClickEvent(id: Int) {
         val intent = Intent(this, EventsActivity::class.java)
         intent.putExtra("EVENTS_ID", id.toString())
-        intent.putExtra("USER_ID", user_id.toString())
+        intent.putExtra("USER_ID", userId)
         startActivity(intent)
     }
 
@@ -143,7 +146,7 @@ class OrganizerActivity : AppCompatActivity(), OrganizerController.View,
         errorFailed = false
         adapterEventList.showRetry(false)
         adapterEventList.addLoadingFooter()
-        presenter.responseEventOrganizer(
+        presenter.responseEventOrganizerPage(
             userId,
             currentPage
         )

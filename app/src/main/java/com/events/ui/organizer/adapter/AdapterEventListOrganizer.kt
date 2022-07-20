@@ -1,26 +1,13 @@
-package com.events.adapter
+package com.events.ui.organizer.adapter
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.events.R
 import com.events.databinding.*
-import com.events.model.list_events.InfoPage
 import com.events.model.list_events.ListEvents
 import com.events.model.list_events.Organize
-import com.events.model.profile.ResponseEvents
-import com.events.ui.event.EventsActivity
-import com.events.ui.event.MyEventsActivity
-import com.events.ui.profile.adapter.AdapterMyEvents
-import com.events.utill.Constants
-import com.events.utill.PreferencesManager
-import com.squareup.picasso.Picasso
 
 class AdapterEventListOrganizer(
     private var events: ArrayList<ListEvents>,
@@ -32,7 +19,6 @@ class AdapterEventListOrganizer(
     private var countEvent = 0
     private var isLoadingAdded = false
     private var errorFailed = false
-
 
     fun organizer(organize: Organize) {
         this.organize = organize
@@ -149,7 +135,6 @@ class AdapterEventListOrganizer(
 
     override fun getItemCount(): Int = events.size + 1
 
-
     inner class EventViewHolder(val binding: ItemListEventsOrganizerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -167,7 +152,7 @@ class AdapterEventListOrganizer(
 
 
                 itemView.setOnClickListener {
-                    listener.onClickEvent(eventsList.idE.toInt(), eventsList.user!!.userId.toInt())
+                    listener.onClickEvent(eventsList.idE.toInt())
                 }
             }
         }
@@ -195,7 +180,7 @@ class AdapterEventListOrganizer(
 
 
     interface OnClickListener {
-        fun onClickEvent(id: Int, user_id: Int)
+        fun onClickEvent(id: Int)
         fun OnClickReply()
     }
 }
