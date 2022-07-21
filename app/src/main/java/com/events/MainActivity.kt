@@ -11,6 +11,7 @@ import com.events.databinding.ActivityMainBinding
 import com.events.ui.create_events.CreateEventFragment
 import com.events.ui.home.HomeEventsFragment
 import com.events.ui.login.LoginUserFragment
+import com.events.ui.search.SearchEventFragment
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,6 +33,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         when (item.itemId) {
             R.id.navigation_home -> {
                 setCurrentFragment(HomeEventsFragment())
+                return true
+            }
+
+            R.id.navigation_search_event -> {
+                setCurrentFragment(SearchEventFragment())
                 return true
             }
 
