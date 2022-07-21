@@ -11,6 +11,7 @@ import com.events.model.home.ResponseHomeEvents
 import com.events.model.list_events.ResponseListEvents
 import com.events.model.my_events.ResponseMyEvents
 import com.events.model.organizer.ResponseInfoOrganizer
+import com.events.model.search.ResponseSearch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -98,5 +99,5 @@ interface Api {
     @GET("search_event.php")
     fun searchEvent(
         @Query("name") name: String
-    )
+    ): Call<ResponseSearch>
 }

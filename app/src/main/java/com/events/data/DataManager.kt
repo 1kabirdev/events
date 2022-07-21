@@ -11,6 +11,7 @@ import com.events.model.home.ResponseHomeEvents
 import com.events.model.list_events.ResponseListEvents
 import com.events.model.my_events.ResponseMyEvents
 import com.events.model.organizer.ResponseInfoOrganizer
+import com.events.model.search.ResponseSearch
 import com.events.service.Api
 import com.events.service.ServicesGenerator
 import okhttp3.MultipartBody
@@ -53,7 +54,7 @@ class DataManager {
         )
     }
 
-    fun getLoadInfoProfile(user_id: String,page:Int): Call<ResponseInfoProfile> {
+    fun getLoadInfoProfile(user_id: String, page: Int): Call<ResponseInfoProfile> {
         return api.loadDataProfile(user_id, page)
     }
 
@@ -80,6 +81,11 @@ class DataManager {
         comment_text: String
     ): Call<AddComment> {
         return api.sendComment(user_id, event_id, username, comment_text)
+    }
+
+
+    fun searchEventList(name: String): Call<ResponseSearch> {
+        return api.searchEvent(name)
     }
 
 }
