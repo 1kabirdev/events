@@ -31,6 +31,7 @@ class SearchEventFragment : Fragment(), SearchContract.View {
 
         presenterImpl = SearchPresenterImpl((view.context.applicationContext as App).dataManager)
         presenterImpl.attachView(this)
+
     }
 
     override fun onSearchEvent(event: ArrayList<Event>) {
