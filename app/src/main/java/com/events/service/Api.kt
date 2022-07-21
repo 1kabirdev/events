@@ -94,4 +94,9 @@ interface Api {
         @Field("username") username: String,
         @Field("comment_text") comment_text: String
     ): Call<AddComment>
+
+    @GET("search_event.php")
+    fun searchEvent(
+        @Query("name") name: String
+    )
 }
