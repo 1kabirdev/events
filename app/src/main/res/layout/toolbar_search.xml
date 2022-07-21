@@ -22,7 +22,7 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/shape_edit_text_bkg"
             android:fontFamily="@font/manrope_medium"
-            android:hint="Поист мероприятий по названию"
+            android:hint="Поиск мероприятий по названию"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
             android:paddingEnd="16dp"
