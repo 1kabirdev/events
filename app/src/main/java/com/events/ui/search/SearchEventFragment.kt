@@ -11,15 +11,18 @@ import androidx.fragment.app.Fragment
 import com.events.App
 import com.events.databinding.FragmentSearchEventBinding
 import com.events.model.search.Event
+import com.events.ui.search.adapter.AdapterSearchEvent
 import com.events.utill.PreferencesManager
 import java.util.*
 
 
-class SearchEventFragment : Fragment(), SearchContract.View {
+class SearchEventFragment : Fragment(), SearchContract.View, AdapterSearchEvent.OnClickListener {
 
     private lateinit var binding: FragmentSearchEventBinding
     private lateinit var presenterImpl: SearchPresenterImpl
     private lateinit var preferencesManager: PreferencesManager
+
+    private var adapterSearchEvent = AdapterSearchEvent(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +71,10 @@ class SearchEventFragment : Fragment(), SearchContract.View {
     }
 
     override fun noConnection() {
+
+    }
+
+    override fun onClickEvent(id: Int, user_id: Int) {
 
     }
 
