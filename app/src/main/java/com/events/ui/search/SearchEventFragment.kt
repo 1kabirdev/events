@@ -3,6 +3,7 @@ package com.events.ui.search
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,14 +49,18 @@ class SearchEventFragment : Fragment(), SearchContract.View {
                     Unit
 
                 override fun afterTextChanged(s: Editable) {
-
+                    presenterImpl.responseSearch(s.toString())
                 }
             })
         }
     }
 
     override fun onSearchEvent(event: ArrayList<Event>) {
-
+        event.forEach { data ->
+            Log.e("SEARCH", "Search data -> ${data.name}")
+        }
+        if (event.size == 0)
+            Log.e("SEARCH", "not found data")
     }
 
     override fun progress(show: Boolean) {
