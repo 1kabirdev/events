@@ -52,18 +52,15 @@ class SearchEventFragment : Fragment(), SearchContract.View, AdapterSearchEvent.
                     Unit
 
                 override fun afterTextChanged(s: Editable) {
-                    presenterImpl.responseSearch(s.toString())
+                    presenterImpl.responseSearch(binding.toolbarSearch.editTextSearchEventName.text.toString())
                 }
             })
         }
     }
 
     override fun onSearchEvent(event: ArrayList<Event>) {
-        event.forEach { data ->
-            Log.e("SEARCH", "Search data -> ${data.name}")
-        }
-        if (event.size == 0)
-            Log.e("SEARCH", "not found data")
+        adapterSearchEvent.addEventList(event)
+        binding.recyclerViewEventSearch.adapter = adapterSearchEvent
     }
 
     override fun progress(show: Boolean) {
