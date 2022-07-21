@@ -20,6 +20,7 @@ interface CommentsContract {
 
         fun loadCommentPage(info: Info, commentsList: ArrayList<CommentsList>)
 
+
     }
 
     interface Presenter : MvpView {
@@ -32,5 +33,6 @@ interface CommentsContract {
          * response load comment paging
          */
         fun responseLoadCommentsPage(event_id: Int, page: Int)
+
     }
 }

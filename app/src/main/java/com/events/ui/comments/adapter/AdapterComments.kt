@@ -12,10 +12,9 @@ import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 
 class AdapterComments(
-    var listener: AdapterCommentOnClickListener
+    private var commentsList: MutableList<CommentsList>,
+    private var listener: AdapterCommentOnClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    private var commentsList: MutableList<CommentsList> = arrayListOf()
 
     private var isLoadingAdded = false
 

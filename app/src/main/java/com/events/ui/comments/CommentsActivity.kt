@@ -2,14 +2,12 @@ package com.events.ui.comments
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Adapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.events.App
 import com.events.databinding.ActivityCommentsBinding
 import com.events.model.comments.AddComment
@@ -18,12 +16,13 @@ import com.events.model.comments.Info
 import com.events.ui.comments.adapter.AdapterComments
 import com.events.ui.comments.send_commentImpl.SendCommentContract
 import com.events.ui.comments.send_commentImpl.SendCommentPresenter
-import com.events.ui.login.LoginPresenter
 import com.events.ui.organizer.OrganizerActivity
 import com.events.utill.Constants
 import com.events.utill.LinearEndlessScrollEventListener
 import com.events.utill.PreferencesManager
-import java.util.Date
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendCommentContract.View,
     AdapterComments.AdapterCommentOnClickListener {
@@ -59,13 +58,14 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
 
         presenter.responseLoadComments(event_id.toInt(), PAGE_START)
 
-        adapterComments = AdapterComments(this)
-
         layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewComments.layoutManager = layoutManager
         setEndlessScrollEventListener()
         binding.recyclerViewComments.addOnScrollListener(endlessScrollEventListener)
 
+        binding.refreshLayoutComment.setOnRefreshListener {
+            presenter.responseLoadComments(event_id.toInt(), PAGE_START)
+        }
 
         onClickListener()
     }
@@ -128,12 +128,12 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
 
 
     override fun loadComments(info: Info, commentsList: ArrayList<CommentsList>) {
+        binding.refreshLayoutComment.isRefreshing = false
         if (info.count_comments != 0) {
-            countComments = info.count_comments
-            binding.countComment.text = countComments.toString()
+            binding.countComment.text = info.count_comments.toString()
         }
         currentPage = info.next_page
-        adapterComments.addComments(commentsList)
+        adapterComments = AdapterComments(commentsList, this)
         binding.recyclerViewComments.adapter = adapterComments
         if (info.next_page != 0) adapterComments.addLoadingFooter(true) else isLastPage =
             true
@@ -142,8 +142,7 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
 
     override fun loadCommentPage(info: Info, commentsList: ArrayList<CommentsList>) {
         if (info.count_comments != 0) {
-            countComments = info.count_comments
-            binding.countComment.text = countComments.toString()
+            binding.countComment.text = info.count_comments.toString()
         }
         currentPage = info.next_page
         adapterComments.addComments(commentsList)
@@ -159,12 +158,11 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
     }
 
     override fun errorConnection() {
+        binding.refreshLayoutComment.isRefreshing = false
         Toast.makeText(this, "Проверьте подключение к Интеренту", Toast.LENGTH_SHORT).show()
     }
 
-
     override fun sendComment(addComment: AddComment) = Unit
-
 
     override fun onStart() {
         if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
