@@ -1,9 +1,9 @@
 package com.events.ui.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment
 import com.events.App
 import com.events.databinding.FragmentSearchEventBinding
 import com.events.model.search.Event
+import com.events.ui.event.EventsActivity
+import com.events.ui.event.MyEventsActivity
 import com.events.ui.search.adapter.AdapterSearchEvent
+import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import java.util.*
 
@@ -22,7 +25,7 @@ class SearchEventFragment : Fragment(), SearchContract.View, AdapterSearchEvent.
     private lateinit var presenterImpl: SearchPresenterImpl
     private lateinit var preferencesManager: PreferencesManager
 
-    private var adapterSearchEvent = AdapterSearchEvent(this)
+    private lateinit var adapterSearchEvent: AdapterSearchEvent
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,14 +55,14 @@ class SearchEventFragment : Fragment(), SearchContract.View, AdapterSearchEvent.
                     Unit
 
                 override fun afterTextChanged(s: Editable) {
-                    presenterImpl.responseSearch(binding.toolbarSearch.editTextSearchEventName.text.toString())
+                    presenterImpl.responseSearch(s.toString())
                 }
             })
         }
     }
 
     override fun onSearchEvent(event: ArrayList<Event>) {
-        adapterSearchEvent.addEventList(event)
+        adapterSearchEvent = AdapterSearchEvent(event, this)
         binding.recyclerViewEventSearch.adapter = adapterSearchEvent
     }
 
@@ -72,7 +75,22 @@ class SearchEventFragment : Fragment(), SearchContract.View, AdapterSearchEvent.
     }
 
     override fun onClickEvent(id: Int, user_id: Int) {
-
+        if (user_id == preferencesManager.getString(Constants.USER_ID).toInt()) {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    MyEventsActivity::class.java
+                ).putExtra("EVENTS_ID", id.toString())
+            )
+        } else {
+            startActivity(
+                Intent(
+                    requireContext(), EventsActivity::class.java
+                ).putExtra(
+                    "EVENTS_ID", id.toString()
+                ).putExtra("USER_ID", user_id.toString())
+            )
+        }
     }
 
 }

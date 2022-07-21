@@ -8,14 +8,9 @@ import com.events.databinding.ItemListEventSearchBinding
 import com.events.model.search.Event
 
 class AdapterSearchEvent(
+    private var eventSearch: ArrayList<Event>,
     private var listener: OnClickListener
 ) : RecyclerView.Adapter<AdapterSearchEvent.SearchViewHolder>() {
-    private var eventSearch: ArrayList<Event> = arrayListOf()
-
-    fun addEventList(event: ArrayList<Event>) {
-        eventSearch.addAll(event)
-        notifyItemInserted(eventSearch.size - 1)
-    }
 
     inner class SearchViewHolder(val binding: ItemListEventSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
