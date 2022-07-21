@@ -15,6 +15,7 @@
         app:contentInsetStart="0dp">
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextSearchEventName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
@@ -23,6 +24,9 @@
             android:background="@drawable/shape_edit_text_bkg"
             android:fontFamily="@font/manrope_medium"
             android:hint="Поиск мероприятий по названию"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:lines="1"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
             android:paddingEnd="16dp"
