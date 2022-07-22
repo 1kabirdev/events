@@ -24,8 +24,6 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
         data_e: String,
         time_e: String,
         theme_e: String,
-        city_e: String,
-        cost_e: String,
         image_e: ByteArray
     ) {
         mvpView?.let {
@@ -40,11 +38,9 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
             val dataE = data_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val timeE = time_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val themeE = theme_e.toRequestBody("text/plain".toMediaTypeOrNull())
-            val cityE = city_e.toRequestBody("text/plain".toMediaTypeOrNull())
-            val costE = cost_e.toRequestBody("text/plain".toMediaTypeOrNull())
 
             call = dataManager.createEvents(
-                userId, nameE, descE, dataE, timeE, themeE, cityE, costE, imageE
+                userId, nameE, descE, dataE, timeE, themeE, imageE
             )
             call.enqueue(object : Callback<ResponseCreateEvents> {
                 override fun onResponse(

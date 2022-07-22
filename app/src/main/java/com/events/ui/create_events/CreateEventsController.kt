@@ -18,8 +18,6 @@ interface CreateEventsController {
             data_e: String,
             time_e: String,
             theme_e: String,
-            city_e: String,
-            cost_e: String,
             image_e: ByteArray,
         )
     }

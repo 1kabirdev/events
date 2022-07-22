@@ -123,14 +123,6 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                     )
                         .show()
                 }
-                binding.editTextCityEvents.text.toString() == "" -> {
-                    Toast.makeText(
-                        requireContext(),
-                        "Город проведения не должно быть пустым",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
                 else -> {
                     presenter.responseCreateEvents(
                         preferencesManager.getString(Constants.USER_ID),
@@ -139,8 +131,6 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                         binding.textDateCreateEvents.text.toString(),
                         binding.textTimeCreateEvents.text.toString(),
                         binding.editTextTheme.text.toString(),
-                        binding.editTextCityEvents.text.toString(),
-                        binding.editTextEntranceEvents.text.toString(),
                         getBytes(inp!!)!!
                     )
                 }
@@ -191,8 +181,6 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         binding.textDateCreateEvents.text = "Указать дату"
         binding.textTimeCreateEvents.text = "Указать время"
         binding.editTextTheme.setText("")
-        binding.editTextCityEvents.setText("")
-        binding.editTextEntranceEvents.setText("")
         dateEvent = false
         timeEvent = false
     }
@@ -208,8 +196,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         }
     }
 
-    @Throws(IOException::class)
-    fun getBytes(inp: InputStream): ByteArray? {
+    private fun getBytes(inp: InputStream): ByteArray? {
         val byteBuff = ByteArrayOutputStream()
         val buffSize = 1024
         val buff = ByteArray(buffSize)

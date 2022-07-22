@@ -45,12 +45,10 @@ class DataManager {
         data_e: RequestBody,
         time_e: RequestBody,
         theme_e: RequestBody,
-        city_e: RequestBody,
-        cost_e: RequestBody,
         image_e: MultipartBody.Part,
     ): Call<ResponseCreateEvents> {
         return api.createEvents(
-            user_id_e, name_e, desc_e, data_e, time_e, theme_e, city_e, cost_e, image_e
+            user_id_e, name_e, desc_e, data_e, time_e, theme_e, image_e
         )
     }
 
