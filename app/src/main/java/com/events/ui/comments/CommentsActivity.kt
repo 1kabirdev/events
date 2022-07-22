@@ -130,7 +130,8 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
     override fun loadComments(info: Info, commentsList: ArrayList<CommentsList>) {
         binding.refreshLayoutComment.isRefreshing = false
         if (info.count_comments != 0) {
-            binding.countComment.text = info.count_comments.toString()
+            countComments = info.count_comments
+            binding.countComment.text = countComments.toString()
         }
         currentPage = info.next_page
         adapterComments = AdapterComments(commentsList, this)
@@ -142,7 +143,8 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
 
     override fun loadCommentPage(info: Info, commentsList: ArrayList<CommentsList>) {
         if (info.count_comments != 0) {
-            binding.countComment.text = info.count_comments.toString()
+            countComments = info.count_comments
+            binding.countComment.text = countComments.toString()
         }
         currentPage = info.next_page
         adapterComments.addComments(commentsList)
