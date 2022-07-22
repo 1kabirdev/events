@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.events.databinding.ItemHeaderCommentsBinding
 import com.events.databinding.ItemListCommentsBinding
 import com.events.databinding.ItemLoadingViewBinding
@@ -17,6 +18,7 @@ class AdapterComments(
     private var listener: AdapterCommentOnClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var image: String = ""
     private var name: String = ""
     private var theme: String = ""
     private var date: String = ""
@@ -27,7 +29,8 @@ class AdapterComments(
         notifyItemInserted(commentsList.size - 1)
     }
 
-    fun head(name: String, theme: String, date: String) {
+    fun head(image: String, name: String, theme: String, date: String) {
+        this.image = image
         this.name = name
         this.theme = theme
         this.date = date
@@ -113,6 +116,7 @@ class AdapterComments(
         RecyclerView.ViewHolder(binding.root) {
         fun bindViewHead() {
             with(binding) {
+                Glide.with(itemView.context).load(image).into(imageViewEvent)
                 nameEvent.text = name
                 themeEvent.text = theme
                 dateTimeEvent.text = date

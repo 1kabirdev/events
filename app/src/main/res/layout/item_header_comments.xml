@@ -1,40 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
     android:background="@drawable/shape_btn_discuss_head"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:weightSum="2">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/nameEvent"
-        android:layout_width="match_parent"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewEvent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/manrope_bold"
-        android:text="Name Event"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/themeEvent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:fontFamily="@font/manrope_regular"
-        android:text="Theme Event"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/nameEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_bold"
+            android:lines="1"
+            android:text="Name Event"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/themeEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/manrope_regular"
+            android:lines="1"
+            android:text="Theme Event"
+            android:textColor="#606060"
+            android:textSize="13sp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/dateTimeEvent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:fontFamily="@font/manrope_regular"
-        android:text="Date time Event"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dateTimeEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/manrope_regular"
+            android:lines="1"
+            android:text="Date time Event"
+            android:textColor="#FF606060"
+            android:textSize="13sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

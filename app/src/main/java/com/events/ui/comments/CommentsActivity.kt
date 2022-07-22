@@ -34,6 +34,7 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
     private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: ActivityCommentsBinding
     private lateinit var event_id: String
+    private lateinit var image_event: String
     private lateinit var name_event: String
     private lateinit var theme_event: String
     private lateinit var date_event: String
@@ -55,6 +56,7 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
         name_event = args?.get("EVENT_NAME").toString()
         theme_event = args?.get("EVENT_THEME").toString()
         date_event = args?.get("EVENT_DATE").toString()
+        image_event = args?.get("EVENT_IMAGE").toString()
 
         sendPresenter = SendCommentPresenter((applicationContext as App).dataManager)
         sendPresenter.attachView(this)
@@ -68,10 +70,6 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
         binding.recyclerViewComments.layoutManager = layoutManager
         setEndlessScrollEventListener()
         binding.recyclerViewComments.addOnScrollListener(endlessScrollEventListener)
-
-        binding.refreshLayoutComment.setOnRefreshListener {
-            presenter.responseLoadComments(event_id.toInt(), PAGE_START)
-        }
 
         onClickListener()
     }
@@ -136,14 +134,13 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
 
 
     override fun loadComments(info: Info, commentsList: ArrayList<CommentsList>) {
-        binding.refreshLayoutComment.isRefreshing = false
         if (info.count_comments != 0) {
             countComments = info.count_comments
             binding.countComment.text = countComments.toString()
         }
         currentPage = info.next_page
         adapterComments = AdapterComments(commentsList, this)
-        adapterComments.head(name_event, theme_event, date_event)
+        adapterComments.head(image_event, name_event, theme_event, date_event)
         binding.recyclerViewComments.adapter = adapterComments
         if (info.next_page != 0) adapterComments.addLoadingFooter() else isLastPage =
             true
@@ -169,7 +166,6 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
     }
 
     override fun errorConnection() {
-        binding.refreshLayoutComment.isRefreshing = false
         Toast.makeText(this, "Проверьте подключение к Интеренту", Toast.LENGTH_SHORT).show()
     }
 
