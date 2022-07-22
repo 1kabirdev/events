@@ -16,7 +16,7 @@ import com.events.adapter.AdapterImageList
 
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class HomeFragment : Fragment() {
+class HomeImageArrayListFragment : Fragment() {
 
     private lateinit var selectImage: TextView
     private lateinit var clearImageList: TextView
