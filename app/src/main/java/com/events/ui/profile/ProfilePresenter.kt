@@ -1,7 +1,6 @@
 package com.events.ui.profile
 
 import com.events.data.DataManager
-import com.events.model.profile.ProfileData
 import com.events.model.profile.ResponseInfoProfile
 import com.events.mvp.BasePresenter
 import retrofit2.Call

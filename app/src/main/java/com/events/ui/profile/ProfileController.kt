@@ -1,21 +1,19 @@
 package com.events.ui.profile
 
-import com.events.model.profile.InfoPage
-import com.events.model.profile.ProfileData
-import com.events.model.profile.ResponseEvents
+import com.events.model.profile.ResponseInfoProfile
 import com.events.mvp.MvpView
 
 interface ProfileController {
     interface View : MvpView {
         fun getLoadData(
-            profileData: ProfileData,
-            infoPage: InfoPage,
-            eventsList: ArrayList<ResponseEvents>
+            profileData: ResponseInfoProfile.ProfileData,
+            infoPage: ResponseInfoProfile.InfoPage,
+            eventsList: ArrayList<ResponseInfoProfile.ResponseEvents>
         )
 
         fun getLoadDataPage(
-            infoPage: InfoPage,
-            eventsList: ArrayList<ResponseEvents>
+            infoPage: ResponseInfoProfile.InfoPage,
+            eventsList: ArrayList<ResponseInfoProfile.ResponseEvents>
         )
 
         fun progressBar(show: Boolean)

@@ -10,17 +10,16 @@ import com.events.databinding.ItemErrorConnectionViewBinding
 import com.events.databinding.ItemListMyEventsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.databinding.ItemProfileBinding
-import com.events.model.profile.ProfileData
-import com.events.model.profile.ResponseEvents
+import com.events.model.profile.ResponseInfoProfile
 import com.events.ui.event.MyEventsActivity
 
 class AdapterMyEvents(
-    private var events: ArrayList<ResponseEvents>,
+    private var events: ArrayList<ResponseInfoProfile.ResponseEvents>,
     private var listener: OnClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var profileData: ProfileData? = null
+    private var profileData: ResponseInfoProfile.ProfileData? = null
     private var countEvent = 0
     private var isLoadingAdded = false
     private var errorFailed = false
@@ -33,12 +32,12 @@ class AdapterMyEvents(
         isLoadingAdded = false
     }
 
-    fun addAll(_events: ArrayList<ResponseEvents>) {
+    fun addAll(_events: ArrayList<ResponseInfoProfile.ResponseEvents>) {
         events.addAll(_events)
         notifyItemInserted(events.size - 1)
     }
 
-    fun profile(profileData: ProfileData) {
+    fun profile(profileData: ResponseInfoProfile.ProfileData) {
         this.profileData = profileData
     }
 
@@ -140,7 +139,7 @@ class AdapterMyEvents(
     inner class EventsViewHolder(val binding: ItemListMyEventsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindLoad(eventsList: ResponseEvents) {
+        fun bindLoad(eventsList: ResponseInfoProfile.ResponseEvents) {
             with(binding) {
                 textNameEvent.text = eventsList.nameE
                 textDateAndTime.text = "${eventsList.dataE} в ${eventsList.timeE}"
@@ -164,7 +163,7 @@ class AdapterMyEvents(
     inner class ProfileViewHolder(val binding: ItemProfileBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindViewProfile(profileData: ProfileData) {
+        fun bindViewProfile(profileData: ResponseInfoProfile.ProfileData) {
             with(binding) {
                 textViewCountEvent.text = countEvent.toString()
                 Glide.with(itemView.context).load(profileData.avatar).into(avatarProfile)
@@ -186,7 +185,7 @@ class AdapterMyEvents(
 
 
     interface OnClickListener {
-        fun onClickUserEdit(profileData: ProfileData)
+        fun onClickUserEdit(profileData: ResponseInfoProfile.ProfileData)
         fun OnClickReply()
     }
 }

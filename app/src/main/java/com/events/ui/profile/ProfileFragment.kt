@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.events.App
 import com.events.MainActivity
 import com.events.databinding.FragmentProfileBinding
-import com.events.model.profile.InfoPage
-import com.events.model.profile.ProfileData
-import com.events.model.profile.ResponseEvents
+import com.events.model.profile.ResponseInfoProfile
 import com.events.ui.bottom_sheet.InfoProfileBottomSheet
 import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.login.LoginUserFragment
@@ -36,7 +34,7 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
     private var isLastPage = false
     private val PAGE_START = 1
     private var currentPage: Int = PAGE_START
-    var user: ProfileData? = null
+    var user: ResponseInfoProfile.ProfileData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -103,12 +101,12 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
     }
 
     override fun getLoadData(
-        profileData: ProfileData,
-        infoPage: InfoPage,
-        eventsList: ArrayList<ResponseEvents>
+        profileData: ResponseInfoProfile.ProfileData,
+        infoPage: ResponseInfoProfile.InfoPage,
+        eventsList: ArrayList<ResponseInfoProfile.ResponseEvents>
     ) {
 
-        user = ProfileData(
+        user = ResponseInfoProfile.ProfileData(
             preferencesManager.getString(Constants.USER_ID),
             profileData.username,
             profileData.avatar,
@@ -139,7 +137,10 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
                 true
     }
 
-    override fun getLoadDataPage(infoPage: InfoPage, eventsList: ArrayList<ResponseEvents>) {
+    override fun getLoadDataPage(
+        infoPage: ResponseInfoProfile.InfoPage,
+        eventsList: ArrayList<ResponseInfoProfile.ResponseEvents>
+    ) {
         currentPage = infoPage.next_page
         adapterMyEvents.addAll(eventsList)
         isLoading = false
@@ -179,7 +180,7 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         startActivity(intent)
     }
 
-    override fun onClickUserEdit(profileData: ProfileData) {
+    override fun onClickUserEdit(profileData: ResponseInfoProfile.ProfileData) {
         val intent = Intent(requireContext(), EditProfileActivity::class.java)
         intent.putExtra("AVATAR", profileData.avatar)
         intent.putExtra("USERNAME", profileData.username)
