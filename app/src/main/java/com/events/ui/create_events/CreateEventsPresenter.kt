@@ -30,7 +30,7 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
             it.showProgress(true)
             val tsLong = System.currentTimeMillis() / 1000
             val nameImage = "$tsLong.jpg"
-            val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), image_e)
+            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), image_e)
             val imageE = MultipartBody.Part.createFormData("image_e", nameImage, requestFile)
             val userId = user_id_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val nameE = name_e.toRequestBody("text/plain".toMediaTypeOrNull())
