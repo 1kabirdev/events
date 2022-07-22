@@ -63,9 +63,11 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
                 layoutManager
             ) {
                 override fun onLoadMore(recyclerView: RecyclerView?) {
-                    isLoading = true
-                    if (currentPage != 0) {
-                        presenter.responseEventsPage(currentPage)
+                    recyclerView.apply {
+                        isLoading = true
+                        if (currentPage != 0) {
+                            presenter.responseEventsPage(currentPage)
+                        }
                     }
                 }
             }
