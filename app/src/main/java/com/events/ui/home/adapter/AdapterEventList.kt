@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.events.R
+import com.events.databinding.ItemHeadHomeThemeBinding
 import com.events.databinding.ItemListEventsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.model.home.ListEvents
@@ -37,6 +38,7 @@ class AdapterEventList(
     companion object {
         const val ITEM = 0
         const val LOADING = 1
+        const val HEAD = 2
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -84,10 +86,17 @@ class AdapterEventList(
 
     override fun getItemCount(): Int = eventsList.size
 
-    inner class LoadingViewHolder(val binding: ItemLoadingViewBinding) :
+    private inner class LoadingViewHolder(val binding: ItemLoadingViewBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    inner class ItemEventViewHolder(val binding: ItemListEventsBinding) :
+    private inner class HeadThemeViewHolder(val binding: ItemHeadHomeThemeBinding) :
+        RecyclerView.ViewHolder(binding.root){
+            fun bindViewTheme(){
+
+            }
+        }
+
+    private inner class ItemEventViewHolder(val binding: ItemListEventsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private var dateAndTime: Calendar = Calendar.getInstance()
         private val preferencesManager = PreferencesManager(itemView.context)
