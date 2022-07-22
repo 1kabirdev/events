@@ -83,9 +83,11 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
                 layoutManager
             ) {
                 override fun onLoadMore(recyclerView: RecyclerView?) {
-                    isLoading = true
-                    if (currentPage != 0) {
-                        presenter.responseLoadCommentsPage(event_id.toInt(), currentPage)
+                    recyclerView.apply {
+                        isLoading = true
+                        if (currentPage != 0) {
+                            presenter.responseLoadCommentsPage(event_id.toInt(), currentPage)
+                        }
                     }
                 }
             }
@@ -143,7 +145,7 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
         adapterComments = AdapterComments(commentsList, this)
         adapterComments.head(name_event, theme_event, date_event)
         binding.recyclerViewComments.adapter = adapterComments
-        if (info.next_page != 0) adapterComments.addLoadingFooter(true) else isLastPage =
+        if (info.next_page != 0) adapterComments.addLoadingFooter() else isLastPage =
             true
 
     }
@@ -156,8 +158,8 @@ class CommentsActivity : AppCompatActivity(), CommentsContract.View, SendComment
         currentPage = info.next_page
         adapterComments.addComments(commentsList)
         isLoading = false
-        adapterComments.addLoadingFooter(false)
-        if (info.next_page != 0) adapterComments.addLoadingFooter(true) else isLastPage =
+        adapterComments.removeLoadingFooter()
+        if (info.next_page != 0) adapterComments.addLoadingFooter() else isLastPage =
             true
     }
 

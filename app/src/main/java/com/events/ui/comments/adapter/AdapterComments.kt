@@ -23,7 +23,6 @@ class AdapterComments(
     private var isLoadingAdded = false
 
     fun addComments(comment: ArrayList<CommentsList>) {
-        commentsList.clear()
         commentsList.addAll(comment)
         notifyItemInserted(commentsList.size - 1)
     }
@@ -39,8 +38,12 @@ class AdapterComments(
         commentsList.add(0, comment)
     }
 
-    fun addLoadingFooter(show: Boolean) {
-        isLoadingAdded = show
+    fun addLoadingFooter() {
+        isLoadingAdded = true
+    }
+
+    fun removeLoadingFooter() {
+        isLoadingAdded = false
     }
 
     companion object {
