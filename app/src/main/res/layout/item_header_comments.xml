@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nameEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:fontFamily="@font/manrope_medium"
+        android:text="Name Event"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/themeEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/manrope_regular"
+        android:text="Theme Event"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dateTimeEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/manrope_regular"
+        android:text="Date time Event"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

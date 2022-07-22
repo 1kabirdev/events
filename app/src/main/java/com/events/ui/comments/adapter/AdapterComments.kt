@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.events.databinding.ItemHeaderCommentsBinding
 import com.events.databinding.ItemListCommentsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.model.comments.CommentsList
@@ -19,6 +20,7 @@ class AdapterComments(
     private var isLoadingAdded = false
 
     fun addComments(comment: ArrayList<CommentsList>) {
+        commentsList.clear()
         commentsList.addAll(comment)
         notifyItemInserted(commentsList.size - 1)
     }
@@ -35,10 +37,14 @@ class AdapterComments(
     companion object {
         const val ITEM = 0
         const val LOADING = 1
+        const val HEAD = 2
     }
 
+    private fun isPositionHeader(position: Int): Boolean = position == 0
+
     override fun getItemViewType(position: Int): Int {
-        return if (position == commentsList.size - 1 && isLoadingAdded) LOADING
+        return if (isPositionHeader(position)) HEAD
+        else if (position == commentsList.size - 1 && isLoadingAdded) LOADING
         else ITEM
     }
 
@@ -63,6 +69,13 @@ class AdapterComments(
                 )
                 viewHolder = ItemViewHolder(binding)
             }
+
+            HEAD -> {
+                val binding = ItemHeaderCommentsBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                viewHolder = HeadViewHolder(binding)
+            }
         }
         return viewHolder!!
     }
@@ -78,13 +91,26 @@ class AdapterComments(
                 val viewHolderWishlist = holder as ItemViewHolder
                 viewHolderWishlist.bindView(comments)
             }
+            HEAD -> {
+                val headHolder = holder as HeadViewHolder
+                headHolder.bindViewHead()
+            }
         }
     }
 
-    inner class LoadingViewHolder(val binding: ItemLoadingViewBinding) :
+    private inner class HeadViewHolder(val binding: ItemHeaderCommentsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindViewHead() {
+            with(binding) {
+
+            }
+        }
+    }
+
+    private inner class LoadingViewHolder(val binding: ItemLoadingViewBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    inner class ItemViewHolder(val binding: ItemListCommentsBinding) :
+    private inner class ItemViewHolder(val binding: ItemListCommentsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         var preferencesManager = PreferencesManager(itemView.context)
 
