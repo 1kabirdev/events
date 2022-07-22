@@ -11,6 +11,7 @@ import com.events.model.home.ResponseHomeEvents
 import com.events.model.list_events.ResponseListEvents
 import com.events.model.my_events.ResponseMyEvents
 import com.events.model.organizer.ResponseInfoOrganizer
+import com.events.model.profile.UpdateAvatar
 import com.events.model.search.ResponseSearch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -60,6 +61,13 @@ interface Api {
         @Part("theme_e") theme_e: RequestBody,
         @Part image_e: MultipartBody.Part,
     ): Call<ResponseCreateEvents>
+
+    @Multipart
+    @POST("create_avatar.php")
+    fun updateAvatar(
+        @Part("user_id") user_id: RequestBody,
+        @Part image: MultipartBody.Part
+    ): Call<UpdateAvatar>
 
     @GET("home_list_events.php")
     fun loadHomeListEvents(

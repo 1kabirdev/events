@@ -37,3 +37,8 @@ data class ResponseEvents(
     @SerializedName("cost_e") var costE: String,
     @SerializedName("create_date_e") var createDateE: String
 )
+
+data class UpdateAvatar(
+    @SerializedName("status") val status: Boolean,
+    @SerializedName("message") val message: String
+)
