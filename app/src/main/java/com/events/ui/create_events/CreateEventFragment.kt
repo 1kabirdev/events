@@ -198,7 +198,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
 
     private fun getBytes(inp: InputStream): ByteArray? {
         val byteBuff = ByteArrayOutputStream()
-        val buffSize = 1024
+        val buffSize = 2048
         val buff = ByteArray(buffSize)
         var len = 0
         while (inp.read(buff).also { len = it } != -1) {
