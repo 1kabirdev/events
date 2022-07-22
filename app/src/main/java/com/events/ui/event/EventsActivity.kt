@@ -49,6 +49,9 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
             btnDiscussEvents.setOnClickListener {
                 val intent = Intent(this@EventsActivity, CommentsActivity::class.java)
                 intent.putExtra("EVENT_ID", eventId)
+                intent.putExtra("EVENT_NAME", events.getNameE())
+                intent.putExtra("EVENT_THEME", events.getThemeE())
+                intent.putExtra("EVENT_DATE", events.getDataE() + events.getTimeE())
                 startActivity(intent)
             }
         }

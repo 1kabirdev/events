@@ -17,12 +17,21 @@ class AdapterComments(
     private var listener: AdapterCommentOnClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var name: String = ""
+    private var theme: String = ""
+    private var date: String = ""
     private var isLoadingAdded = false
 
     fun addComments(comment: ArrayList<CommentsList>) {
         commentsList.clear()
         commentsList.addAll(comment)
         notifyItemInserted(commentsList.size - 1)
+    }
+
+    fun head(name: String, theme: String, date: String) {
+        this.name = name
+        this.theme = theme
+        this.date = date
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -47,7 +56,6 @@ class AdapterComments(
         else if (position == commentsList.size - 1 && isLoadingAdded) LOADING
         else ITEM
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var viewHolder: RecyclerView.ViewHolder? = null
@@ -87,7 +95,7 @@ class AdapterComments(
                 loadingViewHolder.binding.progressViewComment.visibility = View.VISIBLE
             }
             ITEM -> {
-                val comments = commentsList[position]
+                val comments = commentsList[position - 1]
                 val viewHolderWishlist = holder as ItemViewHolder
                 viewHolderWishlist.bindView(comments)
             }
@@ -102,7 +110,9 @@ class AdapterComments(
         RecyclerView.ViewHolder(binding.root) {
         fun bindViewHead() {
             with(binding) {
-
+                nameEvent.text = name
+                themeEvent.text = theme
+                dateTimeEvent.text = date
             }
         }
     }
@@ -137,7 +147,7 @@ class AdapterComments(
         }
     }
 
-    override fun getItemCount(): Int = commentsList.size
+    override fun getItemCount(): Int = commentsList.size + 1
 
     interface AdapterCommentOnClickListener {
         fun onClickUser(user_id: Int)
