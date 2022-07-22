@@ -75,13 +75,23 @@ class SearchEventFragment : Fragment(), SearchContract.View, AdapterSearchEvent.
     }
 
     override fun onClickEvent(id: Int, user_id: Int) {
-        if (user_id == preferencesManager.getString(Constants.USER_ID).toInt()) {
-            startActivity(
-                Intent(
-                    requireContext(),
-                    MyEventsActivity::class.java
-                ).putExtra("EVENTS_ID", id.toString())
-            )
+        if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+            if (user_id == preferencesManager.getString(Constants.USER_ID).toInt()) {
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        MyEventsActivity::class.java
+                    ).putExtra("EVENTS_ID", id.toString())
+                )
+            } else {
+                startActivity(
+                    Intent(
+                        requireContext(), EventsActivity::class.java
+                    ).putExtra(
+                        "EVENTS_ID", id.toString()
+                    ).putExtra("USER_ID", user_id.toString())
+                )
+            }
         } else {
             startActivity(
                 Intent(
@@ -92,5 +102,4 @@ class SearchEventFragment : Fragment(), SearchContract.View, AdapterSearchEvent.
             )
         }
     }
-
 }
