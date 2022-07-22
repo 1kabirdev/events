@@ -55,7 +55,9 @@ class SearchEventFragment : Fragment(), SearchContract.View, AdapterSearchEvent.
                     Unit
 
                 override fun afterTextChanged(s: Editable) {
-                    presenterImpl.responseSearch(s.toString())
+                    if (s.trim().isNotEmpty())
+                        presenterImpl.responseSearch(s.toString())
+                    else presenterImpl.responseSearch("")
                 }
             })
         }

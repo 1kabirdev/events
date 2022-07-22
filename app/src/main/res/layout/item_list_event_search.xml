@@ -11,13 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_weight="0"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="0dp">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -36,16 +37,17 @@
             android:layout_weight="2"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/nameEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Название"
                 android:lines="1"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/themeEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +55,8 @@
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Тема"
                 android:lines="1"
-                android:textColor="@color/black" />
+                android:textColor="#575757"
+                android:textSize="13sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
