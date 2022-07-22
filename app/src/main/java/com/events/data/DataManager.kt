@@ -11,6 +11,7 @@ import com.events.model.home.ResponseHomeEvents
 import com.events.model.list_events.ResponseListEvents
 import com.events.model.my_events.ResponseMyEvents
 import com.events.model.organizer.ResponseInfoOrganizer
+import com.events.model.profile.UpdateAvatar
 import com.events.model.search.ResponseSearch
 import com.events.service.Api
 import com.events.service.ServicesGenerator
@@ -50,6 +51,13 @@ class DataManager {
         return api.createEvents(
             user_id_e, name_e, desc_e, data_e, time_e, theme_e, image_e
         )
+    }
+
+    fun updateAvatar(
+        user_id: RequestBody,
+        image: MultipartBody.Part
+    ): Call<UpdateAvatar> {
+        return api.updateAvatar(user_id, image)
     }
 
     fun getLoadInfoProfile(user_id: String, page: Int): Call<ResponseInfoProfile> {
