@@ -85,7 +85,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:text="Адрес"
-        android:textColor="#BCBCBC"
+        android:textColor="@color/bkg_gray_text_view"
         android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardViewImageEvents" />

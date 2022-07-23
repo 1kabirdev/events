@@ -146,11 +146,6 @@ class AdapterEventListOrganizer(
                 textCityEvents.text = eventsList.cityE
                 textTheme.text = eventsList.themeE
 
-                if (eventsList.costE != "" && eventsList.costE != "0") textCost.text =
-                    "${eventsList.costE} р"
-                else textCost.text = "Бесплатно."
-
-
                 itemView.setOnClickListener {
                     listener.onClickEvent(eventsList.idE.toInt())
                 }

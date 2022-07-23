@@ -90,14 +90,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleAboutOrganizer" />
 
-    <View
-        android:id="@+id/viewLineOrganizer"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="#ECECEC"
-        app:layout_constraintTop_toBottomOf="@+id/aboutOrganizer" />
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,15 +97,16 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewLineOrganizer">
+        app:layout_constraintTop_toBottomOf="@+id/aboutOrganizer">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_medium"
             android:gravity="center_vertical"
+            android:textColor="@color/black"
             android:text="Мероприятия"
-            android:textSize="13sp" />
+            android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewCountEvent"
