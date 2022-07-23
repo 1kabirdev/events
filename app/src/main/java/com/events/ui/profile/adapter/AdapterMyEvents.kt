@@ -11,6 +11,7 @@ import com.events.databinding.ItemListMyEventsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.databinding.ItemProfileBinding
 import com.events.model.profile.ResponseInfoProfile
+import com.events.ui.comments.CommentsActivity
 import com.events.ui.event.MyEventsActivity
 
 class AdapterMyEvents(
@@ -144,17 +145,22 @@ class AdapterMyEvents(
                 textNameEvent.text = eventsList.nameE
                 textDateAndTime.text = "${eventsList.dataE} в ${eventsList.timeE}"
                 Glide.with(itemView.context).load(eventsList.imageE).into(imageEvents)
-                textCityEvents.text = eventsList.cityE
-                textTheme.text = eventsList.themeE
-
-                if (eventsList.costE != "" && eventsList.costE != "0")
-                    textCost.text = "${eventsList.costE} р"
-                else textCost.text = "Бесплатно."
+                textCityEvents.text = "город: ${eventsList.cityE}"
+                textTheme.text = "тема: ${eventsList.themeE}"
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, MyEventsActivity::class.java)
                     intent.putExtra("EVENTS_ID", eventsList.idE)
                     it.context.startActivity(intent)
+                }
+                clickDiscussEvent.setOnClickListener {
+                    val intent = Intent(itemView.context, CommentsActivity::class.java)
+                    intent.putExtra("EVENT_ID", eventsList.idE)
+                    intent.putExtra("EVENT_IMAGE", eventsList.imageE)
+                    intent.putExtra("EVENT_NAME", eventsList.nameE)
+                    intent.putExtra("EVENT_THEME", eventsList.themeE)
+                    intent.putExtra("EVENT_DATE", eventsList.dataE + eventsList.timeE)
+                    itemView.context.startActivity(intent)
                 }
             }
         }
