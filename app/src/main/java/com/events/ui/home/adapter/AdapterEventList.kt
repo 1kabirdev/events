@@ -1,24 +1,21 @@
 package com.events.ui.home.adapter
 
-import android.annotation.SuppressLint
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.events.R
 import com.events.databinding.ItemHeadHomeThemeBinding
 import com.events.databinding.ItemListEventsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.model.home.ListEvents
+import com.events.model.home.ThemeEvent
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
-import java.util.*
 import kotlin.collections.ArrayList
 
 class AdapterEventList(
+    private var arrayTheme: MutableList<ThemeEvent>,
     private var listener: OnClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -42,7 +39,8 @@ class AdapterEventList(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == eventsList.size - 1 && isLoadingAdded) LOADING
+        return if (position == 0) HEAD
+        else if (position == eventsList.size && isLoadingAdded) LOADING
         else ITEM
     }
 
@@ -66,6 +64,14 @@ class AdapterEventList(
                 )
                 viewHolder = ItemEventViewHolder(binding)
             }
+            HEAD -> {
+                val headView = ItemHeadHomeThemeBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                viewHolder = HeadThemeViewHolder(headView)
+            }
         }
         return viewHolder!!
     }
@@ -77,31 +83,38 @@ class AdapterEventList(
                 loadingViewHolder.binding.progressViewComment.visibility = View.VISIBLE
             }
             ITEM -> {
-                val event = eventsList[position]
+                val event = eventsList[position - 1]
                 val viewHolderEvent = holder as ItemEventViewHolder
                 viewHolderEvent.bindLoad(event)
+            }
+
+            HEAD -> {
+                val headViewHolder = holder as HeadThemeViewHolder
+                headViewHolder.bindViewTheme(arrayTheme)
             }
         }
     }
 
-    override fun getItemCount(): Int = eventsList.size
+    override fun getItemCount(): Int = eventsList.size + 1
 
     private inner class LoadingViewHolder(val binding: ItemLoadingViewBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private inner class HeadThemeViewHolder(val binding: ItemHeadHomeThemeBinding) :
-        RecyclerView.ViewHolder(binding.root){
-            fun bindViewTheme(){
-
+    private inner class HeadThemeViewHolder(var binding: ItemHeadHomeThemeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindViewTheme(arrayTheme: MutableList<ThemeEvent>) {
+            with(binding) {
+                val adapterThemeHome = AdapterThemeHome(arrayTheme)
+                recyclerViewTheme.adapter = adapterThemeHome
             }
         }
+    }
 
     private inner class ItemEventViewHolder(val binding: ItemListEventsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private var dateAndTime: Calendar = Calendar.getInstance()
+
         private val preferencesManager = PreferencesManager(itemView.context)
 
-        @SuppressLint("SetTextI18n")
         fun bindLoad(eventsList: ListEvents) {
             with(binding) {
                 textNameEvent.text = eventsList.nameE
@@ -109,11 +122,6 @@ class AdapterEventList(
                 Glide.with(itemView.context).load(eventsList.imageE).into(imageEvents)
                 textCityEvents.text = eventsList.cityE
                 textTheme.text = eventsList.themeE
-
-                if (eventsList.costE != "" && eventsList.costE != "0") textCost.text =
-                    "${eventsList.costE} р"
-                else textCost.text = "Бесплатно."
-
 
                 itemView.setOnClickListener {
                     if (preferencesManager.getString(Constants.USER_ID) != eventsList.user!!
@@ -127,33 +135,7 @@ class AdapterEventList(
                         listener.onClickMyEvent(eventsList.idE.toInt())
                     }
                 }
-
-                if (eventsList.dataE < getInitialDate() && eventsList.timeE < getInitialTime()) {
-                    closeEvents.text = "Не активен"
-                } else {
-                    closeEvents.text = "Активен"
-                    closeEvents.background =
-                        ContextCompat.getDrawable(
-                            itemView.context,
-                            R.drawable.shape_circle_event_right_active
-                        )
-                }
             }
-        }
-
-        private fun getInitialDate(): String {
-            return DateUtils.formatDateTime(
-                itemView.context,
-                dateAndTime.timeInMillis,
-                DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR
-            )
-        }
-
-        private fun getInitialTime(): String {
-            return DateUtils.formatDateTime(
-                itemView.context,
-                dateAndTime.timeInMillis, DateUtils.FORMAT_SHOW_TIME
-            )
         }
     }
 

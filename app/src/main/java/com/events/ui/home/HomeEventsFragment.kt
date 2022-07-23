@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.events.App
+import com.events.R
 import com.events.ui.home.adapter.AdapterEventList
 import com.events.databinding.FragmentHomeEventsBinding
 import com.events.model.home.InfoEvents
 import com.events.model.home.ListEvents
+import com.events.model.home.ThemeEvent
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
 import com.events.utill.LinearEventEndlessScrollEventListener
@@ -31,6 +33,8 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     private val PAGE_START = 1
     private var currentPage: Int = PAGE_START
 
+    private var arrayTheme: ArrayList<ThemeEvent> = arrayListOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,11 +47,18 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         super.onViewCreated(view, savedInstanceState)
         preferencesManager = PreferencesManager(requireContext())
 
+        arrayTheme.add(ThemeEvent(1, "Все", "https://rateme-social.ru/api/events/icons/all_theme.png"))
+        arrayTheme.add(ThemeEvent(1, "It", "https://rateme-social.ru/api/events/icons/it.png"))
+        arrayTheme.add(ThemeEvent(1, "Спорт", "https://rateme-social.ru/api/events/icons/sports.png"))
+        arrayTheme.add(ThemeEvent(1, "Кино", "https://rateme-social.ru/api/events/icons/movies.png"))
+        arrayTheme.add(ThemeEvent(1, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
+        arrayTheme.add(ThemeEvent(1, "Другое", "https://rateme-social.ru/api/events/icons/other.png"))
+
         presenter = ListEventPresenter((requireContext().applicationContext as App).dataManager)
         presenter.attachView(this)
         presenter.responseEvents(PAGE_START)
 
-        adapterEventList = AdapterEventList(this)
+        adapterEventList = AdapterEventList(arrayTheme, this)
 
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewList.layoutManager = layoutManager

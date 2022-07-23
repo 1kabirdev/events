@@ -1,5 +1,6 @@
 package com.events.model.home
 
+import android.graphics.drawable.Drawable
 import com.google.gson.annotations.SerializedName
 
 data class ResponseHomeEvents(
@@ -31,5 +32,10 @@ data class ListEvents(
 data class UsersEvent(
     @SerializedName("user_id") var userId: String,
     @SerializedName("avatar") var avatar: String
+)
 
+data class ThemeEvent(
+    var id: Int,
+    val name: String,
+    var icons: String
 )
