@@ -18,9 +18,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textNameEvent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sora_medium"
+            android:fontFamily="@font/manrope_bold"
             android:hint="Название"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -41,7 +41,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/titleDateAndTime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/manrope_regular"
@@ -51,7 +51,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textDateAndTime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_regular"
             android:text="Дата проведения"
