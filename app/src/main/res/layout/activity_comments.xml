@@ -29,7 +29,7 @@
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/manrope_medium"
                 android:text="Обсуждение мероприятия"
-                android:textColor="#001E4A"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/btnClickBack"
@@ -51,10 +51,11 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/btnClickBack"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:padding="8dp"
-                android:src="@drawable/ic_arrow_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/shape_btn_bkg"
+                android:padding="6dp"
+                android:src="@drawable/ic_baseline_arrow_white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -104,7 +105,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/shape_edit_text_bkg"
-            android:visibility="gone"
+            android:visibility="visible"
             android:weightSum="2">
 
             <androidx.appcompat.widget.AppCompatEditText
@@ -124,14 +125,14 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnSendMessage"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center"
+                android:layout_gravity="center_vertical"
                 android:layout_marginTop="-2dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
                 android:rotation="-20"
+                android:background="@android:color/transparent"
                 android:src="@drawable/ic_baseline_send" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

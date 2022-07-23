@@ -47,7 +47,7 @@
                 android:id="@+id/btnAddEvents"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/shape_btn_bkg"
                 android:padding="6dp"
                 android:src="@drawable/ic_add_events"
