@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDFDFF">
+    android:background="@color/bkg_body">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/manrope_bold"
@@ -54,7 +54,7 @@
                 android:id="@+id/cardViewImage"
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
-                app:cardBackgroundColor="#F3F3F3"
+                app:cardBackgroundColor="@color/bkg_body"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="0dp"
                 app:layout_constraintTop_toTopOf="parent">
@@ -65,14 +65,15 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/titleSelectImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textSize="13sp"
                     android:fontFamily="@font/manrope_medium"
                     android:text="Выберите фотографию"
-                    android:textColor="#60001E4A" />
+                    android:textColor="@color/black" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/deleteImageSelected"
@@ -92,7 +93,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_bkg"
+                android:background="@drawable/shape_edit_text_create_bkg"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Название"
                 android:inputType="text"
@@ -109,7 +110,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_bkg"
+                android:background="@drawable/shape_edit_text_create_bkg"
                 android:fontFamily="@font/manrope_medium"
                 android:gravity="top"
                 android:hint="Описание мероприятия, город, адрес"
@@ -123,7 +124,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/editTextNameEvents" />
 
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/titleBeginning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -132,7 +133,7 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/manrope_regular"
                 android:text="Начало проведения"
-                android:textColor="#80001E4A"
+                android:textColor="@color/bkg_gray_text_view"
                 android:textSize="12sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextDescEvents" />
@@ -144,7 +145,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_bkg"
+                android:background="@drawable/shape_edit_text_create_bkg"
                 android:padding="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/titleBeginning">
 
@@ -182,7 +183,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_bkg"
+                android:background="@drawable/shape_edit_text_create_bkg"
                 android:padding="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/constraintDateCreateEvents">
 
@@ -220,7 +221,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_edit_text_bkg"
+                android:background="@drawable/shape_edit_text_create_bkg"
                 android:enabled="false"
                 android:fontFamily="@font/manrope_medium"
                 android:hint="Тематика"
@@ -264,7 +265,7 @@
                     android:fontFamily="@font/manrope_medium"
                     android:text="Очистить"
                     android:textAllCaps="false"
-                    android:textColor="#001E4A"
+                    android:textColor="@color/black"
                     android:textSize="13sp" />
             </LinearLayout>
 
