@@ -58,15 +58,6 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun getLoadCost(cost: String) {
-        binding.textCostEventView.text = "$cost р"
-    }
-
-    override fun getLoadCostNot() {
-        binding.textCostEventView.text = "Бесплатно"
-    }
-
     private fun onClickListener() {
         binding.btnBack.setOnClickListener {
             finish()

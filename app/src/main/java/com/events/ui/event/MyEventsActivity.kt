@@ -75,15 +75,6 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun getLoadCost(cost: String) {
-        binding.textCostEventView.text = "$cost р"
-    }
-
-    override fun getLoadCostNot() {
-        binding.textCostEventView.text = "Бесплатно"
-    }
-
     override fun showProgressBar(show: Boolean) {
         if (show) {
             binding.nested.visibility = View.GONE
