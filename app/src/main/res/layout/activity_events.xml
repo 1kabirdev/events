@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDFDFF"
+    android:background="@color/bkg_body"
     tools:context=".ui.event.MyEventsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -70,7 +70,7 @@
                 android:fontFamily="@font/manrope_bold"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="#001E4A"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -84,7 +84,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="Дата проведения"
-                android:textColor="#65001E4A"
+                android:textColor="@color/bkg_gray_text_view"
                 android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@+id/nameEvents" />
 
@@ -96,7 +96,7 @@
                 android:hint="Дата проведения"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="#001E4A"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/titleDateAndTimeEventView" />
 
@@ -110,7 +110,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="Адрес"
-                android:textColor="#65001E4A"
+                android:textColor="@color/bkg_gray_text_view"
                 android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@+id/textDateAndTimeEventView" />
 
@@ -122,7 +122,7 @@
                 android:hint="Адрес проведения"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="#001E4A"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/titleAddressEventView" />
 
@@ -136,7 +136,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="Тема проведения"
-                android:textColor="#65001E4A"
+                android:textColor="@color/bkg_gray_text_view"
                 android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@+id/textAddressEventView" />
 
@@ -148,7 +148,7 @@
                 android:hint="Тема проведения"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="#001E4A"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/titleThemeEventView" />
 
@@ -162,7 +162,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="Описание"
-                android:textColor="#65001E4A"
+                android:textColor="@color/bkg_gray_text_view"
                 android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@+id/textThemeEventView" />
 
@@ -174,36 +174,9 @@
                 android:hint="Описание"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="#001E4A"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/titleDescEventView" />
-
-
-            <TextView
-                android:id="@+id/titleCostEventView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/manrope_regular"
-                android:paddingStart="16dp"
-                android:text="Цена:"
-                android:textColor="#65001E4A"
-                android:textSize="12sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textDescEventView" />
-
-            <TextView
-                android:id="@+id/textCostEventView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/manrope_medium"
-                android:hint="100р"
-                android:textColor="#001E4A"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toRightOf="@+id/titleCostEventView"
-                app:layout_constraintTop_toBottomOf="@+id/textDescEventView" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDiscussEvents"
@@ -218,7 +191,7 @@
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textCostEventView" />
+                app:layout_constraintTop_toBottomOf="@+id/textDescEventView" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintUserAccount"
@@ -229,6 +202,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="10dp"
+                app:layout_anchorGravity="center"
                 app:layout_constraintTop_toBottomOf="@+id/btnDiscussEvents">
 
                 <com.google.android.material.card.MaterialCardView
@@ -254,9 +228,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/manrope_medium"
+                    android:fontFamily="@font/manrope_bold"
                     android:hint="Имя пользователя"
-                    android:textColor="#001E4A"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintLeft_toRightOf="@+id/materialAvatar"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -268,16 +242,16 @@
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/manrope_regular"
                     android:hint="Имя и Фамилия"
-                    android:textColor="#68001E4A"
+                    android:textColor="@color/bkg_gray_text_view"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/materialAvatar"
                     app:layout_constraintTop_toBottomOf="@+id/textUserNameProfile" />
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
