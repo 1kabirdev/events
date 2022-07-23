@@ -26,13 +26,6 @@ class EventsPresenter(private val dataManager: DataManager) :
                     if (response.isSuccessful) {
                         response.body()?.let { res ->
                             it.getLoadData(res.getResponse(), res.getResponse().getUser())
-                            if (res.getResponse().getCostE() != "" && res.getResponse()
-                                    .getCostE() != "0"
-                            ) {
-                                it.getLoadCost(res.getResponse().getCostE())
-                            } else {
-                                it.getLoadCostNot()
-                            }
                         }
                     }
                 }

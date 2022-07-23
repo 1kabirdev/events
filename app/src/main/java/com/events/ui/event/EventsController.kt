@@ -7,8 +7,6 @@ import com.events.mvp.MvpView
 interface EventsController : MvpView {
     interface View : MvpView {
         fun getLoadData(events: Events, user: User)
-        fun getLoadCost(cost: String)
-        fun getLoadCostNot()
         fun showProgressBar(show:Boolean)
         fun noConnection()
     }
