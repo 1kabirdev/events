@@ -17,57 +17,61 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatarProfile"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/usernameProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_medium"
-                android:hint="Имя аккаунта"
-                android:lines="1"
-                android:maxEms="10"
-                android:textColor="#001E4A"
-                android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/avatarProfile" />
-
-            <TextView
-                android:id="@+id/lastNameProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/manrope_regular"
-                android:hint="Указать имя и фамилия"
-                android:lines="1"
-                android:maxEms="16"
-                android:textColor="#001E4A"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/usernameProfile" />
-
-        </LinearLayout>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutInfoProfile">
+
+        <TextView
+            android:id="@+id/usernameProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_bold"
+            android:hint="Имя аккаунта"
+            android:gravity="center"
+            android:lines="1"
+            android:maxEms="10"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avatarProfile" />
+
+        <TextView
+            android:id="@+id/lastNameProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/manrope_regular"
+            android:hint="Указать имя и фамилия"
+            android:lines="1"
+            android:gravity="center"
+            android:maxEms="16"
+            android:textColor="#232323"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usernameProfile" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/titleAboutProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/manrope_regular"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -75,7 +79,7 @@
         android:textColor="#AAAAAA"
         android:textSize="11sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutInfoProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/linearProfile" />
 
     <TextView
         android:id="@+id/aboutProfile"
@@ -113,7 +117,6 @@
         android:layout_marginTop="16dp"
         android:background="#ECECEC"
         app:layout_constraintTop_toBottomOf="@+id/btnClickEditProfile" />
-
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"

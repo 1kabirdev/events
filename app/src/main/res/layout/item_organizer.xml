@@ -38,7 +38,7 @@
             android:id="@+id/usernameOrganizer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/manrope_medium"
+            android:fontFamily="@font/manrope_bold"
             android:gravity="center"
             android:hint="Имя аккаунта"
             android:lines="1"
