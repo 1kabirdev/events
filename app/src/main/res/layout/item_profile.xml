@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="26dp"
-    android:paddingBottom="16dp">
+    android:paddingBottom="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutInfoProfile"
@@ -25,22 +25,22 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="16dp"
+        android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutInfoProfile">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/usernameProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_bold"
-            android:hint="Имя аккаунта"
             android:gravity="center"
+            android:hint="Имя аккаунта"
             android:lines="1"
             android:maxEms="10"
             android:textColor="@color/black"
@@ -49,15 +49,15 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/avatarProfile" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/lastNameProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/manrope_regular"
+            android:gravity="center"
             android:hint="Указать имя и фамилия"
             android:lines="1"
-            android:gravity="center"
             android:maxEms="16"
             android:textColor="#232323"
             android:textSize="14sp"
@@ -65,9 +65,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/usernameProfile" />
 
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/titleAboutProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearProfile" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/aboutProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -110,14 +110,6 @@
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/aboutProfile" />
 
-    <View
-        android:id="@+id/viewLine"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="#ECECEC"
-        app:layout_constraintTop_toBottomOf="@+id/btnClickEditProfile" />
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -125,17 +117,18 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewLine">
+        app:layout_constraintTop_toBottomOf="@+id/btnClickEditProfile">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_medium"
             android:gravity="center_vertical"
-            android:text="Мои мероприятия"
-            android:textSize="13sp" />
+            android:text="Мероприятия"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewCountEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -145,6 +138,5 @@
             android:textColor="@color/black"
             android:textSize="14sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
