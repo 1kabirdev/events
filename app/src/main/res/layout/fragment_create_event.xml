@@ -27,10 +27,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/manrope_medium"
-                    android:text="Создать событие"
-                    android:textColor="#001E4A"
-                    android:textSize="16sp"
+                    android:fontFamily="@font/manrope_bold"
+                    android:text="Организовать мероприятие"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
