@@ -1,6 +1,5 @@
 package com.events.model.home
 
-import android.graphics.drawable.Drawable
 import com.google.gson.annotations.SerializedName
 
 data class ResponseHomeEvents(
