@@ -12,6 +12,7 @@ import com.events.model.list_events.ResponseListEvents
 import com.events.model.my_events.ResponseMyEvents
 import com.events.model.organizer.ResponseInfoOrganizer
 import com.events.model.profile.UpdateAvatar
+import com.events.model.profile.UpdatePassword
 import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import okhttp3.MultipartBody
@@ -115,4 +116,13 @@ interface Api {
         @Field("last_name") last_name: String,
         @Field("about") about: String
     ): Call<UpdateProfile>
+
+    @FormUrlEncoded
+    @POST("update_password.php")
+    fun updatePassword(
+        @Field("user_id") user_id: Int,
+        @Field("old_password") old_password: String,
+        @Field("new_password") new_password: String,
+        @Field("conf_password") conf_password: String
+    ): Call<UpdatePassword>
 }
