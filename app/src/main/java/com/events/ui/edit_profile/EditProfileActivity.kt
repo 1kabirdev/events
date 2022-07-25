@@ -28,6 +28,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfileController.View {
     private val INTENT_REQUEST_CODE = 100
     private var inp: InputStream? = null
     private lateinit var progressBar: ProgressDialog
+    private lateinit var progressBarUpdate: ProgressDialog
     private var avatar: String? = null
     private var username: String? = null
     private var lastName: String? = null
@@ -61,6 +62,11 @@ class EditProfileActivity : AppCompatActivity(), EditProfileController.View {
             editTextAbout.setText(about)
             clickUpdateAvatar.setOnClickListener { intentImageGallery() }
             btnSaveEdit.setOnClickListener {
+                presenter.responseUpdateProfile(
+                    preferencesManager.getString(Constants.USER_ID).toInt(),
+                    binding.editTextLastName.text.toString(),
+                    binding.editTextAbout.text.toString()
+                )
             }
         }
     }
@@ -139,14 +145,24 @@ class EditProfileActivity : AppCompatActivity(), EditProfileController.View {
     }
 
     override fun updateProfile(updateProfile: UpdateProfile) {
-
+        if (updateProfile.status)
+            Snackbar.make(binding.constraint, "Ваши данные быи обновлены.", Snackbar.LENGTH_LONG)
+                .show()
     }
 
     override fun progressProfile(show: Boolean) {
+        if (show)
+            progressBarUpdate = ProgressDialog.show(this, "", "", false)
+        else progressBarUpdate.dismiss()
 
     }
 
     override fun errorProfile() {
-
+        progressBarUpdate.dismiss()
+        Snackbar.make(
+            binding.constraint,
+            "Проверьте подключение к Интернету и повторите попытку.",
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 }
