@@ -15,6 +15,7 @@ import com.events.App
 import com.events.R
 import com.events.databinding.ActivityEditAccountBinding
 import com.events.model.profile.UpdateAvatar
+import com.events.model.profile.UpdateProfile
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import com.google.android.material.snackbar.Snackbar
@@ -137,7 +138,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfileController.View {
             .show()
     }
 
-    override fun updateProfile() {
+    override fun updateProfile(updateProfile: UpdateProfile) {
 
     }
 
