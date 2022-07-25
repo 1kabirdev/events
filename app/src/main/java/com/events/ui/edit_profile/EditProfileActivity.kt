@@ -120,8 +120,8 @@ class EditProfileActivity : AppCompatActivity(), EditProfileController.View {
 
     override fun updateAvatar(updateAvatar: UpdateAvatar) {
         if (updateAvatar.status)
-            Snackbar.make(binding.constraint, "Фото профиля обновлено", Snackbar.LENGTH_LONG)
-        else Snackbar.make(binding.constraint, "Ошибка.", Snackbar.LENGTH_LONG)
+            Snackbar.make(binding.constraint, "Фото профиля обновлено", Snackbar.LENGTH_LONG).show()
+        else Snackbar.make(binding.constraint, "Ошибка.", Snackbar.LENGTH_LONG).show()
     }
 
     override fun progressAvatar(show: Boolean) {
