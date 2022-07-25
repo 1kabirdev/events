@@ -48,11 +48,11 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         preferencesManager = PreferencesManager(requireContext())
 
         arrayTheme.add(ThemeEvent(1, "Все", "https://rateme-social.ru/api/events/icons/all_theme.png"))
-        arrayTheme.add(ThemeEvent(1, "It", "https://rateme-social.ru/api/events/icons/it.png"))
-        arrayTheme.add(ThemeEvent(1, "Спорт", "https://rateme-social.ru/api/events/icons/sports.png"))
-        arrayTheme.add(ThemeEvent(1, "Кино", "https://rateme-social.ru/api/events/icons/movies.png"))
-        arrayTheme.add(ThemeEvent(1, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
-        arrayTheme.add(ThemeEvent(1, "Другое", "https://rateme-social.ru/api/events/icons/other.png"))
+        arrayTheme.add(ThemeEvent(2, "It", "https://rateme-social.ru/api/events/icons/it.png"))
+        arrayTheme.add(ThemeEvent(3, "Спорт", "https://rateme-social.ru/api/events/icons/sports.png"))
+        arrayTheme.add(ThemeEvent(4, "Кино", "https://rateme-social.ru/api/events/icons/movies.png"))
+        arrayTheme.add(ThemeEvent(5, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
+        arrayTheme.add(ThemeEvent(6, "Другое", "https://rateme-social.ru/api/events/icons/other.png"))
 
         presenter = ListEventPresenter((requireContext().applicationContext as App).dataManager)
         presenter.attachView(this)
