@@ -43,10 +43,8 @@ class UpdatePasswordPresenterImpl(
                                 "failed your old password is wrong" -> {
                                     view.isEmptyPassword("Старый пароль неправильный")
                                 }
-                                else -> {
-                                    if (data.status) {
-                                        view.updatePassword(updatePassword = data)
-                                    }
+                                "upload password success" -> {
+                                    view.updatePassword(updatePassword = data)
                                 }
                             }
                         }
