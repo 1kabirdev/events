@@ -70,10 +70,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="13sp"
                     android:fontFamily="@font/manrope_medium"
                     android:text="Выберите фотографию"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/deleteImageSelected"
@@ -214,20 +214,20 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextTheme"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/clickTextViewTheme"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
+                android:gravity="center_vertical"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/shape_edit_text_create_bkg"
-                android:enabled="false"
                 android:fontFamily="@font/manrope_medium"
-                android:text="Тематика"
                 android:inputType="text"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:text="Тематика"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/constraintTimeCreateEvents" />
@@ -240,7 +240,7 @@
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="3"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTheme">
+                app:layout_constraintTop_toBottomOf="@+id/clickTextViewTheme">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnCreateEvents"
