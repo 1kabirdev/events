@@ -20,9 +20,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.events.App
+import com.events.MainActivity
 import com.events.databinding.FragmentCreateEventBinding
 import com.events.model.create_event.ResponseCreateEvents
 import com.events.model.home.ThemeEvent
+import com.events.ui.bottom_sheet.InfoProfileBottomSheet
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import java.io.ByteArrayOutputStream
@@ -55,11 +57,14 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initThemeList()
 
         with(binding) {
 
             editTextTheme.setOnClickListener {
-
+                (requireActivity() as MainActivity).createDialogFragment(
+                    ThemeEventBottomSheet(arrayTheme)
+                )
             }
 
             constraintDateCreateEvents.setOnClickListener {
@@ -86,8 +91,6 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
             }
         }
         createEvents()
-
-        initThemeList()
     }
 
     init {

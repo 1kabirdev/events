@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.events.databinding.FragmentThemeEventBottomSheetBinding
+import com.events.model.home.ThemeEvent
+import com.events.ui.create_events.adapter.AdapterThemeList
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class ThemeEventBottomSheet : BottomSheetDialogFragment() {
+class ThemeEventBottomSheet(
+    private var themeEvent: ArrayList<ThemeEvent>
+) : BottomSheetDialogFragment(), AdapterThemeList.OnClickListener {
 
     private lateinit var binding: FragmentThemeEventBottomSheetBinding
 
@@ -22,6 +26,13 @@ class ThemeEventBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        with(binding) {
+            val adapterThemeList = AdapterThemeList(themeEvent, this@ThemeEventBottomSheet)
+            recyclerViewThemeList.adapter = adapterThemeList
+        }
+    }
+
+    override fun onClickTheme(id: Int, name: String) {
 
     }
 }
