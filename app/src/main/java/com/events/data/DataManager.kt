@@ -12,6 +12,7 @@ import com.events.model.list_events.ResponseListEvents
 import com.events.model.my_events.ResponseMyEvents
 import com.events.model.organizer.ResponseInfoOrganizer
 import com.events.model.profile.UpdateAvatar
+import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import com.events.service.Api
 import com.events.service.ServicesGenerator
@@ -92,6 +93,10 @@ class DataManager {
 
     fun searchEventList(name: String): Call<ResponseSearch> {
         return api.searchEvent(name)
+    }
+
+    fun updateProfile(user_id: Int, last_name: String, about: String): Call<UpdateProfile> {
+        return api.updateProfile(user_id, last_name, about)
     }
 
 }
