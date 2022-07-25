@@ -38,13 +38,17 @@ data class ResponseInfoProfile(
     )
 }
 
-
 data class UpdateAvatar(
     @SerializedName("status") val status: Boolean,
     @SerializedName("message") val message: String
 )
 
 data class UpdateProfile(
+    @SerializedName("status") val status: Boolean,
+    @SerializedName("message") val message: String
+)
+
+data class UpdatePassword(
     @SerializedName("status") val status: Boolean,
     @SerializedName("message") val message: String
 )
