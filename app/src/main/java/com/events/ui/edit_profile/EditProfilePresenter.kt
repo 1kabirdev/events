@@ -2,6 +2,7 @@ package com.events.ui.edit_profile
 
 import com.events.data.DataManager
 import com.events.model.profile.UpdateAvatar
+import com.events.model.profile.UpdateProfile
 import com.events.mvp.BasePresenter
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -15,6 +16,7 @@ class EditProfilePresenter(private var dataManager: DataManager) :
     BasePresenter<EditProfileController.View>(), EditProfileController.Presenter {
 
     private lateinit var call: Call<UpdateAvatar>
+    private lateinit var callUpdateProfile: Call<UpdateProfile>
 
     override fun responseUpdateAvatar(user_id: Int, image: ByteArray) {
         mvpView?.let { view ->
@@ -47,6 +49,27 @@ class EditProfilePresenter(private var dataManager: DataManager) :
     }
 
     override fun responseUpdateProfile(user_id: Int, lastName: String, about: String) {
+        mvpView?.let { view ->
+            view.progressProfile(true)
+            callUpdateProfile = dataManager.updateProfile(user_id, lastName, about)
+            callUpdateProfile.enqueue(object : Callback<UpdateProfile> {
+                override fun onResponse(
+                    call: Call<UpdateProfile>,
+                    response: Response<UpdateProfile>
+                ) {
+                    view.progressProfile(false)
+                    if (response.isSuccessful) {
+                        response.body()?.let { update ->
+                            view.updateProfile(updateProfile = update)
+                        }
+                    }
+                }
 
+                override fun onFailure(call: Call<UpdateProfile>, t: Throwable) {
+                    view.progressProfile(false)
+                    view.errorProfile()
+                }
+            })
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.events.ui.edit_profile
 
 import com.events.model.profile.UpdateAvatar
+import com.events.model.profile.UpdateProfile
 import com.events.mvp.MvpView
 
 interface EditProfileController {
@@ -8,7 +9,7 @@ interface EditProfileController {
         fun updateAvatar(updateAvatar: UpdateAvatar)
         fun progressAvatar(show: Boolean)
         fun errorAvatar()
-        fun updateProfile()
+        fun updateProfile(updateProfile: UpdateProfile)
         fun progressProfile(show: Boolean)
         fun errorProfile()
     }
