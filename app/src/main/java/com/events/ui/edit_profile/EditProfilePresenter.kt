@@ -21,7 +21,7 @@ class EditProfilePresenter(private var dataManager: DataManager) :
             view.progressAvatar(true)
             val tsLong = System.currentTimeMillis() / 1000
             val nameImage = "$tsLong.jpg"
-            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), image)
+            val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), image)
             val imageUpload = MultipartBody.Part.createFormData("image", nameImage, requestFile)
             val userId = user_id.toString().toRequestBody("text/plain".toMediaTypeOrNull())
             call = dataManager.updateAvatar(userId, imageUpload)
