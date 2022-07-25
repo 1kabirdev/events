@@ -106,4 +106,12 @@ interface Api {
     fun searchEvent(
         @Query("name") name: String
     ): Call<ResponseSearch>
+
+    @FormUrlEncoded
+    @POST("update_profile.php")
+    fun updateProfile(
+        @Field("user_id") user_id: Int,
+        @Field("last_name") last_name: String,
+        @Field("about") about: String
+    )
 }
