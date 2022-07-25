@@ -12,6 +12,7 @@ import com.events.model.list_events.ResponseListEvents
 import com.events.model.my_events.ResponseMyEvents
 import com.events.model.organizer.ResponseInfoOrganizer
 import com.events.model.profile.UpdateAvatar
+import com.events.model.profile.UpdatePassword
 import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import com.events.service.Api
@@ -97,6 +98,15 @@ class DataManager {
 
     fun updateProfile(user_id: Int, last_name: String, about: String): Call<UpdateProfile> {
         return api.updateProfile(user_id, last_name, about)
+    }
+
+    fun updatePassword(
+        user_id: Int,
+        old_password: String,
+        new_password: String,
+        conf_password: String
+    ): Call<UpdatePassword> {
+        return api.updatePassword(user_id, old_password, new_password, conf_password)
     }
 
 }
