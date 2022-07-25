@@ -119,7 +119,6 @@
                     android:textSize="14sp"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editTextLastName"
                     android:layout_width="match_parent"
