@@ -9,10 +9,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
 import android.widget.Toast
 import com.events.App
-import com.events.R
 import com.events.databinding.ActivityEditAccountBinding
 import com.events.model.profile.UpdateAvatar
 import com.events.model.profile.UpdateProfile
@@ -146,7 +144,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfileController.View {
 
     override fun updateProfile(updateProfile: UpdateProfile) {
         if (updateProfile.status)
-            Snackbar.make(binding.constraint, "Ваши данные быи обновлены.", Snackbar.LENGTH_LONG)
+            Snackbar.make(binding.constraint, "Ваши данные были обновлены.", Snackbar.LENGTH_LONG)
                 .show()
     }
 

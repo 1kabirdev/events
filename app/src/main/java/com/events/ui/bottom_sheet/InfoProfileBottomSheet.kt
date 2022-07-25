@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.events.databinding.FragmentInfoProfileBottomSheetBinding
-import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.profile.ProfileFragment
 import com.events.ui.setting_password.SettingPasswordActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
