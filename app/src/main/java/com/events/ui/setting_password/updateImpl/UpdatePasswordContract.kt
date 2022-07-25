@@ -7,6 +7,7 @@ interface UpdatePasswordContract {
     interface View : MvpView {
         fun updatePassword(updatePassword: UpdatePassword)
         fun progress(show: Boolean)
+        fun isEmptyPassword(message: String)
         fun error()
     }
 
