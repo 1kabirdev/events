@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bkg_body"
+    android:orientation="vertical"
+    tools:context=".ui.create_events.ThemeEventBottomSheet">
+
+    <View
+        android:id="@+id/viewLineTop"
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_sheet_profile" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/manrope_regular"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Выберите тематику"
+        android:textColor="@color/bkg_gray_text_view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewThemeList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

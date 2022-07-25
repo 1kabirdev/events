@@ -224,11 +224,11 @@
                 android:background="@drawable/shape_edit_text_create_bkg"
                 android:enabled="false"
                 android:fontFamily="@font/manrope_medium"
-                android:hint="Тематика"
+                android:text="Тематика"
                 android:inputType="text"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="#001E4A"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/constraintTimeCreateEvents" />
 

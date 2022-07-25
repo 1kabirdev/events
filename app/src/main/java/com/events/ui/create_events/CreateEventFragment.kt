@@ -33,10 +33,11 @@ import java.util.*
 @Suppress("DEPRECATION")
 class CreateEventFragment : Fragment(), CreateEventsController.View {
 
-    private lateinit var preferencesManager: PreferencesManager
+    private var presenter: CreateEventsPresenter =
+        CreateEventsPresenter((requireContext().applicationContext as App).dataManager)
+    private var preferencesManager = PreferencesManager(requireContext())
     private lateinit var binding: FragmentCreateEventBinding
     private lateinit var progressBar: ProgressDialog
-    private lateinit var presenter: CreateEventsPresenter
     var dateAndTime: Calendar = Calendar.getInstance()
     private var inp: InputStream? = null
     private val INTENT_REQUEST_CODE = 100
@@ -55,27 +56,34 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.constraintDateCreateEvents.setOnClickListener {
-            setDate(it.rootView)
-        }
+        with(binding) {
 
-        binding.constraintTimeCreateEvents.setOnClickListener {
-            setTime(it.rootView)
-        }
+            editTextTheme.setOnClickListener {
 
-        binding.cardViewImage.setOnClickListener {
-            intentImageGallery()
-        }
+            }
 
-        binding.deleteImageSelected.setOnClickListener {
-            binding.titleSelectImage.visibility = View.VISIBLE
-            binding.deleteImageSelected.visibility = View.GONE
-            binding.imageView.setImageDrawable(null)
-            binding.imageView.destroyDrawingCache()
-        }
+            constraintDateCreateEvents.setOnClickListener {
+                setDate(it.rootView)
+            }
 
-        binding.btnClearData.setOnClickListener {
-            getClearView()
+            constraintTimeCreateEvents.setOnClickListener {
+                setTime(it.rootView)
+            }
+
+            cardViewImage.setOnClickListener {
+                intentImageGallery()
+            }
+
+            deleteImageSelected.setOnClickListener {
+                titleSelectImage.visibility = View.VISIBLE
+                deleteImageSelected.visibility = View.GONE
+                imageView.setImageDrawable(null)
+                imageView.destroyDrawingCache()
+            }
+
+            btnClearData.setOnClickListener {
+                getClearView()
+            }
         }
         createEvents()
 
@@ -83,10 +91,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
     }
 
     init {
-        preferencesManager = PreferencesManager(requireContext())
-        presenter = CreateEventsPresenter((requireContext().applicationContext as App).dataManager)
         presenter.attachView(this)
-
     }
 
     private fun initThemeList() {
