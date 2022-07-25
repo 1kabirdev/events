@@ -50,7 +50,7 @@ class SettingPasswordActivity : AppCompatActivity(), UpdatePasswordContract.View
 
     override fun progress(show: Boolean) {
         if (show)
-            progressDialog = ProgressDialog.show(this, "", "", false)
+            progressDialog = ProgressDialog.show(this, "Загрузка", "Подождите пожалуйста...",  false)
         else progressDialog.dismiss()
     }
 

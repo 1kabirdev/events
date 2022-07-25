@@ -152,7 +152,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfileController.View {
 
     override fun progressProfile(show: Boolean) {
         if (show)
-            progressBarUpdate = ProgressDialog.show(this, "", "", false)
+            progressBarUpdate = ProgressDialog.show(this, "Загрузка", "Подождите пожалуйста...", false)
         else progressBarUpdate.dismiss()
 
     }
