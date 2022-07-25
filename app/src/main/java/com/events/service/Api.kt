@@ -12,6 +12,7 @@ import com.events.model.list_events.ResponseListEvents
 import com.events.model.my_events.ResponseMyEvents
 import com.events.model.organizer.ResponseInfoOrganizer
 import com.events.model.profile.UpdateAvatar
+import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -113,5 +114,5 @@ interface Api {
         @Field("user_id") user_id: Int,
         @Field("last_name") last_name: String,
         @Field("about") about: String
-    )
+    ): Call<UpdateProfile>
 }
