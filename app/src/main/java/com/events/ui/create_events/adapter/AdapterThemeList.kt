@@ -36,7 +36,7 @@ class AdapterThemeList(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        holder.bindView(themeList[position])
     }
 
     override fun getItemCount(): Int = themeList.size

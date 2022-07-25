@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import com.events.databinding.FragmentThemeEventBottomSheetBinding
 import com.events.model.home.ThemeEvent
 import com.events.ui.create_events.adapter.AdapterThemeList
@@ -15,6 +16,7 @@ class ThemeEventBottomSheet(
 ) : BottomSheetDialogFragment(), AdapterThemeList.OnClickListener {
 
     private lateinit var binding: FragmentThemeEventBottomSheetBinding
+    private lateinit var gridLayoutManager: GridLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +29,9 @@ class ThemeEventBottomSheet(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
+            gridLayoutManager = GridLayoutManager(requireContext(), 3)
+            recyclerViewThemeList.layoutManager = gridLayoutManager
+
             val adapterThemeList = AdapterThemeList(themeEvent, this@ThemeEventBottomSheet)
             recyclerViewThemeList.adapter = adapterThemeList
         }

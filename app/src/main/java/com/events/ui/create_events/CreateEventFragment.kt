@@ -35,9 +35,8 @@ import java.util.*
 @Suppress("DEPRECATION")
 class CreateEventFragment : Fragment(), CreateEventsController.View {
 
-    private var presenter: CreateEventsPresenter =
-        CreateEventsPresenter((requireContext().applicationContext as App).dataManager)
-    private var preferencesManager = PreferencesManager(requireContext())
+    private lateinit var presenter: CreateEventsPresenter
+    private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: FragmentCreateEventBinding
     private lateinit var progressBar: ProgressDialog
     var dateAndTime: Calendar = Calendar.getInstance()
@@ -57,11 +56,17 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        preferencesManager = PreferencesManager(requireContext())
+
+        presenter = CreateEventsPresenter((requireContext().applicationContext as App).dataManager)
+        presenter.attachView(this)
+
         initThemeList()
 
         with(binding) {
 
-            editTextTheme.setOnClickListener {
+            clickTextViewTheme.setOnClickListener {
                 (requireActivity() as MainActivity).createDialogFragment(
                     ThemeEventBottomSheet(arrayTheme)
                 )
@@ -93,37 +98,26 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         createEvents()
     }
 
-    init {
-        presenter.attachView(this)
-    }
-
     private fun initThemeList() {
+        arrayTheme.add(ThemeEvent(1, "It", "https://rateme-social.ru/api/events/icons/it.png"))
         arrayTheme.add(
             ThemeEvent(
-                1,
-                "Все",
-                "https://rateme-social.ru/api/events/icons/all_theme.png"
-            )
-        )
-        arrayTheme.add(ThemeEvent(2, "It", "https://rateme-social.ru/api/events/icons/it.png"))
-        arrayTheme.add(
-            ThemeEvent(
-                3,
+                2,
                 "Спорт",
                 "https://rateme-social.ru/api/events/icons/sports.png"
             )
         )
         arrayTheme.add(
             ThemeEvent(
-                4,
+                3,
                 "Кино",
                 "https://rateme-social.ru/api/events/icons/movies.png"
             )
         )
-        arrayTheme.add(ThemeEvent(5, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
+        arrayTheme.add(ThemeEvent(4, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
         arrayTheme.add(
             ThemeEvent(
-                6,
+                5,
                 "Другое",
                 "https://rateme-social.ru/api/events/icons/other.png"
             )
@@ -161,7 +155,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                     )
                         .show()
                 }
-                binding.editTextTheme.text.toString() == "" -> {
+                binding.clickTextViewTheme.text.toString() == "" -> {
                     Toast.makeText(
                         requireContext(),
                         "Тема события не должно быть пустым",
@@ -176,7 +170,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                         binding.editTextDescEvents.text.toString(),
                         binding.textDateCreateEvents.text.toString(),
                         binding.textTimeCreateEvents.text.toString(),
-                        binding.editTextTheme.text.toString(),
+                        binding.clickTextViewTheme.text.toString(),
                         getBytes(inp!!)!!
                     )
                 }
@@ -226,7 +220,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         binding.editTextDescEvents.setText("")
         binding.textDateCreateEvents.text = "Указать дату"
         binding.textTimeCreateEvents.text = "Указать время"
-        binding.editTextTheme.setText("")
+        binding.clickTextViewTheme.text = "Тематика"
         dateEvent = false
         timeEvent = false
     }
