@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import com.events.App
 import com.events.databinding.FragmentCreateEventBinding
 import com.events.model.create_event.ResponseCreateEvents
+import com.events.model.home.ThemeEvent
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import java.io.ByteArrayOutputStream
@@ -41,6 +42,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
     private val INTENT_REQUEST_CODE = 100
     private var dateEvent: Boolean = false
     private var timeEvent: Boolean = false
+    private var arrayTheme: ArrayList<ThemeEvent> = arrayListOf()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,11 +54,6 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        preferencesManager = PreferencesManager(requireContext())
-
-        presenter = CreateEventsPresenter((requireContext().applicationContext as App).dataManager)
-        presenter.attachView(this)
 
         binding.constraintDateCreateEvents.setOnClickListener {
             setDate(it.rootView)
@@ -80,7 +77,52 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         binding.btnClearData.setOnClickListener {
             getClearView()
         }
+        createEvents()
 
+        initThemeList()
+    }
+
+    init {
+        preferencesManager = PreferencesManager(requireContext())
+        presenter = CreateEventsPresenter((requireContext().applicationContext as App).dataManager)
+        presenter.attachView(this)
+
+    }
+
+    private fun initThemeList() {
+        arrayTheme.add(
+            ThemeEvent(
+                1,
+                "Все",
+                "https://rateme-social.ru/api/events/icons/all_theme.png"
+            )
+        )
+        arrayTheme.add(ThemeEvent(2, "It", "https://rateme-social.ru/api/events/icons/it.png"))
+        arrayTheme.add(
+            ThemeEvent(
+                3,
+                "Спорт",
+                "https://rateme-social.ru/api/events/icons/sports.png"
+            )
+        )
+        arrayTheme.add(
+            ThemeEvent(
+                4,
+                "Кино",
+                "https://rateme-social.ru/api/events/icons/movies.png"
+            )
+        )
+        arrayTheme.add(ThemeEvent(5, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
+        arrayTheme.add(
+            ThemeEvent(
+                6,
+                "Другое",
+                "https://rateme-social.ru/api/events/icons/other.png"
+            )
+        )
+    }
+
+    private fun createEvents() {
         binding.btnCreateEvents.setOnClickListener {
             when {
                 dateEvent != true -> {
