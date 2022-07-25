@@ -120,8 +120,8 @@ class EditProfileActivity : AppCompatActivity(), EditProfileController.View {
 
     override fun updateAvatar(updateAvatar: UpdateAvatar) {
         if (updateAvatar.status)
-            Snackbar.make(binding.nested, "Фото профиля обновлено", Snackbar.LENGTH_LONG)
-        else Snackbar.make(binding.nested, "Ошибка.", Snackbar.LENGTH_LONG)
+            Snackbar.make(binding.constraint, "Фото профиля обновлено", Snackbar.LENGTH_LONG)
+        else Snackbar.make(binding.constraint, "Ошибка.", Snackbar.LENGTH_LONG)
     }
 
     override fun progressAvatar(show: Boolean) {
@@ -135,5 +135,17 @@ class EditProfileActivity : AppCompatActivity(), EditProfileController.View {
         progressBar.dismiss()
         Toast.makeText(this, "Проверьте подключение интернета.", Toast.LENGTH_SHORT)
             .show()
+    }
+
+    override fun updateProfile() {
+
+    }
+
+    override fun progressProfile(show: Boolean) {
+
+    }
+
+    override fun errorProfile() {
+
     }
 }

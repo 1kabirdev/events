@@ -45,4 +45,8 @@ class EditProfilePresenter(private var dataManager: DataManager) :
             })
         }
     }
+
+    override fun responseUpdateProfile(user_id: Int, lastName: String, about: String) {
+
+    }
 }
