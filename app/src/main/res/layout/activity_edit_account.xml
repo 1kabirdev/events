@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDFDFF"
+    android:background="@color/bkg_body"
     tools:context=".ui.edit_profile.EditProfileActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -109,7 +109,7 @@
                     android:id="@+id/editTextUsername"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:background="@drawable/shape_edit_text_bkg"
+                    android:background="@drawable/shape_edit_text_create_bkg"
                     android:enabled="false"
                     android:fontFamily="@font/manrope_medium"
                     android:hint="Имя пользоватетеля"
@@ -124,7 +124,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/shape_edit_text_bkg"
+                    android:background="@drawable/shape_edit_text_create_bkg"
                     android:fontFamily="@font/manrope_medium"
                     android:hint="Имя и фамилия"
                     android:inputType="text"
@@ -139,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/shape_edit_text_bkg"
+                    android:background="@drawable/shape_edit_text_create_bkg"
                     android:fontFamily="@font/manrope_medium"
                     android:gravity="top"
                     android:hint="О себе"
