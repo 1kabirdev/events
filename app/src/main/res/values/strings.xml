@@ -7,7 +7,7 @@
     <string name="location_event">Город проведения</string>
     <string name="theme_event">Тема мероприятия</string>
     <string name="you_are_the_organizer_of_the_event">Вы организатор мероприятия</string>
-    <string name="similar_event">Похожие мероприятия</string>
+    <string name="similar_event">Похожие по тематике</string>
     <string name="not_connection_internet">Нет подключение к Интернету.\nПроверьте подключение и повторите попытку</string>
     <string name="text_reply">Повторить</string>
     <string name="text_disscuss">Обсуждения</string>

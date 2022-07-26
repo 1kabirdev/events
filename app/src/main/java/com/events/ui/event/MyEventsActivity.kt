@@ -81,6 +81,9 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
     override fun similarEventList(similarList: ArrayList<SimilarList>) {
         val adapterSimilarEvent = AdapterSimilarEvent(this, similarList)
         binding.recyclerViewSimilarEvent.adapter = adapterSimilarEvent
+        if (similarList.size == 0) binding.titleTextView.visibility = View.GONE
+        else binding.titleTextView.visibility = View.VISIBLE
+
     }
 
     override fun showProgressBar(show: Boolean) {

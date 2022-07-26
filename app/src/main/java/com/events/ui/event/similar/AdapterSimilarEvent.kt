@@ -3,6 +3,7 @@ package com.events.ui.event.similar
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.events.databinding.ItemListSimilarBinding
 import com.events.model.similar_event.SimilarList
 
@@ -21,6 +22,7 @@ class AdapterSimilarEvent(
                         similarList.user.id
                     )
                 }
+                Glide.with(itemView.context).load(similarList.image_e).into(imageEvent)
                 nameEvent.text = similarList.name_e
                 textCityEvents.text = similarList.city
                 textTheme.text = similarList.theme_e

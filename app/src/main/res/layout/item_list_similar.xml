@@ -4,20 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:padding="16dp"
+    android:layout_marginBottom="8dp"
     app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:paddingBottom="16dp"
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
-            android:layout_width="160dp"
+            android:layout_width="match_parent"
             android:layout_height="160dp"
             app:cardBackgroundColor="@color/bkg_body"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="0dp"
             app:cardElevation="0dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -33,56 +33,67 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/nameEvent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/manrope_medium"
+            android:fontFamily="@font/manrope_bold"
             android:hint="Название мероприятия"
+            android:lines="1"
+            android:maxLength="18"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/layoutLocation"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameEvent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/titleCityEvents"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_outline_location"
                 app:layout_constraintLeft_toLeftOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textCityEvents"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/manrope_medium"
                 android:text="@string/location_event"
                 android:textColor="@color/bkg_gray_text_view"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleCityEvents" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/layoutTheme"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutLocation">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/titleTheme"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:src="@drawable/ic_baseline_numbers_theme" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -93,7 +104,7 @@
                 android:fontFamily="@font/manrope_medium"
                 android:text="@string/theme_event"
                 android:textColor="@color/bkg_gray_text_view"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 

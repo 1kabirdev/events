@@ -73,6 +73,8 @@ class EventsActivity : AppCompatActivity(), EventsController.View,
     override fun similarEventList(similarList: ArrayList<SimilarList>) {
         val adapterSimilarEvent = AdapterSimilarEvent(this, similarList)
         binding.recyclerViewSimilarEvent.adapter = adapterSimilarEvent
+        if (similarList.size == 0) binding.titleTextView.visibility = View.GONE
+        else binding.titleTextView.visibility = View.VISIBLE
     }
 
     private fun onClickListener() {
