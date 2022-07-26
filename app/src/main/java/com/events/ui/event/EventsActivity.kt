@@ -11,6 +11,8 @@ import com.events.model.events.Events
 import com.events.model.events.User
 import com.events.ui.comments.CommentsActivity
 import com.events.ui.organizer.OrganizerActivity
+import com.events.utill.ConstantAgrs
+import com.events.utill.Constants
 
 class EventsActivity : AppCompatActivity(), EventsController.View {
     private lateinit var binding: ActivityEventsBinding
@@ -26,8 +28,8 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
         presenter.attachView(this)
 
         val arguments = intent.extras
-        eventId = arguments?.get("EVENTS_ID")?.toString().toString()
-        userId = arguments?.get("USER_ID")?.toString().toString()
+        eventId = arguments?.get(ConstantAgrs.EVENTS_ID)?.toString().toString()
+        userId = arguments?.get(ConstantAgrs.USER_ID)?.toString().toString()
 
         presenter.responseLoadEvents(userId, eventId)
 
@@ -48,11 +50,11 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
 
             btnDiscussEvents.setOnClickListener {
                 val intent = Intent(this@EventsActivity, CommentsActivity::class.java)
-                intent.putExtra("EVENT_ID", eventId)
-                intent.putExtra("EVENT_IMAGE", events.getImageE())
-                intent.putExtra("EVENT_NAME", events.getNameE())
-                intent.putExtra("EVENT_THEME", events.getThemeE())
-                intent.putExtra("EVENT_DATE", events.getDataE() + events.getTimeE())
+                intent.putExtra(ConstantAgrs.EVENT_ID, eventId)
+                intent.putExtra(ConstantAgrs.EVENT_IMAGE, events.getImageE())
+                intent.putExtra(ConstantAgrs.EVENT_NAME, events.getNameE())
+                intent.putExtra(ConstantAgrs.EVENT_THEME, events.getThemeE())
+                intent.putExtra(ConstantAgrs.EVENT_DATE, events.getDataE() + events.getTimeE())
                 startActivity(intent)
             }
         }
