@@ -17,6 +17,7 @@ import com.events.model.home.ListEvents
 import com.events.model.home.ThemeEvent
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
+import com.events.utill.Constants
 import com.events.utill.LinearEventEndlessScrollEventListener
 import com.events.utill.PreferencesManager
 
@@ -28,6 +29,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     private lateinit var adapterEventList: AdapterEventList
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var endlessScrollEventListener: LinearEventEndlessScrollEventListener
+    private var errorFailed = false
     private var isLoading = false
     private var isLastPage = false
     private val PAGE_START = 1
@@ -47,18 +49,40 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         super.onViewCreated(view, savedInstanceState)
         preferencesManager = PreferencesManager(requireContext())
 
-        arrayTheme.add(ThemeEvent(1, "Все", "https://rateme-social.ru/api/events/icons/all_theme.png"))
+        arrayTheme.add(
+            ThemeEvent(
+                1,
+                "Все",
+                "https://rateme-social.ru/api/events/icons/all_theme.png"
+            )
+        )
         arrayTheme.add(ThemeEvent(2, "It", "https://rateme-social.ru/api/events/icons/it.png"))
-        arrayTheme.add(ThemeEvent(3, "Спорт", "https://rateme-social.ru/api/events/icons/sports.png"))
-        arrayTheme.add(ThemeEvent(4, "Кино", "https://rateme-social.ru/api/events/icons/movies.png"))
+        arrayTheme.add(
+            ThemeEvent(
+                3,
+                "Спорт",
+                "https://rateme-social.ru/api/events/icons/sports.png"
+            )
+        )
+        arrayTheme.add(
+            ThemeEvent(
+                4,
+                "Кино",
+                "https://rateme-social.ru/api/events/icons/movies.png"
+            )
+        )
         arrayTheme.add(ThemeEvent(5, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
-        arrayTheme.add(ThemeEvent(6, "Другое", "https://rateme-social.ru/api/events/icons/other.png"))
+        arrayTheme.add(
+            ThemeEvent(
+                6,
+                "Другое",
+                "https://rateme-social.ru/api/events/icons/other.png"
+            )
+        )
 
         presenter = ListEventPresenter((requireContext().applicationContext as App).dataManager)
         presenter.attachView(this)
         presenter.responseEvents(PAGE_START)
-
-        adapterEventList = AdapterEventList(arrayTheme, this)
 
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewList.layoutManager = layoutManager
@@ -86,19 +110,21 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
 
     override fun getLoadEvent(info: InfoEvents, eventsList: ArrayList<ListEvents>) {
         currentPage = info.next_page
-        adapterEventList.addComments(eventsList)
+        adapterEventList = AdapterEventList(eventsList, arrayTheme, this)
         binding.recyclerViewList.adapter = adapterEventList
-        if (info.next_page != 0) adapterEventList.addLoadingFooter(true) else isLastPage =
-            true
+        if (info.next_page != 0)
+            if (currentPage <= info.count_page) adapterEventList.addLoadingFooter() else isLastPage =
+                true
     }
 
     override fun getLoadEventPage(info: InfoEvents, eventsList: ArrayList<ListEvents>) {
         currentPage = info.next_page
-        adapterEventList.addComments(eventsList)
+        adapterEventList.addEventList(eventsList)
         isLoading = false
-        adapterEventList.addLoadingFooter(false)
-        if (info.next_page != 0) adapterEventList.addLoadingFooter(true) else isLastPage =
-            true
+        adapterEventList.removeLoadingFooter()
+        if (info.next_page != 0)
+            if (currentPage != info.count_page) adapterEventList.addLoadingFooter() else isLastPage =
+                true
     }
 
     override fun showProgress(show: Boolean) {
@@ -109,6 +135,12 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     override fun noConnection() {
         binding.notConnectionView.visibility = View.VISIBLE
         binding.notConnectionView.text = "Проверьте подключение интернета."
+    }
+
+    override fun noConnectionPage() {
+        errorFailed = true
+        adapterEventList.removeLoadingFooter()
+        adapterEventList.showRetry(true)
     }
 
     override fun onClickEvent(event_id: Int, user_id: Int) {
@@ -122,6 +154,15 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         val intent = Intent(requireContext(), MyEventsActivity::class.java)
         intent.putExtra("EVENTS_ID", event_id.toString())
         startActivity(intent)
+    }
+
+    override fun OnClickReply() {
+        errorFailed = false
+        adapterEventList.showRetry(false)
+        adapterEventList.addLoadingFooter()
+        presenter.responseEventsPage(
+            currentPage
+        )
     }
 
 }

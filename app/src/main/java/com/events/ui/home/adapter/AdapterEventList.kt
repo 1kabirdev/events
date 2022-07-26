@@ -6,46 +6,64 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.events.databinding.ItemErrorConnectionViewBinding
 import com.events.databinding.ItemHeadHomeThemeBinding
 import com.events.databinding.ItemListEventsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.model.home.ListEvents
 import com.events.model.home.ThemeEvent
 import com.events.ui.comments.CommentsActivity
+import com.events.ui.profile.adapter.AdapterMyEvents
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import kotlin.collections.ArrayList
 
 class AdapterEventList(
+    private var eventsList: MutableList<ListEvents>,
     private var arrayTheme: MutableList<ThemeEvent>,
     private var listener: OnClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var eventsList: MutableList<ListEvents> = arrayListOf()
     private var isLoadingAdded = false
+    private var errorFailed = false
 
-    fun addComments(event: ArrayList<ListEvents>) {
+    fun addEventList(event: ArrayList<ListEvents>) {
         eventsList.addAll(event)
         notifyItemInserted(eventsList.size - 1)
     }
 
-    fun addLoadingFooter(show: Boolean) {
-        isLoadingAdded = show
+    fun addLoadingFooter() {
+        isLoadingAdded = true
+    }
+
+    fun removeLoadingFooter() {
+        isLoadingAdded = false
     }
 
     companion object {
         const val ITEM = 0
         const val LOADING = 1
         const val HEAD = 2
+        const val ERROR = 3
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) HEAD
+        return if (isPositionHeader(position)) HEAD
         else if (position == eventsList.size && isLoadingAdded) LOADING
+        else if (position == eventsList.size && errorFailed) ERROR
         else ITEM
     }
 
+    private fun isPositionHeader(position: Int): Boolean = position == 0
+
+    /**
+     * Функция для отображаения ошибки при отсутствии интернета
+     */
+    fun showRetry(show: Boolean) {
+        errorFailed = show
+        notifyItemChanged(eventsList.size)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var viewHolder: RecyclerView.ViewHolder? = null
@@ -74,6 +92,12 @@ class AdapterEventList(
                 )
                 viewHolder = HeadThemeViewHolder(headView)
             }
+            ERROR -> {
+                val error = ItemErrorConnectionViewBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                viewHolder = ErrorViewHolder(error)
+            }
         }
         return viewHolder!!
     }
@@ -94,12 +118,22 @@ class AdapterEventList(
                 val headViewHolder = holder as HeadThemeViewHolder
                 headViewHolder.bindViewTheme(arrayTheme)
             }
+            ERROR -> {
+                val errorConnectViewHolder = holder as ErrorViewHolder
+                errorConnectViewHolder.binding.notConnection.visibility = View.VISIBLE
+                errorConnectViewHolder.binding.btnReplyProfile.setOnClickListener {
+                    listener.OnClickReply()
+                }
+            }
         }
     }
 
     override fun getItemCount(): Int = eventsList.size + 1
 
     private inner class LoadingViewHolder(val binding: ItemLoadingViewBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    private inner class ErrorViewHolder(val binding: ItemErrorConnectionViewBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     private inner class HeadThemeViewHolder(var binding: ItemHeadHomeThemeBinding) :
@@ -154,5 +188,6 @@ class AdapterEventList(
     interface OnClickListener {
         fun onClickEvent(event_id: Int, user_id: Int)
         fun onClickMyEvent(event_id: Int)
+        fun OnClickReply()
     }
 }
