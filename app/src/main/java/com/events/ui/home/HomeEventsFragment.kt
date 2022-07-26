@@ -128,13 +128,17 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     }
 
     override fun showProgress(show: Boolean) {
-        if (show) binding.progressBar.visibility = View.VISIBLE
-        else binding.progressBar.visibility = View.GONE
+        if (show) {
+            binding.constraintConnection.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.constraintConnection.visibility = View.GONE
+        }
     }
 
     override fun noConnection() {
-        binding.notConnectionView.visibility = View.VISIBLE
-        binding.notConnectionView.text = "Проверьте подключение интернета."
+        binding.constraintConnection.visibility = View.VISIBLE
     }
 
     override fun noConnectionPage() {
