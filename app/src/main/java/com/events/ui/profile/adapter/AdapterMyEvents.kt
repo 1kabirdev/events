@@ -145,8 +145,8 @@ class AdapterMyEvents(
                 textNameEvent.text = eventsList.nameE
                 textDateAndTime.text = "${eventsList.dataE} в ${eventsList.timeE}"
                 Glide.with(itemView.context).load(eventsList.imageE).into(imageEvents)
-                textCityEvents.text = "город: ${eventsList.cityE}"
-                textTheme.text = "тема: ${eventsList.themeE}"
+                textCityEvents.text = eventsList.cityE
+                textTheme.text = eventsList.themeE
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, MyEventsActivity::class.java)
