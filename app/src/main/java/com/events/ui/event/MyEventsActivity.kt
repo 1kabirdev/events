@@ -77,18 +77,20 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
 
     override fun showProgressBar(show: Boolean) {
         if (show) {
+            binding.constraintConnection.visibility = View.GONE
             binding.nested.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.nested.visibility = View.VISIBLE
             binding.progressBar.visibility = View.GONE
+            binding.constraintConnection.visibility = View.GONE
         }
-
     }
 
     override fun noConnection() {
         binding.nested.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
+        binding.constraintConnection.visibility = View.VISIBLE
     }
 
     override fun loadDeleteEvent(message: String) {
