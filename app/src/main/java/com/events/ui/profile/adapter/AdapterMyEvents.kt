@@ -42,7 +42,7 @@ class AdapterMyEvents(
         this.profileData = profileData
     }
 
-    fun infoPage(countEvent: Int) {
+    fun infoCountEvent(countEvent: Int) {
         this.countEvent = countEvent
     }
 

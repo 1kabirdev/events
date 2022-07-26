@@ -118,7 +118,7 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         currentPage = infoPage.next_page
         adapterMyEvents = AdapterMyEvents(eventsList, this@ProfileFragment)
         adapterMyEvents.profile(profileData)
-        adapterMyEvents.infoPage(infoPage.count_event)
+        adapterMyEvents.infoCountEvent(infoPage.count_event)
         with(binding) {
 
             recyclerViewEvents.adapter = adapterMyEvents
