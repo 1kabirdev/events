@@ -11,18 +11,27 @@ import com.events.model.events.Events
 import com.events.model.events.User
 import com.events.model.similar_event.SimilarList
 import com.events.ui.comments.CommentsActivity
+import com.events.ui.event.similar.AdapterSimilarEvent
 import com.events.ui.organizer.OrganizerActivity
 import com.events.utill.ConstantAgrs
+import com.events.utill.Constants
+import com.events.utill.PreferencesManager
 
-class EventsActivity : AppCompatActivity(), EventsController.View {
+class EventsActivity : AppCompatActivity(), EventsController.View,
+    AdapterSimilarEvent.OnClickListener {
+
     private lateinit var binding: ActivityEventsBinding
     private lateinit var presenter: EventsPresenter
     private lateinit var eventId: String
     private lateinit var userId: String
+    private lateinit var preferencesManager: PreferencesManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEventsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        preferencesManager = PreferencesManager(this)
 
         presenter = EventsPresenter((applicationContext as App).dataManager)
         presenter.attachView(this)
@@ -62,7 +71,8 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
     }
 
     override fun similarEventList(similarList: ArrayList<SimilarList>) {
-
+        val adapterSimilarEvent = AdapterSimilarEvent(this, similarList)
+        binding.recyclerViewSimilarEvent.adapter = adapterSimilarEvent
     }
 
     private fun onClickListener() {
@@ -100,6 +110,19 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
         with(binding) {
             constraintConnection.visibility = View.VISIBLE
             nested.visibility = View.GONE
+        }
+    }
+
+    override fun onClickEvent(event_id: Int, user_id: Int) {
+        if (preferencesManager.getString(Constants.USER_ID).toInt() == user_id) {
+            val intent = Intent(this, MyEventsActivity::class.java)
+            intent.putExtra("EVENTS_ID", event_id.toString())
+            startActivity(intent)
+        } else {
+            val intent = Intent(this, EventsActivity::class.java)
+            intent.putExtra("EVENTS_ID", event_id.toString())
+            intent.putExtra("USER_ID", user_id.toString())
+            startActivity(intent)
         }
     }
 }
