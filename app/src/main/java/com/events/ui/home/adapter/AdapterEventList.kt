@@ -1,5 +1,6 @@
 package com.events.ui.home.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.events.databinding.ItemListEventsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.model.home.ListEvents
 import com.events.model.home.ThemeEvent
+import com.events.ui.comments.CommentsActivity
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import kotlin.collections.ArrayList
@@ -134,6 +136,16 @@ class AdapterEventList(
                     } else {
                         listener.onClickMyEvent(eventsList.idE.toInt())
                     }
+                }
+
+                clickDiscussEvent.setOnClickListener {
+                    val intent = Intent(itemView.context, CommentsActivity::class.java)
+                    intent.putExtra("EVENT_ID", eventsList.idE)
+                    intent.putExtra("EVENT_IMAGE", eventsList.imageE)
+                    intent.putExtra("EVENT_NAME", eventsList.nameE)
+                    intent.putExtra("EVENT_THEME", eventsList.themeE)
+                    intent.putExtra("EVENT_DATE", eventsList.dataE + eventsList.timeE)
+                    itemView.context.startActivity(intent)
                 }
             }
         }
