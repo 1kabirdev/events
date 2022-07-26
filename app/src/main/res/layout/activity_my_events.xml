@@ -248,8 +248,9 @@
                 android:id="@+id/recyclerViewSimilarEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+                app:spanCount="2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -266,8 +267,8 @@
         android:id="@+id/constraintConnection"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iconNetwork"
