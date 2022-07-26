@@ -41,9 +41,9 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
             textLastNameProfile.text = user.getLastName()
             Glide.with(this@EventsActivity).load(events.getImageE()).into(imageEventsView)
             nameEvents.text = events.getNameE()
-            textDateAndTimeEventView.text = "${events.getDataE()} в ${events.getTimeE()}"
-            textAddressEventView.text = events.getCityE()
-            textThemeEventView.text = events.getThemeE()
+            textDateAndTime.text = "${events.getDataE()} в ${events.getTimeE()}"
+            textCityEvents.text = events.getCityE()
+            textTheme.text = events.getThemeE()
             textDescEventView.text = events.getDescE()
 
             btnDiscussEvents.setOnClickListener {
