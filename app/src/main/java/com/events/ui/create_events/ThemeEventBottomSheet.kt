@@ -12,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class ThemeEventBottomSheet(
+    private var fragment: CreateEventFragment,
     private var themeEvent: ArrayList<ThemeEvent>
 ) : BottomSheetDialogFragment(), AdapterThemeList.OnClickListener {
 
@@ -38,6 +39,7 @@ class ThemeEventBottomSheet(
     }
 
     override fun onClickTheme(id: Int, name: String) {
-
+        fragment.selectTheme(name)
+        dismiss()
     }
 }

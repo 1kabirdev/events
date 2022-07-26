@@ -45,7 +45,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
     private var dateEvent: Boolean = false
     private var timeEvent: Boolean = false
     private var arrayTheme: ArrayList<ThemeEvent> = arrayListOf()
-    private var theme: Boolean = false
+    private var themeName: String = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,7 +69,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
 
             clickTextViewTheme.setOnClickListener {
                 (requireActivity() as MainActivity).createDialogFragment(
-                    ThemeEventBottomSheet(arrayTheme)
+                    ThemeEventBottomSheet(this@CreateEventFragment, arrayTheme)
                 )
             }
 
@@ -96,7 +96,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                 getClearView()
             }
         }
-        createEvents()
+        onClickCreateEvents()
     }
 
     private fun initThemeList() {
@@ -125,7 +125,12 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         )
     }
 
-    private fun createEvents() {
+    fun selectTheme(name: String) {
+        themeName = name
+        binding.clickTextViewTheme.text = "Тематика: $name"
+    }
+
+    private fun onClickCreateEvents() {
         binding.btnCreateEvents.setOnClickListener {
             when {
                 dateEvent != true -> {
@@ -148,21 +153,26 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                     )
                         .show()
                 }
+                binding.editTextLocationEvents.text.toString() == "" -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Укажите город, адрес проведения мероприятия",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
                 binding.editTextDescEvents.text.toString() == "" -> {
                     Toast.makeText(
                         requireContext(),
                         "Укажите описание мероприятия",
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
-                theme == false -> {
+                themeName == "" -> {
                     Toast.makeText(
                         requireContext(),
                         "Выберите тему мероприятия",
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
                 else -> {
                     presenter.responseCreateEvents(
@@ -172,7 +182,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                         binding.editTextLocationEvents.text.toString(),
                         binding.textDateCreateEvents.text.toString(),
                         binding.textTimeCreateEvents.text.toString(),
-                        binding.clickTextViewTheme.text.toString(),
+                        themeName,
                         getBytes(inp!!)!!
                     )
                 }
@@ -302,7 +312,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
 
     override fun createEvents(responseCreateEvents: ResponseCreateEvents) {
         when {
-            responseCreateEvents.getStatus().toBoolean() == true -> {
+            responseCreateEvents.status.toBoolean() == true -> {
                 getClearView()
                 Toast.makeText(requireContext(), "Событие опубликовано.", Toast.LENGTH_SHORT)
                     .show()

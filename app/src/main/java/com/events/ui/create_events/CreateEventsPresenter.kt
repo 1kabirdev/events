@@ -3,7 +3,6 @@ package com.events.ui.create_events
 import com.events.data.DataManager
 import com.events.model.create_event.ResponseCreateEvents
 import com.events.mvp.BasePresenter
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -31,7 +30,7 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
             it.showProgress(true)
             val tsLong = System.currentTimeMillis() / 1000
             val nameImage = "$tsLong.jpg"
-            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), image_e)
+            val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), image_e)
             val imageE = MultipartBody.Part.createFormData("image_e", nameImage, requestFile)
             val userId = user_id_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val nameE = name_e.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -42,7 +41,7 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
             val themeE = theme_e.toRequestBody("text/plain".toMediaTypeOrNull())
 
             call = dataManager.createEvents(
-                userId, nameE, descE, dataE, locationE, timeE, themeE, imageE
+                userId, nameE, descE, locationE, dataE, timeE, themeE, imageE
             )
             call.enqueue(object : Callback<ResponseCreateEvents> {
                 override fun onResponse(
