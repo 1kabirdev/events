@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bkg_body">#F1F1F1</color>
     <color name="bkg_gray_text_view">#BCBCBC</color>
+    <color name="text_color_event_similar">#9A9A9A</color>
 </resources>
