@@ -10,6 +10,7 @@ interface ListEventController {
         fun getLoadEventPage(info: InfoEvents, eventsList: ArrayList<ListEvents>)
         fun showProgress(show: Boolean)
         fun noConnection()
+        fun noConnectionPage()
     }
 
     interface Presenter : MvpView {

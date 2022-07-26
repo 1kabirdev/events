@@ -58,7 +58,9 @@ class ListEventPresenter(private var dataManager: DataManager) :
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseHomeEvents>, t: Throwable) {}
+                override fun onFailure(call: Call<ResponseHomeEvents>, t: Throwable) {
+                    it.noConnectionPage()
+                }
             })
         }
     }
