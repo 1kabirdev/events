@@ -47,12 +47,24 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
     }
 
     private fun onClickListener() {
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
+        with(binding) {
+            btnBack.setOnClickListener {
+                finish()
+            }
 
-        binding.btnDeleteEvent.setOnClickListener {
-            deletePresenter.responseDelete(eventId, preferencesManager.getString(Constants.USER_ID))
+            btnDeleteEvent.setOnClickListener {
+                deletePresenter.responseDelete(
+                    eventId,
+                    preferencesManager.getString(Constants.USER_ID)
+                )
+            }
+
+            btnReplyEvent.setOnClickListener {
+                presenter.responseLoadEvents(
+                    preferencesManager.getString(Constants.USER_ID),
+                    eventId
+                )
+            }
         }
     }
 

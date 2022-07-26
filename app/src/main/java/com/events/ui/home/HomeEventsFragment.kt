@@ -139,6 +139,11 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
 
     override fun noConnection() {
         binding.constraintConnection.visibility = View.VISIBLE
+        binding.btnReplyEvent.setOnClickListener {
+            presenter.responseEvents(
+                PAGE_START
+            )
+        }
     }
 
     override fun noConnectionPage() {
