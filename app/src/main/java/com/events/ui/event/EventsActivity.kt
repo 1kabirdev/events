@@ -9,10 +9,10 @@ import com.events.App
 import com.events.databinding.ActivityEventsBinding
 import com.events.model.events.Events
 import com.events.model.events.User
+import com.events.model.similar_event.SimilarList
 import com.events.ui.comments.CommentsActivity
 import com.events.ui.organizer.OrganizerActivity
 import com.events.utill.ConstantAgrs
-import com.events.utill.Constants
 
 class EventsActivity : AppCompatActivity(), EventsController.View {
     private lateinit var binding: ActivityEventsBinding
@@ -58,6 +58,11 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
                 startActivity(intent)
             }
         }
+        presenter.responseSimilarEvents(events.getThemeE(), events.getIdE().toInt())
+    }
+
+    override fun similarEventList(similarList: ArrayList<SimilarList>) {
+
     }
 
     private fun onClickListener() {

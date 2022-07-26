@@ -12,6 +12,7 @@ import com.events.App
 import com.events.databinding.ActivityMyEventsBinding
 import com.events.model.events.Events
 import com.events.model.events.User
+import com.events.model.similar_event.SimilarList
 import com.events.ui.comments.CommentsActivity
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
@@ -72,6 +73,11 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
                 startActivity(intent)
             }
         }
+        presenter.responseSimilarEvents(events.getThemeE(), events.getIdE().toInt())
+    }
+
+    override fun similarEventList(similarList: ArrayList<SimilarList>) {
+
     }
 
     override fun showProgressBar(show: Boolean) {
