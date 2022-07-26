@@ -68,21 +68,26 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
             intent.putExtra("USER_ID", userId)
             startActivity(intent)
         }
+
+        binding.btnReplyEvent.setOnClickListener {
+            presenter.responseLoadEvents(userId, eventId)
+        }
     }
 
     override fun showProgressBar(show: Boolean) {
         if (show) {
+            binding.constraintConnection.visibility = View.GONE
             binding.nested.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
         } else {
+            binding.constraintConnection.visibility = View.GONE
             binding.nested.visibility = View.VISIBLE
             binding.progressBar.visibility = View.GONE
         }
     }
 
     override fun noConnection() {
-        binding.notConnectionView.visibility = View.VISIBLE
+        binding.constraintConnection.visibility = View.VISIBLE
         binding.nested.visibility = View.GONE
-        Toast.makeText(this, "Проверьте подключение интернета", Toast.LENGTH_SHORT).show()
     }
 }
