@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_bold"
-            android:hint="Название мероприятия"
+            android:hint="@string/name_event"
             android:lines="1"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sora_regular"
-                android:text="Дата проведения"
+                android:text="@string/date_event"
                 android:textColor="@color/bkg_gray_text_view"
                 android:textSize="11sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/manrope_medium"
-            android:text="Город проведения"
+            android:text="@string/location_event"
             android:textColor="@color/bkg_gray_text_view"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/manrope_medium"
-            android:text="Тема мероприятия"
+            android:text="@string/theme_event"
             android:textColor="@color/bkg_gray_text_view"
             android:textSize="14sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -2,4 +2,8 @@
     <string name="app_name">events</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name_event">Название мероприятия</string>
+    <string name="date_event">Дата проведения</string>
+    <string name="location_event">Город проведения</string>
+    <string name="theme_event">Тема мероприятия</string>
 </resources>
