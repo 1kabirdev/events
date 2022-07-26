@@ -21,12 +21,16 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
         super.onCreate(savedInstanceState)
         binding = ActivityEventsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         presenter = EventsPresenter((applicationContext as App).dataManager)
         presenter.attachView(this)
+
         val arguments = intent.extras
         eventId = arguments?.get("EVENTS_ID")?.toString().toString()
         userId = arguments?.get("USER_ID")?.toString().toString()
+
         presenter.responseLoadEvents(userId, eventId)
+
         onClickListener()
     }
 
@@ -55,35 +59,40 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
     }
 
     private fun onClickListener() {
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
+        with(binding) {
+            btnBack.setOnClickListener {
+                finish()
+            }
+            constraintUserAccount.setOnClickListener {
+                val intent = Intent(it.context, OrganizerActivity::class.java)
+                intent.putExtra("USER_ID", userId)
+                startActivity(intent)
+            }
 
-        binding.constraintUserAccount.setOnClickListener {
-            val intent = Intent(this, OrganizerActivity::class.java)
-            intent.putExtra("USER_ID", userId)
-            startActivity(intent)
-        }
-
-        binding.btnReplyEvent.setOnClickListener {
-            presenter.responseLoadEvents(userId, eventId)
+            btnReplyEvent.setOnClickListener {
+                presenter.responseLoadEvents(userId, eventId)
+            }
         }
     }
 
     override fun showProgressBar(show: Boolean) {
-        if (show) {
-            binding.constraintConnection.visibility = View.GONE
-            binding.nested.visibility = View.GONE
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.constraintConnection.visibility = View.GONE
-            binding.nested.visibility = View.VISIBLE
-            binding.progressBar.visibility = View.GONE
+        with(binding) {
+            if (show) {
+                constraintConnection.visibility = View.GONE
+                nested.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
+            } else {
+                constraintConnection.visibility = View.GONE
+                nested.visibility = View.VISIBLE
+                progressBar.visibility = View.GONE
+            }
         }
     }
 
     override fun noConnection() {
-        binding.constraintConnection.visibility = View.VISIBLE
-        binding.nested.visibility = View.GONE
+        with(binding) {
+            constraintConnection.visibility = View.VISIBLE
+            nested.visibility = View.GONE
+        }
     }
 }
