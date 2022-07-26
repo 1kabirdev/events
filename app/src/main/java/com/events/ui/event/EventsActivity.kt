@@ -1,11 +1,9 @@
 package com.events.ui.event
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.events.App
 import com.events.databinding.ActivityEventsBinding
@@ -13,7 +11,6 @@ import com.events.model.events.Events
 import com.events.model.events.User
 import com.events.ui.comments.CommentsActivity
 import com.events.ui.organizer.OrganizerActivity
-import com.squareup.picasso.Picasso
 
 class EventsActivity : AppCompatActivity(), EventsController.View {
     private lateinit var binding: ActivityEventsBinding
@@ -33,11 +30,10 @@ class EventsActivity : AppCompatActivity(), EventsController.View {
         onClickListener()
     }
 
-    @SuppressLint("SetTextI18n")
     override fun getLoadData(events: Events, user: User) {
         with(binding) {
-            Picasso.get().load(user.getAvatar()).into(avatarProfileView)
-            textUserNameProfile.text = "@" + user.getUsername()
+            Glide.with(this@EventsActivity).load(user.getAvatar()).into(avatarProfileView)
+            textUserNameProfile.text = "@${user.getUsername()}"
             textLastNameProfile.text = user.getLastName()
             Glide.with(this@EventsActivity).load(events.getImageE()).into(imageEventsView)
             nameEvents.text = events.getNameE()

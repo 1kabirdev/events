@@ -53,7 +53,6 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
         }
     }
 
-    @SuppressLint("SetTextI18n")
     override fun getLoadData(events: Events, user: User) {
         with(binding) {
             Glide.with(this@MyEventsActivity).load(events.getImageE()).into(imageEventsView)
