@@ -14,11 +14,13 @@ import com.events.model.events.Events
 import com.events.model.events.User
 import com.events.model.similar_event.SimilarList
 import com.events.ui.comments.CommentsActivity
+import com.events.ui.event.similar.AdapterSimilarEvent
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import com.squareup.picasso.Picasso
 
-class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEventController.View {
+class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEventController.View,
+    AdapterSimilarEvent.OnClickListener {
 
     private lateinit var dialogProgress: ProgressDialog
     private lateinit var binding: ActivityMyEventsBinding
@@ -77,7 +79,8 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
     }
 
     override fun similarEventList(similarList: ArrayList<SimilarList>) {
-
+        val adapterSimilarEvent = AdapterSimilarEvent(this, similarList)
+        binding.recyclerViewSimilarEvent.adapter = adapterSimilarEvent
     }
 
     override fun showProgressBar(show: Boolean) {
@@ -114,5 +117,18 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
     override fun noConnectionDelete() {
         dialogProgress.dismiss()
         Toast.makeText(this, "Проверьте подключение интернета.", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onClickEvent(event_id: Int, user_id: Int) {
+        if (preferencesManager.getString(Constants.USER_ID).toInt() == user_id) {
+            val intent = Intent(this, MyEventsActivity::class.java)
+            intent.putExtra("EVENTS_ID", event_id.toString())
+            startActivity(intent)
+        } else {
+            val intent = Intent(this, EventsActivity::class.java)
+            intent.putExtra("EVENTS_ID", event_id.toString())
+            intent.putExtra("USER_ID", user_id.toString())
+            startActivity(intent)
+        }
     }
 }
