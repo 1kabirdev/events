@@ -21,6 +21,7 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
         user_id_e: String,
         name_e: String,
         desc_e: String,
+        location_e: String,
         data_e: String,
         time_e: String,
         theme_e: String,
@@ -35,12 +36,13 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
             val userId = user_id_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val nameE = name_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val descE = desc_e.toRequestBody("text/plain".toMediaTypeOrNull())
+            val locationE = location_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val dataE = data_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val timeE = time_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val themeE = theme_e.toRequestBody("text/plain".toMediaTypeOrNull())
 
             call = dataManager.createEvents(
-                userId, nameE, descE, dataE, timeE, themeE, imageE
+                userId, nameE, descE, dataE, locationE, timeE, themeE, imageE
             )
             call.enqueue(object : Callback<ResponseCreateEvents> {
                 override fun onResponse(

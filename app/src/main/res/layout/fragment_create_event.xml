@@ -99,7 +99,7 @@
                 android:inputType="text"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="#001E4A"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/cardViewImage" />
 
@@ -113,15 +113,33 @@
                 android:background="@drawable/shape_edit_text_create_bkg"
                 android:fontFamily="@font/manrope_medium"
                 android:gravity="top"
-                android:hint="Описание мероприятия, город, адрес"
+                android:hint="Описание мероприятия"
                 android:inputType="textMultiLine"
                 android:paddingStart="16dp"
                 android:paddingTop="16dp"
                 android:paddingEnd="16dp"
                 android:scrollbars="vertical"
-                android:textColor="#001E4A"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/editTextNameEvents" />
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextLocationEvents"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/shape_edit_text_create_bkg"
+                android:fontFamily="@font/manrope_medium"
+                android:hint="Город, адрес проведения"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/editTextDescEvents" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -136,7 +154,7 @@
                 android:textColor="@color/bkg_gray_text_view"
                 android:textSize="12sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDescEvents" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextLocationEvents" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintDateCreateEvents"

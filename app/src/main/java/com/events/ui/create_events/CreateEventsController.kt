@@ -15,6 +15,7 @@ interface CreateEventsController {
             user_id_e: String,
             name_e: String,
             desc_e: String,
+            location_e:String,
             data_e: String,
             time_e: String,
             theme_e: String,

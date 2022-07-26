@@ -39,12 +39,13 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
     private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: FragmentCreateEventBinding
     private lateinit var progressBar: ProgressDialog
-    var dateAndTime: Calendar = Calendar.getInstance()
+    private var dateAndTime: Calendar = Calendar.getInstance()
     private var inp: InputStream? = null
     private val INTENT_REQUEST_CODE = 100
     private var dateEvent: Boolean = false
     private var timeEvent: Boolean = false
     private var arrayTheme: ArrayList<ThemeEvent> = arrayListOf()
+    private var theme: Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -128,7 +129,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         binding.btnCreateEvents.setOnClickListener {
             when {
                 dateEvent != true -> {
-                    Toast.makeText(requireContext(), "Укажите дату события", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), "Укажите дату проведения", Toast.LENGTH_SHORT)
                         .show()
                 }
                 timeEvent != true -> {
@@ -136,13 +137,13 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                         .show()
                 }
                 inp == null -> {
-                    Toast.makeText(requireContext(), "Выберите картинку", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), "Выберите фотография", Toast.LENGTH_SHORT)
                         .show()
                 }
                 binding.editTextNameEvents.text.toString() == "" -> {
                     Toast.makeText(
                         requireContext(),
-                        "Название не должно быть пустым",
+                        "Укажите название мероприятия",
                         Toast.LENGTH_SHORT
                     )
                         .show()
@@ -150,15 +151,15 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                 binding.editTextDescEvents.text.toString() == "" -> {
                     Toast.makeText(
                         requireContext(),
-                        "Описание не должно быть пустым",
+                        "Укажите описание мероприятия",
                         Toast.LENGTH_SHORT
                     )
                         .show()
                 }
-                binding.clickTextViewTheme.text.toString() == "" -> {
+                theme == false -> {
                     Toast.makeText(
                         requireContext(),
-                        "Тема события не должно быть пустым",
+                        "Выберите тему мероприятия",
                         Toast.LENGTH_SHORT
                     )
                         .show()
@@ -168,6 +169,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                         preferencesManager.getString(Constants.USER_ID),
                         binding.editTextNameEvents.text.toString(),
                         binding.editTextDescEvents.text.toString(),
+                        binding.editTextLocationEvents.text.toString(),
                         binding.textDateCreateEvents.text.toString(),
                         binding.textTimeCreateEvents.text.toString(),
                         binding.clickTextViewTheme.text.toString(),

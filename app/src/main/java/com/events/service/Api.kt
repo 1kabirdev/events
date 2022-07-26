@@ -58,6 +58,7 @@ interface Api {
         @Part("user_id_e") user_id_e: RequestBody,
         @Part("name_e") name_e: RequestBody,
         @Part("desc_e") desc_e: RequestBody,
+        @Part("location_e") location_e: RequestBody,
         @Part("data_e") data_e: RequestBody,
         @Part("time_e") time_e: RequestBody,
         @Part("theme_e") theme_e: RequestBody,
