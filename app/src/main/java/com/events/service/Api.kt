@@ -15,6 +15,7 @@ import com.events.model.profile.UpdateAvatar
 import com.events.model.profile.UpdatePassword
 import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
+import com.events.model.similar_event.ResponseSimilarEvent
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -126,4 +127,10 @@ interface Api {
         @Field("new_password") new_password: String,
         @Field("conf_password") conf_password: String
     ): Call<UpdatePassword>
+
+    @GET("similar_event.php")
+    fun similarEvent(
+        @Query("theme") theme: String,
+        @Query("event_id") event_id: Int
+    ): Call<ResponseSimilarEvent>
 }

@@ -15,6 +15,7 @@ import com.events.model.profile.UpdateAvatar
 import com.events.model.profile.UpdatePassword
 import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
+import com.events.model.similar_event.ResponseSimilarEvent
 import com.events.service.Api
 import com.events.service.ServicesGenerator
 import okhttp3.MultipartBody
@@ -45,7 +46,7 @@ class DataManager {
         user_id_e: RequestBody,
         name_e: RequestBody,
         desc_e: RequestBody,
-        location_e:RequestBody,
+        location_e: RequestBody,
         data_e: RequestBody,
         time_e: RequestBody,
         theme_e: RequestBody,
@@ -108,6 +109,13 @@ class DataManager {
         conf_password: String
     ): Call<UpdatePassword> {
         return api.updatePassword(user_id, old_password, new_password, conf_password)
+    }
+
+    fun similarEvent(
+        theme: String,
+        event_id: Int
+    ): Call<ResponseSimilarEvent> {
+        return api.similarEvent(theme, event_id)
     }
 
 }
