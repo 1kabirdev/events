@@ -170,7 +170,7 @@
                 android:fontFamily="@font/manrope_regular"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="Описание"
+                android:text="@string/hint_desctiption_event"
                 android:textColor="@color/bkg_gray_text_view"
                 android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@+id/layoutTheme" />
@@ -180,7 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_medium"
-                android:hint="Описание"
+                android:hint="@string/hint_desctiption_event"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textColor="@color/black"
@@ -195,7 +195,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/shape_btn_bkg"
                 android:fontFamily="@font/manrope_medium"
-                android:text="Обсуждения"
+                android:text="@string/text_disscuss"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="13sp"
@@ -238,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/manrope_bold"
-                    android:hint="Имя пользователя"
+                    android:hint="@string/hint_username"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintLeft_toRightOf="@+id/materialAvatar"
@@ -250,7 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/manrope_regular"
-                    android:hint="Имя и Фамилия"
+                    android:hint="@string/hint_last_name"
                     android:textColor="@color/bkg_gray_text_view"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -258,6 +258,26 @@
                     app:layout_constraintTop_toBottomOf="@+id/textUserNameProfile" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/titleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_medium"
+                android:padding="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/similar_event"
+                android:textColor="@color/text_color_event_similar"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/constraintUserAccount" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewSimilarEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -274,8 +294,8 @@
         android:id="@+id/constraintConnection"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iconNetwork"
@@ -294,7 +314,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/manrope_medium"
             android:gravity="center"
-            android:text="Нет подключение к Интернету.\nПроверьте подключение и повторите попытку"
+            android:text="@string/not_connection_internet"
             android:textColor="#aaa"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -309,7 +329,7 @@
             android:background="@drawable/shape_btn_bkg"
             android:paddingStart="26dp"
             android:paddingEnd="26dp"
-            android:text="Повторить"
+            android:text="@string/text_reply"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="13sp"
