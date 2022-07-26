@@ -98,7 +98,6 @@ class OrganizerActivity : AppCompatActivity(), OrganizerController.View,
             recyclerViewEventsOrganizer.adapter = adapterEventList
         }
 
-
         if (infoPage.next_page != 0)
             if (currentPage <= infoPage.count_page) adapterEventList.addLoadingFooter() else isLastPage =
                 true
