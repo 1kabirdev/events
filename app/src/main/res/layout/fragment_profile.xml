@@ -53,7 +53,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/manrope_medium"
             android:gravity="center"
-            android:text="Нет подключение к Интернета.\nПроверьте подключение и повторите заново"
+            android:text="Нет подключение к Интернету.\nПроверьте подключение и повторите попытку"
             android:textColor="#aaa"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
