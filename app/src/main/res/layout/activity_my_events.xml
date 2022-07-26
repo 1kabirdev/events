@@ -22,9 +22,9 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageEventsView"
                 android:layout_width="match_parent"
-                android:layout_height="460dp"
-                android:background="#FDFDFF"
-                android:scaleType="centerCrop"
+                android:layout_height="400dp"
+                android:background="#E6E6E6"
+                android:scaleType="fitCenter"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
@@ -82,98 +82,107 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/titleDateAndTimeEventView"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameEvents">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/titleDateAndTime"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_baseline_access_time" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textDateAndTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_medium"
+                    android:text="@string/date_event"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/linearDate">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/titleCityEvents"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_outline_location"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textCityEvents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:text="@string/location_event"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleCityEvents" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/layoutLocation">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/titleTheme"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_baseline_numbers_theme" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/manrope_medium"
+                    android:text="@string/theme_event"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/titleDescEventView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/manrope_regular"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="Дата проведения"
-                android:textColor="@color/bkg_gray_text_view"
-                android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@+id/nameEvents" />
-
-            <TextView
-                android:id="@+id/textDateAndTimeEventView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_medium"
-                android:hint="Дата проведения"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@+id/titleDateAndTimeEventView" />
-
-
-            <TextView
-                android:id="@+id/titleAddressEventView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/manrope_regular"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Адрес"
-                android:textColor="@color/bkg_gray_text_view"
-                android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@+id/textDateAndTimeEventView" />
-
-            <TextView
-                android:id="@+id/textAddressEventView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_medium"
-                android:hint="Адрес проведения"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@+id/titleAddressEventView" />
-
-
-            <TextView
-                android:id="@+id/titleThemeEventView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/manrope_regular"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Тема"
-                android:textColor="@color/bkg_gray_text_view"
-                android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@+id/textAddressEventView" />
-
-            <TextView
-                android:id="@+id/textThemeEventView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_medium"
-                android:hint="Тема проведения"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@+id/titleThemeEventView" />
-
-
-            <TextView
-                android:id="@+id/titleDescEventView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/manrope_regular"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
                 android:text="Описание"
                 android:textColor="@color/bkg_gray_text_view"
                 android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@+id/textThemeEventView" />
+                app:layout_constraintTop_toBottomOf="@+id/layoutTheme" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textDescEventView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -206,9 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="10dp"
                 android:paddingEnd="16dp"
-                android:paddingBottom="10dp"
                 app:layout_constraintTop_toBottomOf="@+id/btnDiscussEvents">
 
                 <TextView
