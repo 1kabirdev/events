@@ -12,4 +12,6 @@
     <string name="text_reply">Повторить</string>
     <string name="text_disscuss">Обсуждения</string>
     <string name="hint_desctiption_event">Описание</string>
+    <string name="hint_last_name">Имя и Фамилия</string>
+    <string name="hint_username">Имя пользователя</string>
 </resources>
