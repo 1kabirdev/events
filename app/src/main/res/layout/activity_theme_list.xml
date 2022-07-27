@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bkg_body"
     tools:context=".ui.theme_list.ThemeListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -36,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_gravity="center"
                 android:fontFamily="@font/manrope_bold"
                 android:hint="Тематика"
                 android:textColor="@color/black"
@@ -47,8 +49,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewThemeList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
     <ProgressBar
@@ -62,8 +63,8 @@
         android:id="@+id/constraintConnection"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iconNetwork"
