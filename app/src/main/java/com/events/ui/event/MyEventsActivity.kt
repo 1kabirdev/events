@@ -83,7 +83,7 @@ class MyEventsActivity : AppCompatActivity(), EventsController.View, DeleteEvent
                 intent.putExtra("EVENT_IMAGE", events.getImageE())
                 intent.putExtra("EVENT_NAME", events.getNameE())
                 intent.putExtra("EVENT_THEME", events.getThemeE())
-                intent.putExtra("EVENT_DATE", events.getDataE() + events.getTimeE())
+                intent.putExtra("EVENT_DATE", events.getDataE() + " в " +  events.getTimeE())
                 startActivity(intent)
             }
         }

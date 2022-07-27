@@ -63,7 +63,10 @@ class EventsActivity : AppCompatActivity(), EventsController.View,
                 intent.putExtra(ConstantAgrs.EVENT_IMAGE, events.getImageE())
                 intent.putExtra(ConstantAgrs.EVENT_NAME, events.getNameE())
                 intent.putExtra(ConstantAgrs.EVENT_THEME, events.getThemeE())
-                intent.putExtra(ConstantAgrs.EVENT_DATE, events.getDataE() + events.getTimeE())
+                intent.putExtra(
+                    ConstantAgrs.EVENT_DATE,
+                    events.getDataE() + " в " + events.getTimeE()
+                )
                 startActivity(intent)
             }
         }
