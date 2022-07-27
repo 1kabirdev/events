@@ -14,7 +14,7 @@ import com.events.model.profile.UpdatePassword
 import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import com.events.model.similar_event.ResponseSimilarEvent
-import com.events.model.theme_event.ResponseEventListEvents
+import com.events.model.theme_event.ResponseThemeEventList
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -138,5 +138,5 @@ interface Api {
     fun themeListEvent(
         @Query("theme") theme: String,
         @Query("page") page: Int
-    ):Call<ResponseEventListEvents>
+    ):Call<ResponseThemeEventList>
 }

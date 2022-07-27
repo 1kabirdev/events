@@ -16,6 +16,7 @@ import com.events.model.profile.UpdatePassword
 import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import com.events.model.similar_event.ResponseSimilarEvent
+import com.events.model.theme_event.ResponseThemeEventList
 import com.events.service.Api
 import com.events.service.ServicesGenerator
 import okhttp3.MultipartBody
@@ -116,6 +117,13 @@ class DataManager {
         event_id: Int
     ): Call<ResponseSimilarEvent> {
         return api.similarEvent(theme, event_id)
+    }
+
+    fun themeListEvent(
+        theme: String,
+        page: Int
+    ): Call<ResponseThemeEventList> {
+        return api.themeListEvent(theme, page)
     }
 
 }

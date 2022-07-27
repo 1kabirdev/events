@@ -2,7 +2,7 @@ package com.events.model.theme_event
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseEventListEvents(
+data class ResponseThemeEventList(
     @SerializedName("info") val infoEvents: InfoEvents,
     @SerializedName("response") var response: ArrayList<ListEvents>
 )
