@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Events">
         <activity
-            android:name=".ThemeListActivity"
+            android:name=".ui.theme_list.ThemeListActivity"
             android:exported="false" />
         <activity
             android:name=".ui.comments.CommentsActivity"
