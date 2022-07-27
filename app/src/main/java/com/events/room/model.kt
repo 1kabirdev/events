@@ -12,3 +12,10 @@ data class Profile(
     @ColumnInfo(name = "lastName") val lastName:String?,
     @ColumnInfo(name = "about") val about:String?,
 )
+
+@Entity(tableName = "subscribe")
+data class Subscribe(
+    @PrimaryKey(autoGenerate = true) val id: Long?,
+    @ColumnInfo(name = "name") val name: String?,
+    @ColumnInfo(name = "icon") val icon: String?,
+)
