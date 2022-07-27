@@ -21,5 +21,11 @@ class ConstantAgrs{
         const val EVENT_NAME = "EVENT_NAME"
         const val EVENT_THEME = "EVENT_THEME"
         const val EVENT_DATE = "EVENT_DATE"
+
+        /**
+         * theme event intent
+         */
+        const val NAME = "NAME"
+        const val ICONS = "ICONS"
     }
 }
