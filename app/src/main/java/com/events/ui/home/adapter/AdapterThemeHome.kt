@@ -19,7 +19,7 @@ class AdapterThemeHome(
                 Glide.with(itemView.context).load(themeEvent.icons).into(imageViewIcons)
                 nameTheme.text = themeEvent.name
                 itemView.setOnClickListener {
-                    listener.onClickTheme(themeEvent.name)
+                    listener.onClickTheme(themeEvent.icons, themeEvent.name)
                 }
             }
         }
@@ -42,6 +42,6 @@ class AdapterThemeHome(
     override fun getItemCount(): Int = themeEvent.size
 
     interface OnClickListener {
-        fun onClickTheme(name: String)
+        fun onClickTheme(icons: String, name: String)
     }
 }

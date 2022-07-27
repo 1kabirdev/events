@@ -177,7 +177,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         )
     }
 
-    override fun onClickTheme(name: String) {
+    override fun onClickTheme(icons: String, name: String) {
 
     }
 
