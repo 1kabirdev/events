@@ -145,8 +145,8 @@ class AdapterEventList(
             }
         }
 
-        override fun onClickTheme(name: String) {
-            listener.onClickTheme(name)
+        override fun onClickTheme(icons: String,name: String) {
+            listener.onClickTheme(icons,name)
         }
     }
 
@@ -193,6 +193,6 @@ class AdapterEventList(
         fun onClickEvent(event_id: Int, user_id: Int)
         fun onClickMyEvent(event_id: Int)
         fun OnClickReply()
-        fun onClickTheme(name: String)
+        fun onClickTheme(icons: String, name: String)
     }
 }
