@@ -119,10 +119,17 @@ class EventsActivity : AppCompatActivity(), EventsController.View,
     }
 
     override fun onClickEvent(event_id: Int, user_id: Int) {
-        if (preferencesManager.getString(Constants.USER_ID).toInt() == user_id) {
-            val intent = Intent(this, MyEventsActivity::class.java)
-            intent.putExtra("EVENTS_ID", event_id.toString())
-            startActivity(intent)
+        if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+            if (preferencesManager.getString(Constants.USER_ID).toInt() == user_id) {
+                val intent = Intent(this, MyEventsActivity::class.java)
+                intent.putExtra("EVENTS_ID", event_id.toString())
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, EventsActivity::class.java)
+                intent.putExtra("EVENTS_ID", event_id.toString())
+                intent.putExtra("USER_ID", user_id.toString())
+                startActivity(intent)
+            }
         } else {
             val intent = Intent(this, EventsActivity::class.java)
             intent.putExtra("EVENTS_ID", event_id.toString())

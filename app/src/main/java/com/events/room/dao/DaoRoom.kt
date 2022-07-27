@@ -18,11 +18,11 @@ interface DaoRoom {
     fun insertProfile(profile: Profile)
 
     /**
-     * Подписки на тематики
+     * subs
      */
-    @Insert
-    fun insertSubscribe(subscribe: Subscribe)
-
-    @Query("SELECT * FROM subscribe WHERE user_id= :user_id")
-    fun getSubscribe(user_id: Int): List<Subscribe>
+//    @Query("SELECT * FROM subscribe WHERE user_id = :user_id")
+//    fun getSubscribe(user_id: Int): List<Subscribe>
+//
+//    @Insert
+//    fun insertSubscribe(subscribe: Subscribe)
 }
