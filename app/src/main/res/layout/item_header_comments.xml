@@ -42,27 +42,57 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/themeEvent"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutTheme"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:fontFamily="@font/manrope_regular"
-            android:lines="1"
-            android:text="Theme Event"
-            android:textColor="#606060"
-            android:textSize="13sp" />
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutLocation">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/dateTimeEvent"
-            android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/titleTheme"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_baseline_numbers_theme" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/manrope_medium"
+                android:text="@string/theme_event"
+                android:textColor="@color/bkg_gray_text_view"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layoutDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:fontFamily="@font/manrope_regular"
-            android:lines="1"
-            android:text="Date time Event"
-            android:textColor="#FF606060"
-            android:textSize="13sp" />
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutLocation">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/titleDate"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_baseline_numbers_theme" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textDateAndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/manrope_medium"
+                android:text="@string/theme_event"
+                android:textColor="@color/bkg_gray_text_view"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 

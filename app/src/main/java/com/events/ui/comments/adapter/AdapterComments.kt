@@ -119,8 +119,8 @@ class AdapterComments(
             with(binding) {
                 Glide.with(itemView.context).load(image).into(imageViewEvent)
                 nameEvent.text = name
-                themeEvent.text = theme
-                dateTimeEvent.text = date
+                textTheme.text = theme
+                textDateAndTime.text = date
             }
         }
     }
