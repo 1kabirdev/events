@@ -9,13 +9,12 @@ import com.events.model.login.ResponseLogin
 import com.events.model.events.ResponseEvents
 import com.events.model.home.ResponseHomeEvents
 import com.events.model.list_events.ResponseListEvents
-import com.events.model.my_events.ResponseMyEvents
-import com.events.model.organizer.ResponseInfoOrganizer
 import com.events.model.profile.UpdateAvatar
 import com.events.model.profile.UpdatePassword
 import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import com.events.model.similar_event.ResponseSimilarEvent
+import com.events.model.theme_event.ResponseEventListEvents
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -134,4 +133,10 @@ interface Api {
         @Query("theme") theme: String,
         @Query("event_id") event_id: Int
     ): Call<ResponseSimilarEvent>
+
+    @GET("theme_list_event.php")
+    fun themeListEvent(
+        @Query("theme") theme: String,
+        @Query("page") page: Int
+    ):Call<ResponseEventListEvents>
 }
