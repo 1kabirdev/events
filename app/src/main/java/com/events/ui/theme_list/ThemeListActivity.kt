@@ -7,6 +7,7 @@ import com.events.databinding.ActivityThemeListBinding
 import com.events.model.theme_event.InfoEvents
 import com.events.model.theme_event.ListEvents
 import com.events.utill.ConstantAgrs
+import com.events.utill.LinearEventEndlessScrollEventListener
 import com.events.utill.PreferencesManager
 
 class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View {
@@ -14,6 +15,7 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View {
     private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: ActivityThemeListBinding
     private lateinit var presenter: ThemeListEventPresenter
+    private lateinit var endlessScrollEventListener: LinearEventEndlessScrollEventListener
 
     private var name: String = ""
     private var icons: String = ""

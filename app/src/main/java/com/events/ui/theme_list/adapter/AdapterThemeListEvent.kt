@@ -18,6 +18,9 @@ class AdapterThemeListEvent(
     private var isLoadingAdded = false
     private var errorFailed = false
 
+    private var name: String = ""
+    private var icons: String = ""
+
     fun addEventList(event: ArrayList<ListEvents>) {
         listEvent.addAll(event)
         notifyItemInserted(listEvent.size - 1)
@@ -29,6 +32,11 @@ class AdapterThemeListEvent(
 
     fun removeLoadingFooter() {
         isLoadingAdded = false
+    }
+
+    fun theme(name: String, icons: String) {
+        this.name = name
+        this.icons = icons
     }
 
     companion object {
@@ -107,7 +115,7 @@ class AdapterThemeListEvent(
             }
             HEAD -> {
                 val headHolder = holder as HeadViewHolder
-                headHolder.bindViewHead()
+                headHolder.bindViewHead(name, icons)
             }
 
             ERROR -> {
@@ -130,9 +138,13 @@ class AdapterThemeListEvent(
 
     private inner class HeadViewHolder(val binding: ItemHeadThemeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindViewHead() {
+        fun bindViewHead(name:String,icons: String) {
             with(binding) {
+                Glide.with(itemView.context).load(icons).into(iconsTheme)
+                textTheme.text = name
+                btnSubscribe.setOnClickListener {
 
+                }
             }
         }
     }
@@ -183,5 +195,7 @@ class AdapterThemeListEvent(
             event_theme: String,
             event_date: String
         )
+
+        fun onClickSubscribe()
     }
 }
