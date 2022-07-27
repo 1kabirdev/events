@@ -137,12 +137,16 @@ class AdapterEventList(
         RecyclerView.ViewHolder(binding.root)
 
     private inner class HeadThemeViewHolder(var binding: ItemHeadHomeThemeBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), AdapterThemeHome.OnClickListener {
         fun bindViewTheme(arrayTheme: MutableList<ThemeEvent>) {
             with(binding) {
-                val adapterThemeHome = AdapterThemeHome(arrayTheme)
+                val adapterThemeHome = AdapterThemeHome(arrayTheme, this@HeadThemeViewHolder)
                 recyclerViewTheme.adapter = adapterThemeHome
             }
+        }
+
+        override fun onClickTheme(name: String) {
+            listener.onClickTheme(name)
         }
     }
 
@@ -189,5 +193,6 @@ class AdapterEventList(
         fun onClickEvent(event_id: Int, user_id: Int)
         fun onClickMyEvent(event_id: Int)
         fun OnClickReply()
+        fun onClickTheme(name: String)
     }
 }

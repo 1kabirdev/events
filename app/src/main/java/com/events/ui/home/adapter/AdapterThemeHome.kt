@@ -8,7 +8,8 @@ import com.events.databinding.ItemListHomeThemeBinding
 import com.events.model.home.ThemeEvent
 
 class AdapterThemeHome(
-    private var themeEvent: MutableList<ThemeEvent>
+    private var themeEvent: MutableList<ThemeEvent>,
+    private var listener: OnClickListener
 ) : RecyclerView.Adapter<AdapterThemeHome.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemListHomeThemeBinding) :
@@ -17,6 +18,9 @@ class AdapterThemeHome(
             with(binding) {
                 Glide.with(itemView.context).load(themeEvent.icons).into(imageViewIcons)
                 nameTheme.text = themeEvent.name
+                itemView.setOnClickListener {
+                    listener.onClickTheme(themeEvent.name)
+                }
             }
         }
     }
@@ -36,4 +40,8 @@ class AdapterThemeHome(
     }
 
     override fun getItemCount(): Int = themeEvent.size
+
+    interface OnClickListener {
+        fun onClickTheme(name: String)
+    }
 }

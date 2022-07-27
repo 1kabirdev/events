@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -82,7 +83,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
 
         presenter = ListEventPresenter((requireContext().applicationContext as App).dataManager)
         presenter.attachView(this)
-        presenter.responseEvents(PAGE_START)
+        presenter.responseEvents(PAGE_START, "Все")
 
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewList.layoutManager = layoutManager
@@ -101,7 +102,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
                     recyclerView.apply {
                         isLoading = true
                         if (currentPage != 0) {
-                            presenter.responseEventsPage(currentPage)
+                            presenter.responseEventsPage(currentPage, "Все")
                         }
                     }
                 }
@@ -141,7 +142,8 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         binding.constraintConnection.visibility = View.VISIBLE
         binding.btnReplyEvent.setOnClickListener {
             presenter.responseEvents(
-                PAGE_START
+                PAGE_START,
+                "Все"
             )
         }
     }
@@ -170,8 +172,13 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         adapterEventList.showRetry(false)
         adapterEventList.addLoadingFooter()
         presenter.responseEventsPage(
-            currentPage
+            currentPage,
+            "Все"
         )
+    }
+
+    override fun onClickTheme(name: String) {
+
     }
 
 }

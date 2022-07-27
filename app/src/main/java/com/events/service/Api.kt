@@ -75,7 +75,8 @@ interface Api {
 
     @GET("home_list_events.php")
     fun loadHomeListEvents(
-        @Query("page") page: Int
+        @Query("page") page: Int,
+        @Query("theme") theme: String
     ): Call<ResponseHomeEvents>
 
     @GET("events.php")

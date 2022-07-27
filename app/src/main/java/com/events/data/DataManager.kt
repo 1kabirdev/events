@@ -68,8 +68,8 @@ class DataManager {
         return api.loadDataProfile(user_id, page)
     }
 
-    fun loadHomeListEvents(page: Int): Call<ResponseHomeEvents> {
-        return api.loadHomeListEvents(page)
+    fun loadHomeListEvents(page: Int, theme: String): Call<ResponseHomeEvents> {
+        return api.loadHomeListEvents(page, theme)
     }
 
     fun loadEvents(user_id: String, event_id: String): Call<ResponseEvents> {
