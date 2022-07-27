@@ -12,14 +12,14 @@ import com.events.utill.PreferencesManager
 
 class AdapterThemeListEvent(
     private var listener: OnClickListener,
-    private var listEvent: ArrayList<ListEvents>
+    private var listEvent: ArrayList<ListEvents>,
+    private var name: String,
+    private var icons: String,
+    private var countEvent: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var isLoadingAdded = false
     private var errorFailed = false
-
-    private var name: String = ""
-    private var icons: String = ""
 
     fun addEventList(event: ArrayList<ListEvents>) {
         listEvent.addAll(event)
@@ -32,11 +32,6 @@ class AdapterThemeListEvent(
 
     fun removeLoadingFooter() {
         isLoadingAdded = false
-    }
-
-    fun theme(name: String, icons: String) {
-        this.name = name
-        this.icons = icons
     }
 
     companion object {
@@ -115,7 +110,7 @@ class AdapterThemeListEvent(
             }
             HEAD -> {
                 val headHolder = holder as HeadViewHolder
-                headHolder.bindViewHead(name, icons)
+                headHolder.bindViewHead(name, icons, countEvent)
             }
 
             ERROR -> {
@@ -138,10 +133,11 @@ class AdapterThemeListEvent(
 
     private inner class HeadViewHolder(val binding: ItemHeadThemeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindViewHead(name:String,icons: String) {
+        fun bindViewHead(name: String, icons: String, countEvent: String) {
             with(binding) {
                 Glide.with(itemView.context).load(icons).into(iconsTheme)
                 textTheme.text = name
+                countEventTextView.text = "Мероприятия: $countEvent"
                 btnSubscribe.setOnClickListener {
 
                 }
@@ -161,6 +157,17 @@ class AdapterThemeListEvent(
                 Glide.with(itemView.context).load(listEvents.imageE).into(imageEvents)
                 textCityEvents.text = listEvents.cityE
                 textTheme.text = listEvents.themeE
+
+                clickDiscussEvent.setOnClickListener {
+                    listener.onClickEventDiscuss(
+                        listEvents.idE.toInt(),
+                        listEvents.imageE,
+                        listEvents.nameE,
+                        listEvents.themeE,
+                        listEvents.dataE,
+                        listEvents.timeE
+                    )
+                }
 
                 itemView.setOnClickListener {
                     if (preferencesManager.getString(Constants.USER_ID) != listEvents.user!!
@@ -193,7 +200,8 @@ class AdapterThemeListEvent(
             event_image: String,
             event_name: String,
             event_theme: String,
-            event_date: String
+            event_date: String,
+            event_time: String
         )
 
         fun onClickSubscribe()

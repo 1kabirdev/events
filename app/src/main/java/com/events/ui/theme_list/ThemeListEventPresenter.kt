@@ -48,7 +48,7 @@ class ThemeListEventPresenter(
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let { data ->
-                            view.loadEventTheme(data.infoEvents, data.response)
+                            view.loadEventThemePage(data.infoEvents, data.response)
                         }
                     }
                 }
