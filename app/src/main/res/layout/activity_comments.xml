@@ -35,16 +35,15 @@
                 app:layout_constraintLeft_toRightOf="@+id/btnClickBack"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <TextView
                 android:id="@+id/countComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="6dp"
                 android:fontFamily="@font/manrope_bold"
                 android:text=""
-                android:textColor="#001E4A"
-                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/title"
                 app:layout_constraintTop_toTopOf="parent" />

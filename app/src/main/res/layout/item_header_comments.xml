@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_bold"
             android:lines="1"
+            android:maxLength="18"
             android:text="Name Event"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -81,7 +82,7 @@
                 android:id="@+id/titleDate"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:src="@drawable/ic_baseline_numbers_theme" />
+                android:src="@drawable/ic_baseline_access_time" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textDateAndTime"
@@ -89,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/manrope_medium"
-                android:text="@string/theme_event"
+                android:text="@string/date_event"
                 android:textColor="@color/bkg_gray_text_view"
                 android:textSize="12sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
