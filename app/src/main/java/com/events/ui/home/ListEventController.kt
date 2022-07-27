@@ -14,7 +14,7 @@ interface ListEventController {
     }
 
     interface Presenter : MvpView {
-        fun responseEvents(page: Int)
-        fun responseEventsPage(page: Int)
+        fun responseEvents(page: Int, theme: String)
+        fun responseEventsPage(page: Int, theme: String)
     }
 }

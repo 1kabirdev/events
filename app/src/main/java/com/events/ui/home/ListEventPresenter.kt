@@ -12,10 +12,10 @@ class ListEventPresenter(private var dataManager: DataManager) :
     BasePresenter<ListEventController.View>(), ListEventController.Presenter {
     private lateinit var call: Call<ResponseHomeEvents>
 
-    override fun responseEvents(page: Int) {
+    override fun responseEvents(page: Int, theme: String) {
         mvpView?.let {
             it.showProgress(true)
-            call = dataManager.loadHomeListEvents(page)
+            call = dataManager.loadHomeListEvents(page, theme)
             call.enqueue(object : Callback<ResponseHomeEvents> {
                 override fun onResponse(
                     call: Call<ResponseHomeEvents>,
@@ -40,9 +40,9 @@ class ListEventPresenter(private var dataManager: DataManager) :
         }
     }
 
-    override fun responseEventsPage(page: Int) {
+    override fun responseEventsPage(page: Int, theme: String) {
         mvpView?.let {
-            call = dataManager.loadHomeListEvents(page)
+            call = dataManager.loadHomeListEvents(page, theme)
             call.enqueue(object : Callback<ResponseHomeEvents> {
                 override fun onResponse(
                     call: Call<ResponseHomeEvents>,
