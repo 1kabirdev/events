@@ -159,7 +159,7 @@ class AdapterMyEvents(
                     intent.putExtra("EVENT_IMAGE", eventsList.imageE)
                     intent.putExtra("EVENT_NAME", eventsList.nameE)
                     intent.putExtra("EVENT_THEME", eventsList.themeE)
-                    intent.putExtra("EVENT_DATE", eventsList.dataE + eventsList.timeE)
+                    intent.putExtra("EVENT_DATE", eventsList.dataE + " в " + eventsList.timeE)
                     itemView.context.startActivity(intent)
                 }
             }
