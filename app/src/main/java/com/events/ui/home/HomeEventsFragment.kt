@@ -51,33 +51,26 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferencesManager = PreferencesManager(requireContext())
-
+        
+        arrayTheme.add(ThemeEvent(1, "It", "https://rateme-social.ru/api/events/icons/it.png"))
         arrayTheme.add(
             ThemeEvent(
-                1,
-                "Все",
-                "https://rateme-social.ru/api/events/icons/all_theme.png"
-            )
-        )
-        arrayTheme.add(ThemeEvent(2, "It", "https://rateme-social.ru/api/events/icons/it.png"))
-        arrayTheme.add(
-            ThemeEvent(
-                3,
+                2,
                 "Спорт",
                 "https://rateme-social.ru/api/events/icons/sports.png"
             )
         )
         arrayTheme.add(
             ThemeEvent(
-                4,
+                3,
                 "Кино",
                 "https://rateme-social.ru/api/events/icons/movies.png"
             )
         )
-        arrayTheme.add(ThemeEvent(5, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
+        arrayTheme.add(ThemeEvent(4, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
         arrayTheme.add(
             ThemeEvent(
-                6,
+                5,
                 "Другое",
                 "https://rateme-social.ru/api/events/icons/other.png"
             )
@@ -92,7 +85,6 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         setEndlessScrollEventListener()
         binding.recyclerViewList.addOnScrollListener(endlessScrollEventListener)
     }
-
 
     @Suppress("SENSELESS_COMPARISON")
     private fun setEndlessScrollEventListener() {
