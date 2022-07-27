@@ -18,6 +18,8 @@ import com.events.model.home.ListEvents
 import com.events.model.home.ThemeEvent
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
+import com.events.ui.theme_list.ThemeListActivity
+import com.events.utill.ConstantAgrs
 import com.events.utill.Constants
 import com.events.utill.LinearEventEndlessScrollEventListener
 import com.events.utill.PreferencesManager
@@ -178,7 +180,10 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     }
 
     override fun onClickTheme(icons: String, name: String) {
-
+        val intent = Intent(requireContext(), ThemeListActivity::class.java)
+        intent.putExtra(ConstantAgrs.NAME, name)
+        intent.putExtra(ConstantAgrs.ICONS, icons)
+        startActivity(intent)
     }
 
 }
