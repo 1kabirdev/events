@@ -60,7 +60,7 @@ class AdapterComments(
 
     override fun getItemViewType(position: Int): Int {
         return if (isPositionHeader(position)) HEAD
-        else if (position == commentsList.size - 1 && isLoadingAdded) LOADING
+        else if (position == commentsList.size && isLoadingAdded) LOADING
         else ITEM
     }
 
