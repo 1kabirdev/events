@@ -16,6 +16,7 @@ data class Profile(
 @Entity(tableName = "subscribe")
 data class Subscribe(
     @PrimaryKey(autoGenerate = true) val id: Long?,
+    @ColumnInfo(name = "user_id") val user_id: String?,
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "icon") val icon: String?,
 )
