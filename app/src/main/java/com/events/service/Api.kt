@@ -63,7 +63,7 @@ interface Api {
         @Part("data_e") data_e: RequestBody,
         @Part("time_e") time_e: RequestBody,
         @Part("theme_e") theme_e: RequestBody,
-        @Part image_e: MultipartBody.Part,
+        @Part image: MultipartBody.Part,
     ): Call<ResponseCreateEvents>
 
     @Multipart
