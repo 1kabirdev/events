@@ -6,11 +6,12 @@ import com.events.App
 import com.events.databinding.ActivityThemeListBinding
 import com.events.model.theme_event.InfoEvents
 import com.events.model.theme_event.ListEvents
+import com.events.ui.theme_list.adapter.AdapterThemeListEvent
 import com.events.utill.ConstantAgrs
 import com.events.utill.LinearEventEndlessScrollEventListener
 import com.events.utill.PreferencesManager
 
-class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View {
+class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View ,AdapterThemeListEvent.OnClickListener{
 
     private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: ActivityThemeListBinding
@@ -60,6 +61,32 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View {
     }
 
     override fun errorPage() {
+
+    }
+
+    override fun onClickEvent(event_id: Int, user_id: Int) {
+
+    }
+
+    override fun onClickMyEvent(event_id: Int) {
+
+    }
+
+    override fun OnClickReply() {
+
+    }
+
+    override fun onClickEventDiscuss(
+        event_id: Int,
+        event_image: String,
+        event_name: String,
+        event_theme: String,
+        event_date: String
+    ) {
+
+    }
+
+    override fun onClickSubscribe() {
 
     }
 }
