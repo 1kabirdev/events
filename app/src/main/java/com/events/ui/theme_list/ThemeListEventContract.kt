@@ -11,6 +11,8 @@ interface ThemeListEventContract {
         fun progress(show: Boolean)
         fun error()
         fun errorPage()
+
+        fun subscribe()
     }
 
     interface Presenter : MvpView {

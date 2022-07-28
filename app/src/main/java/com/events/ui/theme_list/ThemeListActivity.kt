@@ -159,7 +159,7 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
         startActivity(intent)
     }
 
-    override fun onClickSubscribe() {
+    override fun onClickSubscribe(name:String) {
 
     }
 }
