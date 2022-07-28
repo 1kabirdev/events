@@ -4,19 +4,23 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.events.App
 import com.events.databinding.ActivityThemeListBinding
 import com.events.model.theme_event.InfoEvents
 import com.events.model.theme_event.ListEvents
+import com.events.model.theme_event.Subscribe
 import com.events.ui.comments.CommentsActivity
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
 import com.events.ui.theme_list.adapter.AdapterThemeListEvent
 import com.events.utill.ConstantAgrs
+import com.events.utill.Constants
 import com.events.utill.LinearEventEndlessScrollEventListener
 import com.events.utill.PreferencesManager
+import com.google.android.material.snackbar.Snackbar
 
 class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
     AdapterThemeListEvent.OnClickListener {
@@ -122,6 +126,16 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
         adapterThemeListEvent.showRetry(true)
     }
 
+    override fun subscribe(subscribe: Subscribe) {
+        if (subscribe.status == "add") Toast.makeText(
+            this,
+            "Вы подписались на $name",
+            Toast.LENGTH_SHORT
+        ).show()
+        else Toast.makeText(this, "Вы отписались от $name", Toast.LENGTH_SHORT).show()
+
+    }
+
     override fun onClickEvent(event_id: Int, user_id: Int) {
         val intent = Intent(this, EventsActivity::class.java)
         intent.putExtra("EVENTS_ID", event_id.toString())
@@ -159,7 +173,7 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
         startActivity(intent)
     }
 
-    override fun onClickSubscribe(name:String) {
-
+    override fun onClickSubscribe(name: String) {
+        presenter.responseSubscribe(preferencesManager.getString(Constants.USER_ID).toInt(), name)
     }
 }
