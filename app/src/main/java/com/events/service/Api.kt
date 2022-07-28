@@ -142,7 +142,7 @@ interface Api {
     ): Call<ResponseThemeEventList>
 
     @FormUrlEncoded
-    @POST("add_sunscribe.php")
+    @POST("add_subscribe.php")
     fun addSunscribe(
         @Field("user_id") user_id: Int,
         @Field("name_theme") name_theme: String
