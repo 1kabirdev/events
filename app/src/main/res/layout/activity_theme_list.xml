@@ -22,7 +22,6 @@
             android:paddingEnd="16dp"
             app:contentInsetStart="0dp">
 
-
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/btnBackThematics"
                 android:layout_width="30dp"
