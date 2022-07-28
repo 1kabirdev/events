@@ -59,4 +59,8 @@ class ThemeListEventPresenter(
             })
         }
     }
+
+    override fun responseSubscribe(user_id: Int, name_theme: String) {
+
+    }
 }
