@@ -17,6 +17,7 @@ import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import com.events.model.similar_event.ResponseSimilarEvent
 import com.events.model.theme_event.ResponseThemeEventList
+import com.events.model.theme_event.Subscribe
 import com.events.service.Api
 import com.events.service.ServicesGenerator
 import okhttp3.MultipartBody
@@ -124,6 +125,14 @@ class DataManager {
         page: Int
     ): Call<ResponseThemeEventList> {
         return api.themeListEvent(theme, page)
+    }
+
+    fun addSubscribe(
+        user_id: Int,
+        name_theme: String
+    ): Call<Subscribe> {
+        return api.addSunscribe(user_id, name_theme)
+
     }
 
 }

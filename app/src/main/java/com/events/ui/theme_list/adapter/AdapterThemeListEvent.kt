@@ -139,7 +139,7 @@ class AdapterThemeListEvent(
                 textTheme.text = name
                 countEventTextView.text = "Мероприятия: $countEvent"
                 btnSubscribe.setOnClickListener {
-
+                    listener.onClickSubscribe(name)
                 }
             }
         }
@@ -204,6 +204,6 @@ class AdapterThemeListEvent(
             event_time: String
         )
 
-        fun onClickSubscribe()
+        fun onClickSubscribe(name: String)
     }
 }

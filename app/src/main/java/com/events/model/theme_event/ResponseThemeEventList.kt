@@ -32,3 +32,8 @@ data class UsersEvent(
     @SerializedName("user_id") var userId: String,
     @SerializedName("avatar") var avatar: String
 )
+
+data class Subscribe(
+    @SerializedName("status") val status: String,
+    @SerializedName("message") val message: String
+)

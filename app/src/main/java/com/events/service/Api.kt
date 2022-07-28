@@ -15,6 +15,7 @@ import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import com.events.model.similar_event.ResponseSimilarEvent
 import com.events.model.theme_event.ResponseThemeEventList
+import com.events.model.theme_event.Subscribe
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -138,5 +139,12 @@ interface Api {
     fun themeListEvent(
         @Query("theme") theme: String,
         @Query("page") page: Int
-    ):Call<ResponseThemeEventList>
+    ): Call<ResponseThemeEventList>
+
+    @FormUrlEncoded
+    @POST("add_sunscribe.php")
+    fun addSunscribe(
+        @Field("user_id") user_id: Int,
+        @Field("name_theme") name_theme: String
+    ): Call<Subscribe>
 }
