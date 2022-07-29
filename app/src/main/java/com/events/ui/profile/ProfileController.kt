@@ -11,6 +11,8 @@ interface ProfileController {
             eventsList: ArrayList<ResponseInfoProfile.ResponseEvents>
         )
 
+        fun geyLoadSubscribe(subscribe: ArrayList<ResponseInfoProfile.Subscribe>)
+
         fun getLoadDataPage(
             infoPage: ResponseInfoProfile.InfoPage,
             eventsList: ArrayList<ResponseInfoProfile.ResponseEvents>
