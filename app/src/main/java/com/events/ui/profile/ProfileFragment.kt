@@ -13,6 +13,7 @@ import com.events.MainActivity
 import com.events.databinding.FragmentProfileBinding
 import com.events.model.profile.ResponseInfoProfile
 import com.events.ui.bottom_sheet.InfoProfileBottomSheet
+import com.events.ui.comments.CommentsActivity
 import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.login.LoginUserFragment
 import com.events.ui.profile.adapter.AdapterMyEvents
@@ -197,6 +198,23 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
             preferencesManager.getString(Constants.USER_ID),
             currentPage
         )
+    }
+
+    override fun onClickDiscuss(
+        id: Int,
+        image: String,
+        name: String,
+        theme: String,
+        date: String,
+        time: String
+    ) {
+        val intent = Intent(requireContext(), CommentsActivity::class.java)
+        intent.putExtra("EVENT_ID", id.toString())
+        intent.putExtra("EVENT_IMAGE", image)
+        intent.putExtra("EVENT_NAME", name)
+        intent.putExtra("EVENT_THEME", theme)
+        intent.putExtra("EVENT_DATE", "$date в $time")
+        startActivity(intent)
     }
 
 }

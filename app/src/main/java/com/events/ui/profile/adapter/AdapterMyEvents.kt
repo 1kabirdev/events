@@ -154,13 +154,14 @@ class AdapterMyEvents(
                     it.context.startActivity(intent)
                 }
                 clickDiscussEvent.setOnClickListener {
-                    val intent = Intent(itemView.context, CommentsActivity::class.java)
-                    intent.putExtra("EVENT_ID", eventsList.idE)
-                    intent.putExtra("EVENT_IMAGE", eventsList.imageE)
-                    intent.putExtra("EVENT_NAME", eventsList.nameE)
-                    intent.putExtra("EVENT_THEME", eventsList.themeE)
-                    intent.putExtra("EVENT_DATE", eventsList.dataE + " в " + eventsList.timeE)
-                    itemView.context.startActivity(intent)
+                    listener.onClickDiscuss(
+                        eventsList.idE.toInt(),
+                        eventsList.imageE,
+                        eventsList.nameE,
+                        eventsList.themeE,
+                        eventsList.dataE,
+                        eventsList.timeE
+                    )
                 }
             }
         }
@@ -193,5 +194,13 @@ class AdapterMyEvents(
     interface OnClickListener {
         fun onClickUserEdit(profileData: ResponseInfoProfile.ProfileData)
         fun OnClickReply()
+        fun onClickDiscuss(
+            id: Int,
+            image: String,
+            name: String,
+            theme: String,
+            date: String,
+            time: String
+        )
     }
 }
