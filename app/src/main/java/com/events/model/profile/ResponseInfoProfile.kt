@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseInfoProfile(
     @SerializedName("profile") val profile: ProfileData,
+    @SerializedName("subscribe") val subscribe:ArrayList<Subscribe>,
     @SerializedName("info") val infoPage: InfoPage,
     @SerializedName("response") val responseEvents: ArrayList<ResponseEvents>
 ) {
@@ -15,6 +16,11 @@ data class ResponseInfoProfile(
         @SerializedName("last_name") var last_name: String,
         @SerializedName("about") var about: String,
         @SerializedName("create_data") var create_data: String,
+    )
+
+    data class Subscribe(
+        @SerializedName("id") val id: Int,
+        @SerializedName("theme") val theme: String
     )
 
     data class InfoPage(
