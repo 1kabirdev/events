@@ -11,7 +11,8 @@ data class InfoEvents(
     @SerializedName("page") val page: Int,
     @SerializedName("next_page") val next_page: Int,
     @SerializedName("count_page") val count_page: Int,
-    @SerializedName("count_event") val count_event: Int
+    @SerializedName("count_event") val count_event: Int,
+    @SerializedName("subscribe") var subscribe: Boolean
 )
 
 data class ListEvents(

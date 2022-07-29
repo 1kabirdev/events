@@ -122,9 +122,10 @@ class DataManager {
 
     fun themeListEvent(
         theme: String,
-        page: Int
+        page: Int,
+        user_id: Int
     ): Call<ResponseThemeEventList> {
-        return api.themeListEvent(theme, page)
+        return api.themeListEvent(theme, page,user_id)
     }
 
     fun addSubscribe(

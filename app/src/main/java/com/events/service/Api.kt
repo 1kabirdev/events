@@ -138,7 +138,8 @@ interface Api {
     @GET("theme_list_event.php")
     fun themeListEvent(
         @Query("theme") theme: String,
-        @Query("page") page: Int
+        @Query("page") page: Int,
+        @Query("user_id") user_id: Int
     ): Call<ResponseThemeEventList>
 
     @FormUrlEncoded
