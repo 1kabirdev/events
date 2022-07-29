@@ -3,8 +3,10 @@ package com.events.ui.theme_list.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.events.R
 import com.events.databinding.*
 import com.events.model.theme_event.ListEvents
 import com.events.utill.Constants
@@ -15,7 +17,8 @@ class AdapterThemeListEvent(
     private var listEvent: ArrayList<ListEvents>,
     private var name: String,
     private var icons: String,
-    private var countEvent: String
+    private var countEvent: String,
+    private var subscribe: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var isLoadingAdded = false
@@ -110,7 +113,7 @@ class AdapterThemeListEvent(
             }
             HEAD -> {
                 val headHolder = holder as HeadViewHolder
-                headHolder.bindViewHead(name, icons, countEvent)
+                headHolder.bindViewHead(name, icons, countEvent, subscribe)
             }
 
             ERROR -> {
@@ -133,13 +136,36 @@ class AdapterThemeListEvent(
 
     private inner class HeadViewHolder(val binding: ItemHeadThemeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindViewHead(name: String, icons: String, countEvent: String) {
+        private var flag: Boolean = false
+        fun bindViewHead(name: String, icons: String, countEvent: String, subscribe: Boolean) {
             with(binding) {
                 Glide.with(itemView.context).load(icons).into(iconsTheme)
                 textTheme.text = name
                 countEventTextView.text = "Мероприятия: $countEvent"
+
+                if (subscribe) {
+                    flag = false
+                    btnSubscribe.text = "Отписаться"
+                    btnSubscribe.background = ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_sub_true_bkg)
+                } else {
+                    flag = true
+                    btnSubscribe.text = "Подписаться"
+                    btnSubscribe.background = ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_bkg)
+                }
+
                 btnSubscribe.setOnClickListener {
-                    listener.onClickSubscribe(name)
+                    if (flag) {
+                        flag = false
+                        btnSubscribe.background = ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_sub_true_bkg)
+                        btnSubscribe.text = "Отписаться"
+                        listener.onClickSubscribe(name)
+                    } else {
+                        flag = true
+                        btnSubscribe.background = ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_bkg)
+                        btnSubscribe.text = "Подписаться"
+                        listener.onClickSubscribe(name)
+                    }
+
                 }
             }
         }
