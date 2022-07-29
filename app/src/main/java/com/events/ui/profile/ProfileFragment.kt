@@ -16,18 +16,18 @@ import com.events.ui.bottom_sheet.InfoProfileBottomSheet
 import com.events.ui.comments.CommentsActivity
 import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.login.LoginUserFragment
-import com.events.ui.profile.adapter.AdapterMyEvents
+import com.events.ui.profile.adapter.AdapterEventsProfile
 import com.events.utill.Constants
 import com.events.utill.LinearEventEndlessScrollEventListener
 import com.events.utill.PreferencesManager
 
 class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomSheet.OnClickListener,
-    AdapterMyEvents.OnClickListener {
+    AdapterEventsProfile.OnClickListener {
 
     private lateinit var preferencesManager: PreferencesManager
     private lateinit var binding: FragmentProfileBinding
     private lateinit var presenter: ProfilePresenter
-    private lateinit var adapterMyEvents: AdapterMyEvents
+    private lateinit var adapterEventsProfile: AdapterEventsProfile
     private lateinit var endlessScrollEventListener: LinearEventEndlessScrollEventListener
     private lateinit var layoutManager: LinearLayoutManager
     private var errorFailed = false
@@ -117,12 +117,12 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
             profileData.create_data
         )
         currentPage = infoPage.next_page
-        adapterMyEvents = AdapterMyEvents(eventsList, this@ProfileFragment)
-        adapterMyEvents.profile(profileData)
-        adapterMyEvents.infoCountEvent(infoPage.count_event)
+        adapterEventsProfile = AdapterEventsProfile(eventsList, this@ProfileFragment)
+        adapterEventsProfile.profile(profileData)
+        adapterEventsProfile.infoCountEvent(infoPage.count_event)
         with(binding) {
 
-            recyclerViewEvents.adapter = adapterMyEvents
+            recyclerViewEvents.adapter = adapterEventsProfile
 
             /**
              * menu toolbar
@@ -134,8 +134,12 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
             }
         }
         if (infoPage.next_page != 0)
-            if (currentPage <= infoPage.count_page) adapterMyEvents.addLoadingFooter() else isLastPage =
+            if (currentPage <= infoPage.count_page) adapterEventsProfile.addLoadingFooter() else isLastPage =
                 true
+    }
+
+    override fun geyLoadSubscribe(subscribe: ArrayList<ResponseInfoProfile.Subscribe>) {
+        adapterEventsProfile.addSubscribeList(subscribe)
     }
 
     override fun getLoadDataPage(
@@ -143,11 +147,11 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         eventsList: ArrayList<ResponseInfoProfile.ResponseEvents>
     ) {
         currentPage = infoPage.next_page
-        adapterMyEvents.addAll(eventsList)
+        adapterEventsProfile.addAll(eventsList)
         isLoading = false
-        adapterMyEvents.removeLoadingFooter()
+        adapterEventsProfile.removeLoadingFooter()
         if (infoPage.next_page != 0)
-            if (currentPage != infoPage.count_page) adapterMyEvents.addLoadingFooter() else isLastPage =
+            if (currentPage != infoPage.count_page) adapterEventsProfile.addLoadingFooter() else isLastPage =
                 true
     }
 
@@ -168,8 +172,8 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
 
     override fun noConnectPage() {
         errorFailed = true
-        adapterMyEvents.removeLoadingFooter()
-        adapterMyEvents.showRetry(true)
+        adapterEventsProfile.removeLoadingFooter()
+        adapterEventsProfile.showRetry(true)
     }
 
     override fun onClickEdit() {
@@ -192,8 +196,8 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
 
     override fun OnClickReply() {
         errorFailed = false
-        adapterMyEvents.showRetry(false)
-        adapterMyEvents.addLoadingFooter()
+        adapterEventsProfile.showRetry(false)
+        adapterEventsProfile.addLoadingFooter()
         presenter.responseLoadDataPage(
             preferencesManager.getString(Constants.USER_ID),
             currentPage

@@ -13,7 +13,6 @@ import com.events.databinding.ItemLoadingViewBinding
 import com.events.model.home.ListEvents
 import com.events.model.home.ThemeEvent
 import com.events.ui.comments.CommentsActivity
-import com.events.ui.profile.adapter.AdapterMyEvents
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import kotlin.collections.ArrayList

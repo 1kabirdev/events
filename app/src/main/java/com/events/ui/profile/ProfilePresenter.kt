@@ -30,6 +30,7 @@ class ProfilePresenter(private var dataManager: DataManager) :
                                 res.infoPage,
                                 res.responseEvents,
                             )
+                            it.geyLoadSubscribe(res.subscribe)
                         }
                     }
                 }

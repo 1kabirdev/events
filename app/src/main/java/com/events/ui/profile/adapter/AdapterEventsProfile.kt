@@ -11,15 +11,15 @@ import com.events.databinding.ItemListMyEventsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.databinding.ItemProfileBinding
 import com.events.model.profile.ResponseInfoProfile
-import com.events.ui.comments.CommentsActivity
 import com.events.ui.event.MyEventsActivity
 
-class AdapterMyEvents(
+class AdapterEventsProfile(
     private var events: ArrayList<ResponseInfoProfile.ResponseEvents>,
     private var listener: OnClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var subscribeList: ArrayList<ResponseInfoProfile.Subscribe> = arrayListOf()
     private var profileData: ResponseInfoProfile.ProfileData? = null
     private var countEvent = 0
     private var isLoadingAdded = false
@@ -44,6 +44,10 @@ class AdapterMyEvents(
 
     fun infoCountEvent(countEvent: Int) {
         this.countEvent = countEvent
+    }
+
+    fun addSubscribeList(subscribe: ArrayList<ResponseInfoProfile.Subscribe>) {
+        subscribeList.addAll(subscribe)
     }
 
     /**
