@@ -15,10 +15,10 @@ class ThemeListEventPresenter(
     private lateinit var call: Call<ResponseThemeEventList>
     private lateinit var callSubscribe: Call<Subscribe>
 
-    override fun responseThemeEvent(theme: String, page: Int) {
+    override fun responseThemeEvent(theme: String, page: Int, user_id: Int) {
         mvpView?.let { view ->
             view.progress(true)
-            call = dataManager.themeListEvent(theme, page)
+            call = dataManager.themeListEvent(theme, page, user_id)
             call.enqueue(object : Callback<ResponseThemeEventList> {
                 override fun onResponse(
                     call: Call<ResponseThemeEventList>,
@@ -40,9 +40,9 @@ class ThemeListEventPresenter(
         }
     }
 
-    override fun responseThemeEventPage(theme: String, page: Int) {
+    override fun responseThemeEventPage(theme: String, page: Int, user_id: Int) {
         mvpView?.let { view ->
-            call = dataManager.themeListEvent(theme, page)
+            call = dataManager.themeListEvent(theme, page, user_id)
             call.enqueue(object : Callback<ResponseThemeEventList> {
                 override fun onResponse(
                     call: Call<ResponseThemeEventList>,
