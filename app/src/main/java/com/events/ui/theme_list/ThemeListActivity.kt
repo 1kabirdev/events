@@ -54,7 +54,11 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
 
         presenter = ThemeListEventPresenter((applicationContext as App).dataManager)
         presenter.attachView(this)
-        presenter.responseThemeEvent(name, PAGE_START)
+        presenter.responseThemeEvent(
+            name,
+            PAGE_START,
+            preferencesManager.getString(Constants.USER_ID).toInt()
+        )
 
         layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewThemeList.layoutManager = layoutManager
@@ -76,7 +80,11 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
                     recyclerView.apply {
                         isLoading = true
                         if (currentPage != 0) {
-                            presenter.responseThemeEventPage(name, currentPage)
+                            presenter.responseThemeEventPage(
+                                name,
+                                currentPage,
+                                preferencesManager.getString(Constants.USER_ID).toInt()
+                            )
                         }
                     }
                 }
@@ -86,7 +94,7 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
     override fun loadEventTheme(info: InfoEvents, listEvents: ArrayList<ListEvents>) {
         currentPage = info.next_page
         adapterThemeListEvent =
-            AdapterThemeListEvent(this, listEvents, name, icons, info.count_event.toString())
+            AdapterThemeListEvent(this, listEvents, name, icons, info.count_event.toString(),info.subscribe)
         binding.recyclerViewThemeList.adapter = adapterThemeListEvent
         if (info.next_page != 0)
             if (currentPage != info.count_page) adapterThemeListEvent.addLoadingFooter() else isLastPage =
@@ -116,7 +124,11 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
     override fun error() {
         binding.constraintConnection.visibility = View.VISIBLE
         binding.btnReplyEvent.setOnClickListener {
-            presenter.responseThemeEvent(name, PAGE_START)
+            presenter.responseThemeEvent(
+                name,
+                PAGE_START,
+                preferencesManager.getString(Constants.USER_ID).toInt()
+            )
         }
     }
 
@@ -153,7 +165,11 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
         errorFailed = false
         adapterThemeListEvent.showRetry(false)
         adapterThemeListEvent.addLoadingFooter()
-        presenter.responseThemeEventPage(name, currentPage)
+        presenter.responseThemeEventPage(
+            name,
+            currentPage,
+            preferencesManager.getString(Constants.USER_ID).toInt()
+        )
     }
 
     override fun onClickEventDiscuss(
