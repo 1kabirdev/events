@@ -17,8 +17,8 @@ interface ThemeListEventContract {
     }
 
     interface Presenter : MvpView {
-        fun responseThemeEvent(theme: String, page: Int)
-        fun responseThemeEventPage(theme: String, page: Int)
+        fun responseThemeEvent(theme: String, page: Int,user_id: Int)
+        fun responseThemeEventPage(theme: String, page: Int,user_id: Int)
         fun responseSubscribe(user_id:Int,name_theme:String)
     }
 }
