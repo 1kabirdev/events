@@ -49,8 +49,8 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
         preferencesManager = PreferencesManager(this)
 
         val args = intent.extras
-        name = args?.get(ConstantAgrs.NAME)?.toString().toString()
-        icons = args?.get(ConstantAgrs.ICONS)?.toString().toString()
+        name = args?.get("NAME")?.toString().toString()
+        icons = args?.get("ICONS")?.toString().toString()
 
         presenter = ThemeListEventPresenter((applicationContext as App).dataManager)
         presenter.attachView(this)

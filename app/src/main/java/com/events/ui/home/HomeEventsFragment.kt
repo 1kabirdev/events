@@ -16,6 +16,7 @@ import com.events.databinding.FragmentHomeEventsBinding
 import com.events.model.home.InfoEvents
 import com.events.model.home.ListEvents
 import com.events.model.home.ThemeEvent
+import com.events.model.theme_event.ThemeEventHome
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
 import com.events.ui.theme_list.ThemeListActivity
@@ -38,8 +39,6 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     private val PAGE_START = 1
     private var currentPage: Int = PAGE_START
 
-    private var arrayTheme: ArrayList<ThemeEvent> = arrayListOf()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,39 +50,18 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         preferencesManager = PreferencesManager(requireContext())
-        
-        arrayTheme.add(ThemeEvent(1, "It", "https://rateme-social.ru/api/events/icons/it.png"))
-        arrayTheme.add(
-            ThemeEvent(
-                2,
-                "Спорт",
-                "https://rateme-social.ru/api/events/icons/sports.png"
-            )
-        )
-        arrayTheme.add(
-            ThemeEvent(
-                3,
-                "Кино",
-                "https://rateme-social.ru/api/events/icons/movies.png"
-            )
-        )
-        arrayTheme.add(ThemeEvent(4, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
-        arrayTheme.add(
-            ThemeEvent(
-                5,
-                "Другое",
-                "https://rateme-social.ru/api/events/icons/other.png"
-            )
-        )
 
         presenter = ListEventPresenter((requireContext().applicationContext as App).dataManager)
         presenter.attachView(this)
         presenter.responseEvents(PAGE_START, "Все")
+        presenter.responseThemeEventHome()
 
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewList.layoutManager = layoutManager
         setEndlessScrollEventListener()
         binding.recyclerViewList.addOnScrollListener(endlessScrollEventListener)
+
+        adapterEventList = AdapterEventList(this)
     }
 
     @Suppress("SENSELESS_COMPARISON")
@@ -105,7 +83,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
 
     override fun getLoadEvent(info: InfoEvents, eventsList: ArrayList<ListEvents>) {
         currentPage = info.next_page
-        adapterEventList = AdapterEventList(eventsList, arrayTheme, this)
+        adapterEventList.addEventList(eventsList)
         binding.recyclerViewList.adapter = adapterEventList
         if (info.next_page != 0)
             if (currentPage <= info.count_page) adapterEventList.addLoadingFooter() else isLastPage =
@@ -120,6 +98,10 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         if (info.next_page != 0)
             if (currentPage != info.count_page) adapterEventList.addLoadingFooter() else isLastPage =
                 true
+    }
+
+    override fun getLoadThemeEventHome(theme: ArrayList<ThemeEventHome>) {
+        adapterEventList.addThemeEvent(theme)
     }
 
     override fun showProgress(show: Boolean) {
@@ -173,8 +155,8 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
 
     override fun onClickTheme(icons: String, name: String) {
         val intent = Intent(requireContext(), ThemeListActivity::class.java)
-        intent.putExtra(ConstantAgrs.NAME, name)
-        intent.putExtra(ConstantAgrs.ICONS, icons)
+        intent.putExtra("NAME", name)
+        intent.putExtra("ICONS", icons)
         startActivity(intent)
     }
 

@@ -16,6 +16,7 @@ import com.events.model.profile.UpdatePassword
 import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import com.events.model.similar_event.ResponseSimilarEvent
+import com.events.model.theme_event.ResponseThemeEventHome
 import com.events.model.theme_event.ResponseThemeEventList
 import com.events.model.theme_event.Subscribe
 import com.events.service.Api
@@ -74,6 +75,10 @@ class DataManager {
         return api.loadHomeListEvents(page, theme)
     }
 
+    fun getLoadThemeEventHome(): Call<ResponseThemeEventHome> {
+        return api.loadThemeEventHome()
+    }
+
     fun loadEvents(user_id: String, event_id: String): Call<ResponseEvents> {
         return api.loadEvents(user_id, event_id)
     }
@@ -125,7 +130,7 @@ class DataManager {
         page: Int,
         user_id: Int
     ): Call<ResponseThemeEventList> {
-        return api.themeListEvent(theme, page,user_id)
+        return api.themeListEvent(theme, page, user_id)
     }
 
     fun addSubscribe(

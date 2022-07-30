@@ -12,17 +12,19 @@ import com.events.databinding.ItemListEventsBinding
 import com.events.databinding.ItemLoadingViewBinding
 import com.events.model.home.ListEvents
 import com.events.model.home.ThemeEvent
+import com.events.model.theme_event.ThemeEventHome
 import com.events.ui.comments.CommentsActivity
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
 import kotlin.collections.ArrayList
 
 class AdapterEventList(
-    private var eventsList: MutableList<ListEvents>,
-    private var arrayTheme: MutableList<ThemeEvent>,
     private var listener: OnClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var arrayTheme: MutableList<ThemeEventHome> = arrayListOf()
+    private var eventsList: MutableList<ListEvents> = arrayListOf()
 
     private var isLoadingAdded = false
     private var errorFailed = false
@@ -30,6 +32,11 @@ class AdapterEventList(
     fun addEventList(event: ArrayList<ListEvents>) {
         eventsList.addAll(event)
         notifyItemInserted(eventsList.size - 1)
+    }
+
+    fun addThemeEvent(themeEventHome: ArrayList<ThemeEventHome>) {
+        arrayTheme.addAll(themeEventHome)
+        notifyDataSetChanged()
     }
 
     fun addLoadingFooter() {
@@ -103,6 +110,7 @@ class AdapterEventList(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
+
             LOADING -> {
                 val loadingViewHolder = holder as LoadingViewHolder
                 loadingViewHolder.binding.progressViewComment.visibility = View.VISIBLE
@@ -137,15 +145,15 @@ class AdapterEventList(
 
     private inner class HeadThemeViewHolder(var binding: ItemHeadHomeThemeBinding) :
         RecyclerView.ViewHolder(binding.root), AdapterThemeHome.OnClickListener {
-        fun bindViewTheme(arrayTheme: MutableList<ThemeEvent>) {
+        fun bindViewTheme(arrayTheme: MutableList<ThemeEventHome>) {
             with(binding) {
                 val adapterThemeHome = AdapterThemeHome(arrayTheme, this@HeadThemeViewHolder)
                 recyclerViewTheme.adapter = adapterThemeHome
             }
         }
 
-        override fun onClickTheme(icons: String,name: String) {
-            listener.onClickTheme(icons,name)
+        override fun onClickTheme(icons: String, name: String) {
+            listener.onClickTheme(icons, name)
         }
     }
 

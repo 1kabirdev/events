@@ -14,6 +14,7 @@ import com.events.model.profile.UpdatePassword
 import com.events.model.profile.UpdateProfile
 import com.events.model.search.ResponseSearch
 import com.events.model.similar_event.ResponseSimilarEvent
+import com.events.model.theme_event.ResponseThemeEventHome
 import com.events.model.theme_event.ResponseThemeEventList
 import com.events.model.theme_event.Subscribe
 import okhttp3.MultipartBody
@@ -78,6 +79,9 @@ interface Api {
         @Query("page") page: Int,
         @Query("theme") theme: String
     ): Call<ResponseHomeEvents>
+
+    @GET("theme_list_home.php")
+    fun loadThemeEventHome():Call<ResponseThemeEventHome>
 
     @GET("events.php")
     fun loadEvents(

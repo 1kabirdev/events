@@ -38,3 +38,14 @@ data class Subscribe(
     @SerializedName("status") val status: String,
     @SerializedName("message") val message: String
 )
+
+
+data class ResponseThemeEventHome(
+    @SerializedName("theme_event") val theme_event: ArrayList<ThemeEventHome>
+)
+
+data class ThemeEventHome(
+    @SerializedName("id_t") val id_t: Int,
+    @SerializedName("name_t") val name: String,
+    @SerializedName("image") val image: String
+)
