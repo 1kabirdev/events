@@ -172,7 +172,7 @@ class AdapterEventsProfile(
     }
 
     inner class ProfileViewHolder(val binding: ItemProfileBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), AdapterSubscribe.OnClickListener {
 
         fun bindViewProfile(profileData: ResponseInfoProfile.ProfileData) {
             with(binding) {
@@ -184,7 +184,15 @@ class AdapterEventsProfile(
                 btnClickEditProfile.setOnClickListener {
                     listener.onClickUserEdit(profileData)
                 }
+                countSubscriber.text = "Подписки ${subscribeList.size}"
+
+                val adapterSubscribe = AdapterSubscribe(subscribeList, this@ProfileViewHolder)
+                recyclerViewSubscribe.adapter = adapterSubscribe
             }
+        }
+
+        override fun onClickTheme(name: String) {
+            listener.onClickSubscribe(name)
         }
     }
 
@@ -206,5 +214,7 @@ class AdapterEventsProfile(
             date: String,
             time: String
         )
+
+        fun onClickSubscribe(name: String)
     }
 }
