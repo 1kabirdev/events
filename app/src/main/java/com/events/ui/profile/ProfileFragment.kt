@@ -221,4 +221,8 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         startActivity(intent)
     }
 
+    override fun onClickSubscribe(name: String) {
+
+    }
+
 }
