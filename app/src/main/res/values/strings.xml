@@ -14,4 +14,10 @@
     <string name="hint_desctiption_event">Описание</string>
     <string name="hint_last_name">Имя и Фамилия</string>
     <string name="hint_username">Имя пользователя</string>
+    <string name="hint_username_account">Имя аккаунта</string>
+    <string name="hint_last_name_account">Указать имя и фамилия</string>
+    <string name="text_about_account">О себе:</string>
+    <string name="hint_description_account">Добавить о себе</string>
+    <string name="text_edit_profile_account">Редактировать профиль</string>
+    <string name="text_events">Мероприятия</string>
 </resources>

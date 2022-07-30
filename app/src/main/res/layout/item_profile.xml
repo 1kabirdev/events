@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="26dp"
@@ -40,7 +39,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_bold"
             android:gravity="center"
-            android:hint="Имя аккаунта"
+            android:hint="@string/hint_username_account"
             android:lines="1"
             android:maxEms="10"
             android:textColor="@color/black"
@@ -56,7 +55,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/manrope_regular"
             android:gravity="center"
-            android:hint="Указать имя и фамилия"
+            android:hint="@string/hint_last_name_account"
             android:lines="1"
             android:maxEms="16"
             android:textColor="#232323"
@@ -75,7 +74,7 @@
         android:fontFamily="@font/manrope_regular"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="О себе:"
+        android:text="@string/text_about_account"
         android:textColor="#AAAAAA"
         android:textSize="11sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -87,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/manrope_regular"
-        android:hint="Добавить о себе"
+        android:hint="@string/hint_description_account"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:textColor="#000000"
@@ -105,26 +104,65 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/shape_btn_edit_profile"
         android:elevation="0dp"
-        android:text="Редактировать профиль"
+        android:text="@string/text_edit_profile_account"
         android:textAllCaps="false"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/aboutProfile" />
 
+
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
+        android:id="@+id/linearSubscriber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/btnClickEditProfile">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/countSubscriber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/manrope_medium"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Подписки"
+            android:textColor="@color/text_color_event_similar"
+            android:textSize="14sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSubscribe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#D6D6D6"
+        app:layout_constraintTop_toBottomOf="@+id/linearSubscriber" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearEvents"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnClickEditProfile">
+        app:layout_constraintTop_toBottomOf="@+id/view">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_medium"
             android:gravity="center_vertical"
-            android:text="Мероприятия"
+            android:text="@string/text_events"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
