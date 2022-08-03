@@ -94,7 +94,14 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
     override fun loadEventTheme(info: InfoEvents, listEvents: ArrayList<ListEvents>) {
         currentPage = info.next_page
         adapterThemeListEvent =
-            AdapterThemeListEvent(this, listEvents, name, icons, info.count_event.toString(),info.subscribe)
+            AdapterThemeListEvent(
+                this,
+                listEvents,
+                name,
+                icons,
+                info.count_event.toString(),
+                info.subscribe
+            )
         binding.recyclerViewThemeList.adapter = adapterThemeListEvent
         if (info.next_page != 0)
             if (currentPage != info.count_page) adapterThemeListEvent.addLoadingFooter() else isLastPage =
@@ -190,6 +197,11 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
     }
 
     override fun onClickSubscribe(name: String) {
-        presenter.responseSubscribe(preferencesManager.getString(Constants.USER_ID).toInt(), name)
+        if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+            presenter.responseSubscribe(
+                preferencesManager.getString(Constants.USER_ID).toInt(),
+                name
+            )
+        }
     }
 }

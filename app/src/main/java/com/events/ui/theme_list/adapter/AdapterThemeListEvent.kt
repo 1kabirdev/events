@@ -3,6 +3,7 @@ package com.events.ui.theme_list.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -136,36 +137,67 @@ class AdapterThemeListEvent(
 
     private inner class HeadViewHolder(val binding: ItemHeadThemeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        private val preferencesManager = PreferencesManager(itemView.context)
         private var flag: Boolean = false
+
         fun bindViewHead(name: String, icons: String, countEvent: String, subscribe: Boolean) {
+
             with(binding) {
+
                 Glide.with(itemView.context).load(icons).into(iconsTheme)
                 textTheme.text = name
                 countEventTextView.text = "Мероприятия: $countEvent"
 
-                if (subscribe) {
-                    flag = false
-                    btnSubscribe.text = "Отписаться"
-                    btnSubscribe.background = ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_sub_true_bkg)
+                if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+                    if (subscribe) {
+                        flag = false
+                        btnSubscribe.text = "Отписаться"
+                        btnSubscribe.background = ContextCompat.getDrawable(
+                            itemView.context,
+                            R.drawable.shape_btn_sub_true_bkg
+                        )
+                    } else {
+                        flag = true
+                        btnSubscribe.text = "Подписаться"
+                        btnSubscribe.background =
+                            ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_bkg)
+                    }
                 } else {
-                    flag = true
-                    btnSubscribe.text = "Подписаться"
-                    btnSubscribe.background = ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_bkg)
+                    Toast.makeText(
+                        itemView.context,
+                        "Это действие требует авторизации",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 btnSubscribe.setOnClickListener {
-                    if (flag) {
-                        flag = false
-                        btnSubscribe.background = ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_sub_true_bkg)
-                        btnSubscribe.text = "Отписаться"
-                        listener.onClickSubscribe(name)
+                    if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+                        if (flag) {
+                            flag = false
+                            btnSubscribe.background = ContextCompat.getDrawable(
+                                itemView.context,
+                                R.drawable.shape_btn_sub_true_bkg
+                            )
+                            btnSubscribe.text = "Отписаться"
+                            listener.onClickSubscribe(name)
+                        } else {
+                            flag = true
+                            btnSubscribe.background =
+                                ContextCompat.getDrawable(
+                                    itemView.context,
+                                    R.drawable.shape_btn_bkg
+                                )
+                            btnSubscribe.text = "Подписаться"
+                            listener.onClickSubscribe(name)
+                        }
                     } else {
-                        flag = true
-                        btnSubscribe.background = ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_bkg)
-                        btnSubscribe.text = "Подписаться"
-                        listener.onClickSubscribe(name)
+                        Toast.makeText(
+                            itemView.context,
+                            "Это действие требует авторизации",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-
                 }
             }
         }
