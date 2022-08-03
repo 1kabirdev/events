@@ -24,7 +24,7 @@ class AdapterEventList(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var arrayTheme: MutableList<ThemeEventHome> = arrayListOf()
-    private var eventsList: MutableList<ListEvents> = arrayListOf()
+    private var eventsList: ArrayList<ListEvents> = arrayListOf()
 
     private var isLoadingAdded = false
     private var errorFailed = false

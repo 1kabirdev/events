@@ -17,6 +17,7 @@ import com.events.model.similar_event.ResponseSimilarEvent
 import com.events.model.theme_event.ResponseThemeEventHome
 import com.events.model.theme_event.ResponseThemeEventList
 import com.events.model.theme_event.Subscribe
+import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -78,7 +79,7 @@ interface Api {
     fun loadHomeListEvents(
         @Query("page") page: Int,
         @Query("theme") theme: String
-    ): Call<ResponseHomeEvents>
+    ): Observable<ResponseHomeEvents>
 
     @GET("theme_list_home.php")
     fun loadThemeEventHome():Call<ResponseThemeEventHome>

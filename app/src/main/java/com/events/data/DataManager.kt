@@ -21,6 +21,7 @@ import com.events.model.theme_event.ResponseThemeEventList
 import com.events.model.theme_event.Subscribe
 import com.events.service.Api
 import com.events.service.ServicesGenerator
+import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -71,7 +72,7 @@ class DataManager {
         return api.loadDataProfile(user_id, page)
     }
 
-    fun loadHomeListEvents(page: Int, theme: String): Call<ResponseHomeEvents> {
+    fun loadHomeListEvents(page: Int, theme: String): Observable<ResponseHomeEvents> {
         return api.loadHomeListEvents(page, theme)
     }
 

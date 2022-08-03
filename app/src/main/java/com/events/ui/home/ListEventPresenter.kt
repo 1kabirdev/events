@@ -5,6 +5,9 @@ import com.events.model.home.ResponseHomeEvents
 import com.events.model.list_events.ResponseListEvents
 import com.events.model.theme_event.ResponseThemeEventHome
 import com.events.mvp.BasePresenter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,59 +15,41 @@ import retrofit2.Response
 class ListEventPresenter(private var dataManager: DataManager) :
     BasePresenter<ListEventController.View>(), ListEventController.Presenter {
 
-    private lateinit var call: Call<ResponseHomeEvents>
+    private var subscription = CompositeDisposable()
     private lateinit var callThemeEventHome: Call<ResponseThemeEventHome>
 
     override fun responseEvents(page: Int, theme: String) {
         mvpView?.let {
             it.showProgress(true)
-            call = dataManager.loadHomeListEvents(page, theme)
-            call.enqueue(object : Callback<ResponseHomeEvents> {
-                override fun onResponse(
-                    call: Call<ResponseHomeEvents>,
-                    response: Response<ResponseHomeEvents>
-                ) {
+            val subscribe = dataManager.loadHomeListEvents(page, theme).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ data: ResponseHomeEvents ->
                     it.showProgress(false)
-                    if (response.isSuccessful) {
-                        response.body()?.let { res ->
-                            it.getLoadEvent(
-                                res.infoEvents,
-                                res.response
-                            )
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseHomeEvents>, t: Throwable) {
+                    it.getLoadEvent(
+                        data.infoEvents, data.response
+                    )
+                }, { error ->
                     it.showProgress(false)
                     it.noConnection()
-                }
-            })
+                })
+
+            subscription.add(subscribe)
         }
     }
 
     override fun responseEventsPage(page: Int, theme: String) {
         mvpView?.let {
-            call = dataManager.loadHomeListEvents(page, theme)
-            call.enqueue(object : Callback<ResponseHomeEvents> {
-                override fun onResponse(
-                    call: Call<ResponseHomeEvents>,
-                    response: Response<ResponseHomeEvents>
-                ) {
-                    if (response.isSuccessful) {
-                        response.body()?.let { res ->
-                            it.getLoadEventPage(
-                                res.infoEvents,
-                                res.response
-                            )
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseHomeEvents>, t: Throwable) {
+            val subscribe = dataManager.loadHomeListEvents(page, theme).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ data: ResponseHomeEvents ->
+                    it.getLoadEventPage(
+                        data.infoEvents, data.response
+                    )
+                }, { error ->
                     it.noConnectionPage()
-                }
-            })
+                })
+
+            subscription.add(subscribe)
         }
     }
 
