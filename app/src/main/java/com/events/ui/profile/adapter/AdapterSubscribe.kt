@@ -16,6 +16,9 @@ class AdapterSubscribe(
         fun bindViewSubscribe(subscribe: ResponseInfoProfile.Subscribe) {
             with(binding) {
                 nameThemeSubscribe.text = "#${subscribe.theme}"
+                itemView.setOnClickListener {
+                    listener.onClickTheme(subscribe.theme,subscribe.icons)
+                }
             }
         }
     }
@@ -37,6 +40,6 @@ class AdapterSubscribe(
     override fun getItemCount(): Int = subscribeList.size
 
     interface OnClickListener {
-        fun onClickTheme(name: String)
+        fun onClickTheme(name: String,icons:String)
     }
 }

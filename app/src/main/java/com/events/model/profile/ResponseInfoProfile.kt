@@ -20,7 +20,8 @@ data class ResponseInfoProfile(
 
     data class Subscribe(
         @SerializedName("id") val id: Int,
-        @SerializedName("theme") val theme: String
+        @SerializedName("theme") val theme: String,
+        @SerializedName("icons") val icons: String
     )
 
     data class InfoPage(

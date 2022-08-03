@@ -191,8 +191,8 @@ class AdapterEventsProfile(
             }
         }
 
-        override fun onClickTheme(name: String) {
-            listener.onClickSubscribe(name)
+        override fun onClickTheme(name: String,icons: String) {
+            listener.onClickSubscribe(name,icons)
         }
     }
 
@@ -215,6 +215,6 @@ class AdapterEventsProfile(
             time: String
         )
 
-        fun onClickSubscribe(name: String)
+        fun onClickSubscribe(name: String,icons:String)
     }
 }

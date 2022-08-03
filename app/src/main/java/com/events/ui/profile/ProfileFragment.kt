@@ -17,6 +17,7 @@ import com.events.ui.comments.CommentsActivity
 import com.events.ui.edit_profile.EditProfileActivity
 import com.events.ui.login.LoginUserFragment
 import com.events.ui.profile.adapter.AdapterEventsProfile
+import com.events.ui.theme_list.ThemeListActivity
 import com.events.utill.Constants
 import com.events.utill.LinearEventEndlessScrollEventListener
 import com.events.utill.PreferencesManager
@@ -221,8 +222,10 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         startActivity(intent)
     }
 
-    override fun onClickSubscribe(name: String) {
-
+    override fun onClickSubscribe(name: String, icons: String) {
+        val intent = Intent(requireContext(), ThemeListActivity::class.java)
+        intent.putExtra("NAME", name)
+        intent.putExtra("ICONS", icons)
+        startActivity(intent)
     }
-
 }
