@@ -54,11 +54,20 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
 
         presenter = ThemeListEventPresenter((applicationContext as App).dataManager)
         presenter.attachView(this)
-        presenter.responseThemeEvent(
-            name,
-            PAGE_START,
-            preferencesManager.getString(Constants.USER_ID).toInt()
-        )
+
+        if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+            presenter.responseThemeEvent(
+                name,
+                PAGE_START,
+                preferencesManager.getString(Constants.USER_ID).toInt()
+            )
+        } else {
+            presenter.responseThemeEvent(
+                name,
+                PAGE_START,
+                0
+            )
+        }
 
         layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewThemeList.layoutManager = layoutManager
@@ -80,11 +89,19 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
                     recyclerView.apply {
                         isLoading = true
                         if (currentPage != 0) {
-                            presenter.responseThemeEventPage(
-                                name,
-                                currentPage,
-                                preferencesManager.getString(Constants.USER_ID).toInt()
-                            )
+                            if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+                                presenter.responseThemeEventPage(
+                                    name,
+                                    currentPage,
+                                    preferencesManager.getString(Constants.USER_ID).toInt()
+                                )
+                            } else {
+                                presenter.responseThemeEventPage(
+                                    name,
+                                    currentPage,
+                                    0
+                                )
+                            }
                         }
                     }
                 }
@@ -131,11 +148,19 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
     override fun error() {
         binding.constraintConnection.visibility = View.VISIBLE
         binding.btnReplyEvent.setOnClickListener {
-            presenter.responseThemeEvent(
-                name,
-                PAGE_START,
-                preferencesManager.getString(Constants.USER_ID).toInt()
-            )
+            if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+                presenter.responseThemeEvent(
+                    name,
+                    PAGE_START,
+                    preferencesManager.getString(Constants.USER_ID).toInt()
+                )
+            } else {
+                presenter.responseThemeEvent(
+                    name,
+                    PAGE_START,
+                    0
+                )
+            }
         }
     }
 
@@ -172,11 +197,19 @@ class ThemeListActivity : AppCompatActivity(), ThemeListEventContract.View,
         errorFailed = false
         adapterThemeListEvent.showRetry(false)
         adapterThemeListEvent.addLoadingFooter()
-        presenter.responseThemeEventPage(
-            name,
-            currentPage,
-            preferencesManager.getString(Constants.USER_ID).toInt()
-        )
+        if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+            presenter.responseThemeEventPage(
+                name,
+                currentPage,
+                preferencesManager.getString(Constants.USER_ID).toInt()
+            )
+        } else {
+            presenter.responseThemeEventPage(
+                name,
+                currentPage,
+                0
+            )
+        }
     }
 
     override fun onClickEventDiscuss(

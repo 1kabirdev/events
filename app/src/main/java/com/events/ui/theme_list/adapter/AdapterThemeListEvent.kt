@@ -149,26 +149,18 @@ class AdapterThemeListEvent(
                 textTheme.text = name
                 countEventTextView.text = "Мероприятия: $countEvent"
 
-                if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
-                    if (subscribe) {
-                        flag = false
-                        btnSubscribe.text = "Отписаться"
-                        btnSubscribe.background = ContextCompat.getDrawable(
-                            itemView.context,
-                            R.drawable.shape_btn_sub_true_bkg
-                        )
-                    } else {
-                        flag = true
-                        btnSubscribe.text = "Подписаться"
-                        btnSubscribe.background =
-                            ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_bkg)
-                    }
-                } else {
-                    Toast.makeText(
+                if (subscribe) {
+                    flag = false
+                    btnSubscribe.text = "Отписаться"
+                    btnSubscribe.background = ContextCompat.getDrawable(
                         itemView.context,
-                        "Это действие требует авторизации",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        R.drawable.shape_btn_sub_true_bkg
+                    )
+                } else {
+                    flag = true
+                    btnSubscribe.text = "Подписаться"
+                    btnSubscribe.background =
+                        ContextCompat.getDrawable(itemView.context, R.drawable.shape_btn_bkg)
                 }
 
                 btnSubscribe.setOnClickListener {
