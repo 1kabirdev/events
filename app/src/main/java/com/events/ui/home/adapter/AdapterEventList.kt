@@ -19,12 +19,12 @@ import com.events.utill.PreferencesManager
 import kotlin.collections.ArrayList
 
 class AdapterEventList(
+    private var eventsList: ArrayList<ListEvents>,
     private var listener: OnClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var arrayTheme: MutableList<ThemeEventHome> = arrayListOf()
-    private var eventsList: ArrayList<ListEvents> = arrayListOf()
 
     private var isLoadingAdded = false
     private var errorFailed = false

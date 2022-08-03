@@ -38,6 +38,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     private var isLastPage = false
     private val PAGE_START = 1
     private var currentPage: Int = PAGE_START
+    private val themeList: ArrayList<ThemeEventHome> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,8 +61,6 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         binding.recyclerViewList.layoutManager = layoutManager
         setEndlessScrollEventListener()
         binding.recyclerViewList.addOnScrollListener(endlessScrollEventListener)
-
-        adapterEventList = AdapterEventList(this)
     }
 
     @Suppress("SENSELESS_COMPARISON")
@@ -83,7 +82,8 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
 
     override fun getLoadEvent(info: InfoEvents, eventsList: ArrayList<ListEvents>) {
         currentPage = info.next_page
-        adapterEventList.addEventList(eventsList)
+        adapterEventList = AdapterEventList(eventsList, this)
+        adapterEventList.addThemeEvent(themeList)
         binding.recyclerViewList.adapter = adapterEventList
         if (info.next_page != 0)
             if (currentPage <= info.count_page) adapterEventList.addLoadingFooter() else isLastPage =
@@ -101,7 +101,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     }
 
     override fun getLoadThemeEventHome(theme: ArrayList<ThemeEventHome>) {
-        adapterEventList.addThemeEvent(theme)
+        themeList.addAll(theme)
     }
 
     override fun showProgress(show: Boolean) {
