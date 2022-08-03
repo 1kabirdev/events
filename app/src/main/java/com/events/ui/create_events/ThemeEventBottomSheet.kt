@@ -39,7 +39,7 @@ class ThemeEventBottomSheet(
     }
 
     override fun onClickTheme(id: Int, name: String) {
-        fragment.selectTheme(name)
+        fragment.selectTheme(id, name)
         dismiss()
     }
 }

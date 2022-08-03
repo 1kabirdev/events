@@ -12,7 +12,6 @@ class AdapterThemeList(
     private var listener: OnClickListener
 ) : RecyclerView.Adapter<AdapterThemeList.ViewHolder>() {
 
-
     inner class ViewHolder(val binding: ItemListThemeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindView(themeEvent: ThemeEvent) {

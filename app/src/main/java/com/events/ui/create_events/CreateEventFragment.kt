@@ -100,7 +100,13 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
     }
 
     private fun initThemeList() {
-        arrayTheme.add(ThemeEvent(1, "It", "https://rateme-social.ru/api/events/icons/it.png"))
+        arrayTheme.add(
+            ThemeEvent(
+                1,
+                "It",
+                "https://rateme-social.ru/api/events/icons/it.png"
+            )
+        )
         arrayTheme.add(
             ThemeEvent(
                 2,
@@ -115,7 +121,13 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
                 "https://rateme-social.ru/api/events/icons/movies.png"
             )
         )
-        arrayTheme.add(ThemeEvent(4, "Юмор", "https://rateme-social.ru/api/events/icons/humor.png"))
+        arrayTheme.add(
+            ThemeEvent(
+                4,
+                "Юмор",
+                "https://rateme-social.ru/api/events/icons/humor.png"
+            )
+        )
         arrayTheme.add(
             ThemeEvent(
                 5,
@@ -125,7 +137,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         )
     }
 
-    fun selectTheme(name: String) {
+    fun selectTheme(id:Int,name: String) {
         themeName = name
         binding.clickTextViewTheme.text = "Тематика: $name"
     }
