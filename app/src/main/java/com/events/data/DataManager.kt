@@ -76,7 +76,7 @@ class DataManager {
         return api.loadHomeListEvents(page, theme)
     }
 
-    fun getLoadThemeEventHome(): Call<ResponseThemeEventHome> {
+    fun getLoadThemeEventHome(): Observable<ResponseThemeEventHome> {
         return api.loadThemeEventHome()
     }
 

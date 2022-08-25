@@ -83,7 +83,7 @@ interface Api {
     ): Observable<ResponseHomeEvents>
 
     @GET("theme_list_home.php")
-    fun loadThemeEventHome():Call<ResponseThemeEventHome>
+    fun loadThemeEventHome():Observable<ResponseThemeEventHome>
 
     @GET("events.php")
     fun loadEvents(

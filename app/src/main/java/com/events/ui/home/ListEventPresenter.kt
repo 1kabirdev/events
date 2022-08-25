@@ -16,7 +16,6 @@ class ListEventPresenter(private var dataManager: DataManager) :
     BasePresenter<ListEventController.View>(), ListEventController.Presenter {
 
     private var subscription = CompositeDisposable()
-    private lateinit var callThemeEventHome: Call<ResponseThemeEventHome>
 
     override fun responseEvents(page: Int, theme: String) {
         mvpView?.let {
@@ -55,21 +54,19 @@ class ListEventPresenter(private var dataManager: DataManager) :
 
     override fun responseThemeEventHome() {
         mvpView?.let {
-            callThemeEventHome = dataManager.getLoadThemeEventHome()
-            callThemeEventHome.enqueue(object : Callback<ResponseThemeEventHome> {
-                override fun onResponse(
-                    call: Call<ResponseThemeEventHome>,
-                    response: Response<ResponseThemeEventHome>
-                ) {
-                    if (response.isSuccessful) {
-                        response.body()?.let { data ->
-                            it.getLoadThemeEventHome(data.theme_event)
-                        }
-                    }
-                }
+            val subscribe = dataManager.getLoadThemeEventHome().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ data: ResponseThemeEventHome ->
+                    it.getLoadThemeEventHome(
+                        data.theme_event
+                    )
+                }, { error ->
+                    it.noConnection()
+                })
 
-                override fun onFailure(call: Call<ResponseThemeEventHome>, t: Throwable) {}
-            })
+            subscription.add(subscribe)
         }
     }
+
+
 }

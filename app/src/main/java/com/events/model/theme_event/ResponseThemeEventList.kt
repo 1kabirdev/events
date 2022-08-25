@@ -1,5 +1,6 @@
 package com.events.model.theme_event
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 data class ResponseThemeEventList(
@@ -39,7 +40,6 @@ data class Subscribe(
     @SerializedName("message") val message: String
 )
 
-
 data class ResponseThemeEventHome(
     @SerializedName("theme_event") val theme_event: ArrayList<ThemeEventHome>
 )
@@ -49,3 +49,14 @@ data class ThemeEventHome(
     @SerializedName("name_t") val name: String,
     @SerializedName("image") val image: String
 )
+
+
+data class DetailsViewModel(
+    val infoEvents: InfoEvents,
+    var response: ArrayList<ListEvents>,
+    val theme_event: ArrayList<ThemeEventHome>
+) {
+    fun toJson(): String {
+        return Gson().toJson(this)
+    }
+}
