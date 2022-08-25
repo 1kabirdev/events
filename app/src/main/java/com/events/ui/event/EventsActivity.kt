@@ -21,9 +21,9 @@ class EventsActivity : AppCompatActivity(), EventsController.View,
     AdapterSimilarEvent.OnClickListener {
 
     private lateinit var binding: ActivityEventsBinding
-    private lateinit var presenter: EventsPresenter
-    private lateinit var eventId: String
-    private lateinit var userId: String
+    private var presenter: EventsPresenter
+    private var eventId: String = ""
+    private var userId: String = ""
     private lateinit var preferencesManager: PreferencesManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,9 +32,6 @@ class EventsActivity : AppCompatActivity(), EventsController.View,
         setContentView(binding.root)
 
         preferencesManager = PreferencesManager(this)
-
-        presenter = EventsPresenter((applicationContext as App).dataManager)
-        presenter.attachView(this)
 
         val arguments = intent.extras
         eventId = arguments?.get(ConstantAgrs.EVENTS_ID)?.toString().toString()
@@ -45,78 +42,78 @@ class EventsActivity : AppCompatActivity(), EventsController.View,
         onClickListener()
     }
 
-    override fun getLoadData(events: Events, user: User) {
-        with(binding) {
-            Glide.with(this@EventsActivity).load(user.getAvatar()).into(avatarProfileView)
-            textUserNameProfile.text = "@${user.getUsername()}"
-            textLastNameProfile.text = user.getLastName()
-            Glide.with(this@EventsActivity).load(events.getImageE()).into(imageEventsView)
-            nameEvents.text = events.getNameE()
-            textDateAndTime.text = "${events.getDataE()} в ${events.getTimeE()}"
-            textCityEvents.text = events.getCityE()
-            textTheme.text = events.getThemeE()
-            textDescEventView.text = events.getDescE()
+    init {
+        presenter = EventsPresenter()
+        presenter.attachView(this)
+    }
 
-            btnDiscussEvents.setOnClickListener {
-                val intent = Intent(this@EventsActivity, CommentsActivity::class.java)
-                intent.putExtra(ConstantAgrs.EVENT_ID, eventId)
-                intent.putExtra(ConstantAgrs.EVENT_IMAGE, events.getImageE())
-                intent.putExtra(ConstantAgrs.EVENT_NAME, events.getNameE())
-                intent.putExtra(ConstantAgrs.EVENT_THEME, events.getThemeE())
-                intent.putExtra(
-                    ConstantAgrs.EVENT_DATE,
-                    events.getDataE() + " в " + events.getTimeE()
-                )
-                startActivity(intent)
-            }
+    override fun getLoadData(events: Events, user: User) = with(binding) {
+        Glide.with(this@EventsActivity).load(user.getAvatar()).into(avatarProfileView)
+        textUserNameProfile.text = "@${user.getUsername()}"
+        textLastNameProfile.text = user.getLastName()
+        Glide.with(this@EventsActivity).load(events.getImageE()).into(imageEventsView)
+        nameEvents.text = events.getNameE()
+        textDateAndTime.text = "${events.getDataE()} в ${events.getTimeE()}"
+        textCityEvents.text = events.getCityE()
+        textTheme.text = events.getThemeE()
+        textDescEventView.text = events.getDescE()
+
+        btnDiscussEvents.setOnClickListener {
+            val intent = Intent(this@EventsActivity, CommentsActivity::class.java)
+            intent.putExtra(ConstantAgrs.EVENT_ID, eventId)
+            intent.putExtra(ConstantAgrs.EVENT_IMAGE, events.getImageE())
+            intent.putExtra(ConstantAgrs.EVENT_NAME, events.getNameE())
+            intent.putExtra(ConstantAgrs.EVENT_THEME, events.getThemeE())
+            intent.putExtra(
+                ConstantAgrs.EVENT_DATE,
+                events.getDataE() + " в " + events.getTimeE()
+            )
+            startActivity(intent)
         }
         presenter.responseSimilarEvents(events.getThemeE(), events.getIdE().toInt())
     }
 
-    override fun similarEventList(similarList: ArrayList<SimilarList>) {
-        val adapterSimilarEvent = AdapterSimilarEvent(this, similarList)
-        binding.recyclerViewSimilarEvent.adapter = adapterSimilarEvent
-        if (similarList.size == 0) binding.titleTextView.visibility = View.GONE
-        else binding.titleTextView.visibility = View.VISIBLE
+    override fun similarEventList(similarList: ArrayList<SimilarList>) = with(binding) {
+        val adapterSimilarEvent = AdapterSimilarEvent(this@EventsActivity, similarList)
+        recyclerViewSimilarEvent.adapter = adapterSimilarEvent
+        if (similarList.size == 0) titleTextView.visibility = View.GONE
+        else titleTextView.visibility = View.VISIBLE
     }
 
-    private fun onClickListener() {
-        with(binding) {
-            btnBack.setOnClickListener {
-                finish()
-            }
-            constraintUserAccount.setOnClickListener {
-                val intent = Intent(it.context, OrganizerActivity::class.java)
-                intent.putExtra("USER_ID", userId)
-                startActivity(intent)
-            }
 
-            btnReplyEvent.setOnClickListener {
-                presenter.responseLoadEvents(userId, eventId)
-            }
+    private fun onClickListener() = with(binding) {
+        btnBack.setOnClickListener {
+            finish()
+        }
+        constraintUserAccount.setOnClickListener {
+            val intent = Intent(it.context, OrganizerActivity::class.java)
+            intent.putExtra("USER_ID", userId)
+            startActivity(intent)
+        }
+
+        btnReplyEvent.setOnClickListener {
+            presenter.responseLoadEvents(userId, eventId)
         }
     }
 
-    override fun showProgressBar(show: Boolean) {
-        with(binding) {
-            if (show) {
-                constraintConnection.visibility = View.GONE
-                nested.visibility = View.GONE
-                progressBar.visibility = View.VISIBLE
-            } else {
-                constraintConnection.visibility = View.GONE
-                nested.visibility = View.VISIBLE
-                progressBar.visibility = View.GONE
-            }
-        }
-    }
 
-    override fun noConnection() {
-        with(binding) {
-            constraintConnection.visibility = View.VISIBLE
+    override fun showProgressBar(show: Boolean) = with(binding) {
+        if (show) {
+            constraintConnection.visibility = View.GONE
             nested.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+        } else {
+            constraintConnection.visibility = View.GONE
+            nested.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
         }
     }
+
+    override fun noConnection() = with(binding) {
+        constraintConnection.visibility = View.VISIBLE
+        nested.visibility = View.GONE
+    }
+
 
     override fun onClickEvent(event_id: Int, user_id: Int) {
         if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
