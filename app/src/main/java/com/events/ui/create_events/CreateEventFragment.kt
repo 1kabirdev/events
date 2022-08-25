@@ -255,7 +255,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
 
     private fun intentImageGallery() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
+        intent.type = "image/jpeg"
         try {
             startActivityForResult(intent, INTENT_REQUEST_CODE)
         } catch (e: ActivityNotFoundException) {
@@ -344,7 +344,6 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
 
     override fun noConnection() {
         progressBar.dismiss()
-        Toast.makeText(requireContext(), "Проверьте подключение интернета.", Toast.LENGTH_SHORT)
-            .show()
+        getClearView()
     }
 }

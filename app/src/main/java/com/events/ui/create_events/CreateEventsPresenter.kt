@@ -1,10 +1,13 @@
 package com.events.ui.create_events
 
-import com.events.data.DataManager
 import com.events.model.create_event.ResponseCreateEvents
+import com.events.model.home.ResponseHomeEvents
 import com.events.mvp.BasePresenter
 import com.events.service.Api
 import com.events.service.ServicesGenerator
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -16,6 +19,7 @@ import retrofit2.Response
 class CreateEventsPresenter :
     BasePresenter<CreateEventsController.View>(), CreateEventsController.Presenter {
 
+    private var subscription = CompositeDisposable()
     private var api = ServicesGenerator.createService(Api::class.java)
 
     override fun responseCreateEvents(
@@ -42,26 +46,18 @@ class CreateEventsPresenter :
             val timeE = time_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val themeE = theme_e.toRequestBody("text/plain".toMediaTypeOrNull())
 
-            api.createEvents(
+            val subscribe = api.createEvents(
                 userId, nameE, descE, locationE, dataE, timeE, themeE, imageE
-            ).enqueue(object : Callback<ResponseCreateEvents> {
-                override fun onResponse(
-                    call: Call<ResponseCreateEvents>,
-                    response: Response<ResponseCreateEvents>
-                ) {
+            ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ data: ResponseCreateEvents ->
                     it.showProgress(false)
-                    if (response.isSuccessful) {
-                        response.body()?.let { res ->
-                            it.createEvents(res)
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseCreateEvents>, t: Throwable) {
-                    it.showProgress(false)
+                    it.createEvents(data)
+                }, { error ->
                     it.noConnection()
-                }
-            })
+                })
+
+            subscription.add(subscribe)
         }
     }
 }

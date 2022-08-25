@@ -67,7 +67,7 @@ interface Api {
         @Part("time_e") time_e: RequestBody,
         @Part("theme_e") theme_e: RequestBody,
         @Part image: MultipartBody.Part,
-    ): Call<ResponseCreateEvents>
+    ): Observable<ResponseCreateEvents>
 
     @Multipart
     @POST("create_avatar.php")
@@ -83,7 +83,7 @@ interface Api {
     ): Observable<ResponseHomeEvents>
 
     @GET("theme_list_home.php")
-    fun loadThemeEventHome():Observable<ResponseThemeEventHome>
+    fun loadThemeEventHome(): Observable<ResponseThemeEventHome>
 
     @GET("events.php")
     fun loadEvents(
