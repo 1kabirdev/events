@@ -1,44 +1,25 @@
 package com.events.ui.home
 
-import com.events.data.DataManager
 import com.events.model.home.ResponseHomeEvents
-import com.events.model.list_events.ResponseListEvents
+import com.events.model.theme_event.DetailsViewModel
 import com.events.model.theme_event.ResponseThemeEventHome
 import com.events.mvp.BasePresenter
+import com.events.service.Api
+import com.events.service.ServicesGenerator
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class ListEventPresenter(private var dataManager: DataManager) :
+class ListEventPresenter :
     BasePresenter<ListEventController.View>(), ListEventController.Presenter {
 
     private var subscription = CompositeDisposable()
-
-    override fun responseEvents(page: Int, theme: String) {
-        mvpView?.let {
-            it.showProgress(true)
-            val subscribe = dataManager.loadHomeListEvents(page, theme).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ data: ResponseHomeEvents ->
-                    it.showProgress(false)
-                    it.getLoadEvent(
-                        data.infoEvents, data.response
-                    )
-                }, { error ->
-                    it.showProgress(false)
-                    it.noConnection()
-                })
-
-            subscription.add(subscribe)
-        }
-    }
+    private var api = ServicesGenerator.createService(Api::class.java)
 
     override fun responseEventsPage(page: Int, theme: String) {
         mvpView?.let {
-            val subscribe = dataManager.loadHomeListEvents(page, theme).subscribeOn(Schedulers.io())
+            val subscribe = api.loadHomeListEvents(page, theme).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ data: ResponseHomeEvents ->
                     it.getLoadEventPage(
@@ -52,21 +33,37 @@ class ListEventPresenter(private var dataManager: DataManager) :
         }
     }
 
-    override fun responseThemeEventHome() {
-        mvpView?.let {
-            val subscribe = dataManager.getLoadThemeEventHome().subscribeOn(Schedulers.io())
+    override fun responseLoadDataAll(page: Int, theme: String) {
+        mvpView?.let { view ->
+            view.showProgress(true)
+            val subscribe = Observable.zip(api.loadHomeListEvents(page, theme),
+                api.loadThemeEventHome(),
+                object : Function2<ResponseHomeEvents, ResponseThemeEventHome, DetailsViewModel> {
+                    override fun invoke(
+                        responseHomeEvents: ResponseHomeEvents,
+                        themeList: ResponseThemeEventHome,
+                    ): DetailsViewModel {
+                        return createDetailsViewModel(responseHomeEvents, themeList)
+                    }
+                }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ data: ResponseThemeEventHome ->
-                    it.getLoadThemeEventHome(
-                        data.theme_event
-                    )
+                .subscribe({ model: DetailsViewModel? ->
+                    view.showProgress(false)
+                    view.getHomeView(model!!.responseEvents, model.theme_event)
                 }, { error ->
-                    it.noConnection()
+                    view.showProgress(false)
+                    view.noConnection()
+                    print("ERROR: ${error.localizedMessage}")
                 })
 
             subscription.add(subscribe)
         }
     }
 
-
+    private fun createDetailsViewModel(
+        responseHomeEvents: ResponseHomeEvents,
+        theme: ResponseThemeEventHome
+    ): DetailsViewModel {
+        return DetailsViewModel(responseHomeEvents, theme)
+    }
 }

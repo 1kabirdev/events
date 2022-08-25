@@ -34,7 +34,7 @@ class AdapterEventList(
         notifyItemInserted(eventsList.size - 1)
     }
 
-    fun addThemeEvent(themeEventHome: ArrayList<ThemeEventHome>) {
+    fun addThemeEvent(themeEventHome: List<ThemeEventHome>) {
         arrayTheme.addAll(themeEventHome)
         notifyDataSetChanged()
     }

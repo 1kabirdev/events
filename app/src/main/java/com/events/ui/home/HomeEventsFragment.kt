@@ -1,5 +1,6 @@
 package com.events.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +16,9 @@ import com.events.ui.home.adapter.AdapterEventList
 import com.events.databinding.FragmentHomeEventsBinding
 import com.events.model.home.InfoEvents
 import com.events.model.home.ListEvents
+import com.events.model.home.ResponseHomeEvents
 import com.events.model.home.ThemeEvent
+import com.events.model.theme_event.ResponseThemeEventHome
 import com.events.model.theme_event.ThemeEventHome
 import com.events.ui.event.EventsActivity
 import com.events.ui.event.MyEventsActivity
@@ -38,7 +41,13 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     private var isLastPage = false
     private val PAGE_START = 1
     private var currentPage: Int = PAGE_START
-    private val themeList: ArrayList<ThemeEventHome> = arrayListOf()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        preferencesManager = PreferencesManager(requireContext())
+        presenter = ListEventPresenter()
+        presenter.attachView(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,13 +59,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferencesManager = PreferencesManager(requireContext())
-
-        presenter = ListEventPresenter((requireContext().applicationContext as App).dataManager)
-        presenter.attachView(this)
-        presenter.responseEvents(PAGE_START, "Все")
-        presenter.responseThemeEventHome()
-
+        presenter.responseLoadDataAll(PAGE_START, "Все")
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewList.layoutManager = layoutManager
         setEndlessScrollEventListener()
@@ -80,16 +83,6 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
             }
     }
 
-    override fun getLoadEvent(info: InfoEvents, eventsList: ArrayList<ListEvents>) {
-        currentPage = info.next_page
-        adapterEventList = AdapterEventList(eventsList, this)
-        adapterEventList.addThemeEvent(themeList)
-        binding.recyclerViewList.adapter = adapterEventList
-        if (info.next_page != 0)
-            if (currentPage <= info.count_page) adapterEventList.addLoadingFooter() else isLastPage =
-                true
-    }
-
     override fun getLoadEventPage(info: InfoEvents, eventsList: ArrayList<ListEvents>) {
         currentPage = info.next_page
         adapterEventList.addEventList(eventsList)
@@ -100,8 +93,17 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
                 true
     }
 
-    override fun getLoadThemeEventHome(theme: ArrayList<ThemeEventHome>) {
-        themeList.addAll(theme)
+    override fun getHomeView(
+        responseHomeEvents: ResponseHomeEvents,
+        theme: ResponseThemeEventHome
+    ) {
+        currentPage = responseHomeEvents.infoEvents.next_page
+        adapterEventList = AdapterEventList(responseHomeEvents.response, this)
+        adapterEventList.addThemeEvent(theme.theme_event)
+        binding.recyclerViewList.adapter = adapterEventList
+        if (responseHomeEvents.infoEvents.next_page != 0)
+            if (currentPage <= responseHomeEvents.infoEvents.next_page) adapterEventList.addLoadingFooter() else isLastPage =
+                true
     }
 
     override fun showProgress(show: Boolean) {
@@ -117,7 +119,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
     override fun noConnection() {
         binding.constraintConnection.visibility = View.VISIBLE
         binding.btnReplyEvent.setOnClickListener {
-            presenter.responseEvents(
+            presenter.responseEventsPage(
                 PAGE_START,
                 "Все"
             )
