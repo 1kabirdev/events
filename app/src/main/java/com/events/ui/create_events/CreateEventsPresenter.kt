@@ -3,6 +3,8 @@ package com.events.ui.create_events
 import com.events.data.DataManager
 import com.events.model.create_event.ResponseCreateEvents
 import com.events.mvp.BasePresenter
+import com.events.service.Api
+import com.events.service.ServicesGenerator
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -11,10 +13,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CreateEventsPresenter(private var dataManager: DataManager) :
+class CreateEventsPresenter :
     BasePresenter<CreateEventsController.View>(), CreateEventsController.Presenter {
 
-    private lateinit var call: Call<ResponseCreateEvents>
+    private var api = ServicesGenerator.createService(Api::class.java)
 
     override fun responseCreateEvents(
         user_id_e: String,
@@ -40,10 +42,9 @@ class CreateEventsPresenter(private var dataManager: DataManager) :
             val timeE = time_e.toRequestBody("text/plain".toMediaTypeOrNull())
             val themeE = theme_e.toRequestBody("text/plain".toMediaTypeOrNull())
 
-            call = dataManager.createEvents(
+            api.createEvents(
                 userId, nameE, descE, locationE, dataE, timeE, themeE, imageE
-            )
-            call.enqueue(object : Callback<ResponseCreateEvents> {
+            ).enqueue(object : Callback<ResponseCreateEvents> {
                 override fun onResponse(
                     call: Call<ResponseCreateEvents>,
                     response: Response<ResponseCreateEvents>

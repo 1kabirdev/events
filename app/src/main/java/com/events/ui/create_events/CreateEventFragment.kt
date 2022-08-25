@@ -7,6 +7,7 @@ import android.app.ProgressDialog
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
@@ -46,6 +47,15 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
     private var timeEvent: Boolean = false
     private var arrayTheme: ArrayList<ThemeEvent> = arrayListOf()
     private var themeName: String = ""
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        preferencesManager = PreferencesManager(requireContext())
+        presenter = CreateEventsPresenter()
+        presenter.attachView(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,14 +67,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        preferencesManager = PreferencesManager(requireContext())
-
-        presenter = CreateEventsPresenter((requireContext().applicationContext as App).dataManager)
-        presenter.attachView(this)
-
         initThemeList()
-
         with(binding) {
 
             clickTextViewTheme.setOnClickListener {
@@ -137,7 +140,7 @@ class CreateEventFragment : Fragment(), CreateEventsController.View {
         )
     }
 
-    fun selectTheme(id:Int,name: String) {
+    fun selectTheme(id: Int, name: String) {
         themeName = name
         binding.clickTextViewTheme.text = "Тематика: $name"
     }
