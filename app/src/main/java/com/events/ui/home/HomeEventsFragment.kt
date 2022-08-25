@@ -162,4 +162,8 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         startActivity(intent)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.detachView()
+    }
 }
