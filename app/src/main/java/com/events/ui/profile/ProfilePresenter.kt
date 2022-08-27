@@ -1,22 +1,24 @@
 package com.events.ui.profile
 
-import com.events.data.DataManager
 import com.events.model.profile.ResponseInfoProfile
 import com.events.mvp.BasePresenter
+import com.events.service.Api
+import com.events.service.ServicesGenerator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfilePresenter(private var dataManager: DataManager) :
+class ProfilePresenter :
     BasePresenter<ProfileController.View>(),
     ProfileController.Presenter {
 
     private lateinit var call: Call<ResponseInfoProfile>
+    private var api = ServicesGenerator.createService(Api::class.java)
 
     override fun responseLoadDataProfile(user_id: String, page: Int) {
         mvpView?.let {
             it.progressBar(true)
-            call = dataManager.getLoadInfoProfile(user_id, page)
+            call = api.loadDataProfile(user_id, page)
             call.enqueue(object : Callback<ResponseInfoProfile> {
                 override fun onResponse(
                     call: Call<ResponseInfoProfile>,
@@ -45,7 +47,7 @@ class ProfilePresenter(private var dataManager: DataManager) :
 
     override fun responseLoadDataPage(user_id: String, page: Int) {
         mvpView?.let {
-            call = dataManager.getLoadInfoProfile(user_id, page)
+            call = api.loadDataProfile(user_id, page)
             call.enqueue(object : Callback<ResponseInfoProfile> {
                 override fun onResponse(
                     call: Call<ResponseInfoProfile>,

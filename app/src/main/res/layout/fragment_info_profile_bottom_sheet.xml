@@ -66,6 +66,29 @@
             app:layout_constraintTop_toBottomOf="@+id/settingPassword" />
 
         <TextView
+            android:id="@+id/savedEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Сохраненное"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/viewBottom"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewBottom1" />
+
+        <View
+            android:id="@+id/viewBottom1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#EAEAEA"
+            app:layout_constraintTop_toBottomOf="@+id/savedEvents" />
+
+
+        <TextView
             android:id="@+id/logautAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,7 +100,7 @@
             android:text="Выйти из аккаунта"
             android:textColor="@color/black"
             android:textSize="13sp"
-            app:layout_constraintTop_toBottomOf="@+id/viewBottom" />
+            app:layout_constraintTop_toBottomOf="@+id/viewBottom1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

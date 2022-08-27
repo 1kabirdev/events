@@ -1,5 +1,6 @@
 package com.events.ui.profile
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -48,14 +49,12 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferencesManager = PreferencesManager(requireContext())
 
-        presenter = ProfilePresenter((view.context.applicationContext as App).dataManager)
-        presenter.attachView(this)
         presenter.responseLoadDataProfile(
             preferencesManager.getString(Constants.USER_ID),
             PAGE_START
         )
+
         with(binding) {
 
             toolbarProfile.btnAddEvents.setOnClickListener {
@@ -69,6 +68,7 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
                 )
             }
 
+
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             recyclerViewEvents.layoutManager = layoutManager
@@ -77,6 +77,12 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        preferencesManager = PreferencesManager(requireContext())
+        presenter = ProfilePresenter()
+        presenter.attachView(this)
+    }
 
     private fun setEndlessScrollEventListener() {
         endlessScrollEventListener =
@@ -156,19 +162,19 @@ class ProfileFragment : Fragment(), ProfileController.View, InfoProfileBottomShe
                 true
     }
 
-    override fun progressBar(show: Boolean) {
+    override fun progressBar(show: Boolean) = with(binding) {
         if (show) {
-            binding.constraintConnection.visibility = View.GONE
-            binding.progressBarEventView.visibility = View.VISIBLE
+            constraintConnection.visibility = View.GONE
+            progressBarEventView.visibility = View.VISIBLE
         } else {
-            binding.constraintConnection.visibility = View.GONE
-            binding.progressBarEventView.visibility = View.GONE
+            constraintConnection.visibility = View.GONE
+            progressBarEventView.visibility = View.GONE
         }
     }
 
-    override fun noConnection() {
-        binding.progressBarEventView.visibility = View.GONE
-        binding.constraintConnection.visibility = View.VISIBLE
+    override fun noConnection() = with(binding) {
+        progressBarEventView.visibility = View.GONE
+        constraintConnection.visibility = View.VISIBLE
     }
 
     override fun noConnectPage() {

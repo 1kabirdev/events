@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.events.databinding.FragmentInfoProfileBottomSheetBinding
 import com.events.ui.profile.ProfileFragment
+import com.events.ui.savedevent.SavedEventActivity
 import com.events.ui.setting_password.SettingPasswordActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -37,6 +38,9 @@ class InfoProfileBottomSheet(
             }
             settingPassword.setOnClickListener {
                 startActivity(Intent(requireContext(), SettingPasswordActivity::class.java))
+            }
+            savedEvents.setOnClickListener {
+                startActivity(Intent(requireContext(), SavedEventActivity::class.java))
             }
         }
 

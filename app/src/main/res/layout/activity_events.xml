@@ -33,6 +33,23 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/manrope_medium"
+                android:text="Мероприятие"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/savedEvents"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_bookmark_false" />
+
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -71,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/manrope_bold"
+                android:hint="Название мероприятия"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textColor="@color/black"
@@ -102,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/manrope_medium"
-                    android:text="@string/date_event"
+                    android:hint="@string/date_event"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -131,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/manrope_medium"
-                    android:text="@string/location_event"
+                    android:hint="@string/location_event"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -160,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/manrope_medium"
-                    android:text="@string/theme_event"
+                    android:hint="@string/theme_event"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -210,6 +228,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:background="#FDFDFF"
                 android:paddingStart="16dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="16dp"
@@ -279,6 +298,7 @@
                 android:id="@+id/recyclerViewSimilarEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:overScrollMode="never"
                 android:paddingEnd="8dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/titleTextView"

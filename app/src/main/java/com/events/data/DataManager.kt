@@ -46,21 +46,6 @@ class DataManager {
         return api.loadListEventsOrganizer(user_id, page)
     }
 
-    fun createEvents(
-        user_id_e: RequestBody,
-        name_e: RequestBody,
-        desc_e: RequestBody,
-        location_e: RequestBody,
-        data_e: RequestBody,
-        time_e: RequestBody,
-        theme_e: RequestBody,
-        image: MultipartBody.Part,
-    ): Call<ResponseCreateEvents> {
-        return api.createEvents(
-            user_id_e, name_e, desc_e, location_e, data_e, time_e, theme_e, image
-        )
-    }
-
     fun updateAvatar(
         user_id: RequestBody,
         image: MultipartBody.Part
@@ -68,24 +53,8 @@ class DataManager {
         return api.updateAvatar(user_id, image)
     }
 
-    fun getLoadInfoProfile(user_id: String, page: Int): Call<ResponseInfoProfile> {
-        return api.loadDataProfile(user_id, page)
-    }
-
-    fun loadHomeListEvents(page: Int, theme: String): Observable<ResponseHomeEvents> {
-        return api.loadHomeListEvents(page, theme)
-    }
-
-    fun getLoadThemeEventHome(): Observable<ResponseThemeEventHome> {
-        return api.loadThemeEventHome()
-    }
-
     fun loadEvents(user_id: String, event_id: String): Call<ResponseEvents> {
         return api.loadEvents(user_id, event_id)
-    }
-
-    fun deleteEvent(event_id: String, user_id: String): Call<ResponseDeleteEvent> {
-        return api.deleteEvent(event_id, user_id)
     }
 
     fun getComments(event_id: Int, page: Int): Call<ResponseComments> {
@@ -119,12 +88,6 @@ class DataManager {
         return api.updatePassword(user_id, old_password, new_password, conf_password)
     }
 
-    fun similarEvent(
-        theme: String,
-        event_id: Int
-    ): Call<ResponseSimilarEvent> {
-        return api.similarEvent(theme, event_id)
-    }
 
     fun themeListEvent(
         theme: String,

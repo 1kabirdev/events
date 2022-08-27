@@ -1,28 +1,18 @@
 package com.events.room.dao
 
 import androidx.room.*
-import com.events.room.Profile
-import com.events.room.Subscribe
+import com.events.room.Saved
 
 @Dao
 interface DaoRoom {
 
     /**
-     * profile db
+     * save event db
      */
 
-    @Query("SELECT * FROM profile WHERE id = :id")
-    fun getProfile(id: Long): Profile
+    @Query("SELECT * FROM saved WHERE id = :id ORDER BY id DESC")
+    fun getProfile(id: Long): Saved
 
     @Insert
-    fun insertProfile(profile: Profile)
-
-    /**
-     * subs
-     */
-//    @Query("SELECT * FROM subscribe WHERE user_id = :user_id")
-//    fun getSubscribe(user_id: Int): List<Subscribe>
-//
-//    @Insert
-//    fun insertSubscribe(subscribe: Subscribe)
+    fun insertProfile(saved: Saved)
 }
