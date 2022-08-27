@@ -22,7 +22,7 @@ interface ListEventController {
     }
 
     interface Presenter : MvpView {
-        fun responseEventsPage(page: Int, theme: String)
-        fun responseLoadDataAll(page: Int, theme: String)
+        fun responseEventsPage(page: Int)
+        fun responseLoadDataAll(page: Int)
     }
 }

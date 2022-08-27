@@ -78,8 +78,7 @@ interface Api {
 
     @GET("home_list_events.php")
     fun loadHomeListEvents(
-        @Query("page") page: Int,
-        @Query("theme") theme: String
+        @Query("page") page: Int
     ): Observable<ResponseHomeEvents>
 
     @GET("theme_list_home.php")

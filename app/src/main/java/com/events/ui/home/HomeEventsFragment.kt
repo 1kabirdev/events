@@ -59,7 +59,9 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.responseLoadDataAll(PAGE_START, "Все")
+
+        presenter.responseLoadDataAll(PAGE_START)
+
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewList.layoutManager = layoutManager
         setEndlessScrollEventListener()
@@ -76,7 +78,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
                     recyclerView.apply {
                         isLoading = true
                         if (currentPage != 0) {
-                            presenter.responseEventsPage(currentPage, "Все")
+                            presenter.responseEventsPage(currentPage)
                         }
                     }
                 }
@@ -120,8 +122,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         binding.constraintConnection.visibility = View.VISIBLE
         binding.btnReplyEvent.setOnClickListener {
             presenter.responseEventsPage(
-                PAGE_START,
-                "Все"
+                PAGE_START
             )
         }
     }
@@ -150,8 +151,7 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         adapterEventList.showRetry(false)
         adapterEventList.addLoadingFooter()
         presenter.responseEventsPage(
-            currentPage,
-            "Все"
+            currentPage
         )
     }
 

@@ -17,9 +17,9 @@ class ListEventPresenter :
     private var subscription = CompositeDisposable()
     private var api = ServicesGenerator.createService(Api::class.java)
 
-    override fun responseEventsPage(page: Int, theme: String) {
+    override fun responseEventsPage(page: Int) {
         mvpView?.let {
-            val subscribe = api.loadHomeListEvents(page, theme).subscribeOn(Schedulers.io())
+            val subscribe = api.loadHomeListEvents(page).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ data: ResponseHomeEvents ->
                     it.getLoadEventPage(
@@ -33,10 +33,10 @@ class ListEventPresenter :
         }
     }
 
-    override fun responseLoadDataAll(page: Int, theme: String) {
+    override fun responseLoadDataAll(page: Int) {
         mvpView?.let { view ->
             view.showProgress(true)
-            val subscribe = Observable.zip(api.loadHomeListEvents(page, theme),
+            val subscribe = Observable.zip(api.loadHomeListEvents(page),
                 api.loadThemeEventHome(),
                 object : Function2<ResponseHomeEvents, ResponseThemeEventHome, DetailsViewModel> {
                     override fun invoke(
