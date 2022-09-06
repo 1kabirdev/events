@@ -1,9 +1,6 @@
 package com.events.model.events
 
-import com.google.gson.annotations.Expose
-
 import com.google.gson.annotations.SerializedName
-
 
 class User {
     @SerializedName("user_id")

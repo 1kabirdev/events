@@ -4,11 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.events.App
 import com.events.databinding.ActivityEventsBinding
 import com.events.model.events.Events
 import com.events.model.events.User
 import com.events.model.similar_event.SimilarList
+import com.events.room.SavedEvent
 import com.events.room.dao.DaoRoom
 import com.events.ui.comments.CommentsActivity
 import com.events.ui.event.similar.AdapterSimilarEvent
@@ -16,6 +20,8 @@ import com.events.ui.organizer.OrganizerActivity
 import com.events.utill.ConstantAgrs
 import com.events.utill.Constants
 import com.events.utill.PreferencesManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EventsActivity : AppCompatActivity(), EventsController.View,
     AdapterSimilarEvent.OnClickListener {
@@ -33,6 +39,7 @@ class EventsActivity : AppCompatActivity(), EventsController.View,
         setContentView(binding.root)
 
         preferencesManager = PreferencesManager(this)
+        dao = (application as App).getDatabase().getSavedEventDao()
 
         val arguments = intent.extras
         eventId = arguments?.get(ConstantAgrs.EVENTS_ID)?.toString().toString()
@@ -58,6 +65,36 @@ class EventsActivity : AppCompatActivity(), EventsController.View,
         textCityEvents.text = events.getCityE()
         textTheme.text = events.getThemeE()
         textDescEventView.text = events.getDescE()
+
+        savedEvents.setOnClickListener {
+            if (preferencesManager.getBoolean(Constants.SIGN_UP)) {
+                Toast.makeText(
+                    this@EventsActivity,
+                    "Мероприяние добавленно в сохраненное",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val tasks = SavedEvent(
+                    0,
+                    events.getIdE().toInt(),
+                    preferencesManager.getString(Constants.USER_ID).toInt(),
+                    events.getNameE(),
+                    events.getImageE(),
+                    events.getDataE(),
+                    events.getTimeE(),
+                    events.getCityE(),
+                    events.getThemeE()
+                )
+                lifecycleScope.launch(Dispatchers.IO) {
+                    dao.insertEvent(tasks)
+                }
+            } else {
+                Toast.makeText(
+                    this@EventsActivity,
+                    "Это действие требует авторизации",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
 
         btnDiscussEvents.setOnClickListener {
             val intent = Intent(this@EventsActivity, CommentsActivity::class.java)

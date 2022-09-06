@@ -50,6 +50,15 @@
                 android:layout_gravity="right"
                 android:src="@drawable/ic_bookmark_false" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/savedEventsTrue"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:visibility="gone"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_bookmark_true" />
+
+
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 

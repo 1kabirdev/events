@@ -10,9 +10,12 @@ interface DaoRoom {
      * event room db
      */
 
-    @Query("SELECT * FROM savedEvent WHERE id = :id ORDER BY id DESC")
-    fun getSavedEvent(id: Long): List<SavedEvent>
+    @Query("SELECT * FROM savedEvent WHERE id_user = :id_user ORDER BY id DESC")
+    fun getSavedEvent(id_user: Int): List<SavedEvent>
 
     @Insert
     fun insertEvent(saved: SavedEvent)
+
+    @Delete
+    fun deleteEvent(saved: SavedEvent)
 }
