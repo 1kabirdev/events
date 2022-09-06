@@ -1,18 +1,18 @@
 package com.events.room.dao
 
 import androidx.room.*
-import com.events.room.Saved
+import com.events.room.SavedEvent
 
 @Dao
 interface DaoRoom {
 
     /**
-     * save event db
+     * event room db
      */
 
-    @Query("SELECT * FROM saved WHERE id = :id ORDER BY id DESC")
-    fun getProfile(id: Long): Saved
+    @Query("SELECT * FROM savedEvent WHERE id = :id ORDER BY id DESC")
+    fun getSavedEvent(id: Long): List<SavedEvent>
 
     @Insert
-    fun insertProfile(saved: Saved)
+    fun insertEvent(saved: SavedEvent)
 }

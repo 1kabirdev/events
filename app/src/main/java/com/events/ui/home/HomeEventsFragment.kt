@@ -61,11 +61,16 @@ class HomeEventsFragment : Fragment(), ListEventController.View, AdapterEventLis
         super.onViewCreated(view, savedInstanceState)
 
         presenter.responseLoadDataAll(PAGE_START)
-
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.recyclerViewList.layoutManager = layoutManager
-        setEndlessScrollEventListener()
-        binding.recyclerViewList.addOnScrollListener(endlessScrollEventListener)
+
+        with(binding) {
+            recyclerViewList.layoutManager = layoutManager
+            setEndlessScrollEventListener()
+            recyclerViewList.addOnScrollListener(endlessScrollEventListener)
+            clickFilterEvent.setOnClickListener {
+                
+            }
+        }
     }
 
     @Suppress("SENSELESS_COMPARISON")

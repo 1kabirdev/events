@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
-import com.events.App
 import com.events.databinding.ActivityEventsBinding
 import com.events.model.events.Events
 import com.events.model.events.User
 import com.events.model.similar_event.SimilarList
+import com.events.room.dao.DaoRoom
 import com.events.ui.comments.CommentsActivity
 import com.events.ui.event.similar.AdapterSimilarEvent
 import com.events.ui.organizer.OrganizerActivity
@@ -20,6 +20,7 @@ import com.events.utill.PreferencesManager
 class EventsActivity : AppCompatActivity(), EventsController.View,
     AdapterSimilarEvent.OnClickListener {
 
+    private lateinit var dao: DaoRoom
     private lateinit var binding: ActivityEventsBinding
     private var presenter: EventsPresenter
     private var eventId: String = ""

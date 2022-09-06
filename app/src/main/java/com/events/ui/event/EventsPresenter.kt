@@ -1,6 +1,5 @@
 package com.events.ui.event
 
-import com.events.data.DataManager
 import com.events.model.events.ResponseEvents
 import com.events.model.similar_event.ResponseSimilarEvent
 import com.events.mvp.BasePresenter
